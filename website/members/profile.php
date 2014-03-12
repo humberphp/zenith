@@ -1,26 +1,306 @@
 <?php
 // put your code here
+    session_start();    
  include_once 'memberMasterPage.php';
- require_once '../Database.php';
  require_once 'userInfoDB.php';
  
+ // note for me(jassi): make the following code querystring based
+ $_SESSION['loginUserId'] = 1;
  
- $objPage = new memberMasterPage('Jagsir Singh ', 1);
- $objPage->setTitle('Zenith - Profile');
- $objPage->intializePaze();
- $objPage->displayHeader();
- $objPage->displayNavigation();
- $objPage->startBodyContent();
- $objPage->displayLeftSideBar();
-#  ********************************  THIS IS MY CONTENT START *********************  
-
-  $objUsers = new UserInfoDB();
-  $UserInfo = $objUsers->getUserDetailsById(4);
+        if(isset($_POST["searchUserId"])){
+            $searchUserId = $_POST["searchUserId"]; // THIS WILL BE THE VALUE FROM QUERYSTRING
+        }
+        else {
+            $searchUserId = $_SESSION['loginUserId'];
+        }
  
- 
-#  ********************************   THIS IS MY CONTENT END  *********************  
- 
- $objPage->displayRightSideBar();
- $objPage->endBodyContent();
- $objPage->endPage();
+        $objPage = new memberMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
+        $objPage->setTitle('Zenith - Profile'); 
+        $objUsers = new userInfoDB();
+        $UserBInfo = $objUsers->getUserDetailsById($searchUserId);
+        $UserFDet = $objUsers->getUserFamilyDetails($searchUserId);
+        $UserHobbies = $objUsers->getUserHobbies($searchUserId);
+        $UserLocation = $objUsers->getUserLocation($searchUserId);
+        $UserPPref = $objUsers->getUserPartnerPref($searchUserId);
+        $UserProf = $objUsers->getUserProfession($searchUserId);
+  
+        $body = "<form class='form-horizontal'>";
+  //=========================== A FEW WORDS ABOUT ME AND BASIC INFO SECTIONS [STARTS HERE]==================================
+        if(count($UserBInfo)>0)
+        {
+            $aboutUser = $UserBInfo[0]['aboutUser'];
+            $bodyType = $UserBInfo[0]['bodyType'];
+            $complexion = $UserBInfo[0]['complexion'];
+            $physicalStatus = $UserBInfo[0]['physicalStatus'];
+            $height = $UserBInfo[0]['height'];
+            $weight = $UserBInfo[0]['weight'];
+            $motherTounge = $UserBInfo[0]['motherTounge'];
+            $martialStatus = $UserBInfo[0]['martialStatus'];
+            $drinkHabits = $UserBInfo[0]['drinkHabits'];
+            $smokeHabits = $UserBInfo[0]['smokeHabits'];
+            $eatingHabits = $UserBInfo[0]['eatingHabits'];
+            $hairColor = $UserBInfo[0]['hairColor'];
+        }
+        else
+        {
+            $aboutUser = "---";
+            $bodyType = "---";
+            $complexion = "---";
+            $physicalStatus = "---";
+            $height = "---";
+            $weight = "---";
+            $motherTounge = "---";
+            $martialStatus = "---";
+            $drinkHabits = "---";
+            $smokeHabits = "---";
+            $eatingHabits = "---";
+            $hairColor = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<br /><h3><strong>A few words about ";  
+        if($_SESSION['loginUserId'] == $searchUserId){
+          $body .= "me</strong></h3>";
+        }
+        else    {
+          $body .= "my " . $UserBInfo[0]['firstName'] ."</strong></h3>";
+        }  
+        $body .= $aboutUser;
+        $body .= "<div class='col-md-12' align='right'><a href='deleteAccount.php?uId={$_SESSION['loginUserId']}'>Delete Account</a><hr /></div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Basic Info</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Body Type:</label>";
+        $body .= "<div class='col-md-3'>{$bodyType}</div>";
+        $body .= "<label class='col-md-3 control-label'>Complexion:</label>";
+        $body .= "<div class='col-md-3'>{$complexion}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Physical Status:</label>";
+        $body .= "<div class='col-md-3'>{$physicalStatus}</div>";
+        $body .= "<label class='col-md-3 control-label'>Height:</label>";
+        $body .= "<div class='col-md-3'>{$height}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Weight:</label>";
+        $body .= "<div class='col-md-3'>{$weight}</div>";
+        $body .= "<label class='col-md-3 control-label'>Mother Tongue:</label>";
+        $body .= "<div class='col-md-3'>{$motherTounge}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Martial Status:</label>";
+        $body .= "<div class='col-md-3'>{$martialStatus}</div>";
+        $body .= "<label class='col-md-3 control-label'>Drink Habits:</label>";
+        $body .= "<div class='col-md-3'>{$drinkHabits}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Smoke Habits:</label>";
+        $body .= "<div class='col-md-3'>{$smokeHabits}</div>";
+        $body .= "<label class='col-md-3 control-label'>Eating Habits:</label>";
+        $body .= "<div class='col-md-3'>{$eatingHabits}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Hair Color:</label>";
+        $body .= "<div class='col-md-3'>{$hairColor}</div>";
+        $body .= "</div>";
+  //=========================== USER FEW WORDS AND BASIC INFO SECTIONS [ENDS HERE]==================================
+  
+  //=========================== USER LOCATION SECTIONS [STARTS HERE]================================== 
+    if(count($UserLocation)>0)
+        {
+            $countryName = $UserLocation[0]['countryName'];
+            $state = $UserLocation[0]['state'];
+            $city = $UserLocation[0]['city'];
+            $citizen = $UserLocation[0]['citizen'];
+            $residentStatus = $UserLocation[0]['residentStatus'];
+        }
+        else
+        {      
+            $countryName = $state = $city = $citizen = $residentStatus = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<div class='col-md-12'><hr /></div>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Country:</label>";
+        $body .= "<div class='col-md-3'>{$countryName}</div>";
+        $body .= "<label class='col-md-3 control-label'>Province:</label>";
+        $body .= "<div class='col-md-3'>{$state}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>City:</label>";
+        $body .= "<div class='col-md-3'>{$city}</div>";
+        $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
+        $body .= "<div class='col-md-3'>{$citizen}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
+        $body .= "<div class='col-md-3'>{$residentStatus}</div>";
+        $body .= "</div>";
+  //=========================== USER LOCATION SECTIONS [ENDS HERE]==================================
+    
+  //=========================== USER FAMILY DETAILS SECTIONS [STARTS HERE]==================================
+        if(count($UserFDet)>0)
+        {
+            $livingWith = $UserFDet[0]['livingWith'];
+            $siblings = $UserFDet[0]['siblings'];
+            $marriedSisters = $UserFDet[0]['marriedSisters'];
+            $marriedBrothers = $UserFDet[0]['marriedBrothers'];
+            $fatherOccupation = $UserFDet[0]['fatherOccupation'];
+            $motherOccupation = $UserFDet[0]['motherOccupation'];
+        }
+        else
+        {      
+            $livingWith = $siblings = $marriedSisters = $marriedBrothers = $fatherOccupation = $motherOccupation = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<div class='col-md-12'><hr /></div>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Living With:</label>";
+        $body .= "<div class='col-md-3'>{$livingWith}</div>";
+        $body .= "<label class='col-md-3 control-label'>Siblings:</label>";
+        $body .= "<div class='col-md-3'>{$siblings}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Married Sisters:</label>";
+        $body .= "<div class='col-md-3'>{$marriedSisters}</div>";
+        $body .= "<label class='col-md-3 control-label'>Married Brothers:</label>";
+        $body .= "<div class='col-md-3'>{$marriedBrothers}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Father Occupation:</label>";
+        $body .= "<div class='col-md-3'>{$fatherOccupation}</div>";
+        $body .= "<label class='col-md-3 control-label'>Mother Occupation:</label>";
+        $body .= "<div class='col-md-3'>{$motherOccupation}</div>";
+        $body .= "</div>";
+  //=========================== USER FAMILY DETAILS SECTIONS [ENDS HERE]==================================
+  //
+  //=========================== USER PROFESSIONAL SECTIONS [STARTS HERE]==================================
+        if(count($UserProf)>0)
+        {
+            $education = $UserProf[0]['education'];
+            $college = $UserProf[0]['college'];
+            $additionalDegree = $UserProf[0]['additionalDegree'];
+            $occupation = $UserProf[0]['occupation'];
+            $employedIn = $UserProf[0]['employedIn'];
+            $annualIncome = $UserProf[0]['annualIncome'];
+        }
+        else
+        {      
+            $education = $college = $additionalDegree = $occupation = $employedIn = $annualIncome = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<div class='col-md-12'><hr /></div>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Professional Details</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Education:</label>";
+        $body .= "<div class='col-md-3'>{$education}</div>";
+        $body .= "<label class='col-md-3 control-label'>College:</label>";
+        $body .= "<div class='col-md-3'>{$college}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Additional Degree:</label>";
+        $body .= "<div class='col-md-3'>{$additionalDegree}</div>";
+        $body .= "<label class='col-md-3 control-label'>Occupation:</label>";
+        $body .= "<div class='col-md-3'>{$occupation}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Employed In:</label>";
+        $body .= "<div class='col-md-3'>{$employedIn}</div>";
+        $body .= "<label class='col-md-3 control-label'>Annual Income:</label>";
+        $body .= "<div class='col-md-3'>{$annualIncome}</div>";
+        $body .= "</div>";
+  //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
+    
+  //
+  //=========================== USER HOBBIES SECTIONS [STARTS HERE]==================================
+        if(count($UserHobbies)>0)
+        {
+            $hobbies = $UserHobbies[0]['hobbies'];
+            $interests = $UserHobbies[0]['interests'];
+            $dressStyle = $UserHobbies[0]['DressStyle'];
+            $spokenLanguage = $UserHobbies[0]['spokenLanguage'];
+        }
+        else
+        {      
+            $hobbies = $interests = $dressStyle = $spokenLanguage = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<div class='col-md-12'><hr /></div>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Hobbies:</label>";
+        $body .= "<div class='col-md-3'>{$hobbies}</div>";
+        $body .= "<label class='col-md-3 control-label'>Interests:</label>";
+        $body .= "<div class='col-md-3'>{$interests}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Dress Style:</label>";
+        $body .= "<div class='col-md-3'>{$dressStyle}</div>";
+        $body .= "<label class='col-md-3 control-label'>Spoken Language:</label>";
+        $body .= "<div class='col-md-3'>{$spokenLanguage}</div>";
+        $body .= "</div>";
+  //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
+    
+    
+  //=========================== USER PARTNER PREFERENCES SECTIONS [STARTS HERE]==================================
+        if(count($UserPPref)>0)
+        {
+            $ageFrom = $UserPPref[0]['ageFrom'];
+            $ageTo = $UserPPref[0]['ageTo'];
+            $religion = $UserPPref[0]['religion'];
+            $cast = $UserPPref[0]['cast'];
+            $country = $UserPPref[0]['country'];
+            $residentStatus = $UserPPref[0]['residentStatus'];
+            $citizen = $UserPPref[0]['citizen'];
+            $height = $UserPPref[0]['height'];
+        }
+        else
+        {      
+            $ageFrom = $ageTo = $religion = $cast = $country = $residentStatus = $citizen = $height = "---";
+        }
+        $body .= "<div  class='form-group'>";
+        $body .= "<div class='col-md-12'><hr /></div>";
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";    
+        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Age From:</label>";
+        $body .= "<div class='col-md-3'>{$ageFrom}</div>";
+        $body .= "<label class='col-md-3 control-label'>Age To:</label>";
+        $body .= "<div class='col-md-3'>{$ageTo}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Religions:</label>";
+        $body .= "<div class='col-md-3'>{$religion}</div>";
+        $body .= "<label class='col-md-3 control-label'>Cast:</label>";
+        $body .= "<div class='col-md-3'>{$cast}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Country:</label>";
+        $body .= "<div class='col-md-3'>{$country}</div>";
+        $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
+        $body .= "<div class='col-md-3'>{$residentStatus}</div>";
+        $body .= "</div>";
+        $body .= "<div  class='form-group'>";
+        $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
+        $body .= "<div class='col-md-3'>{$citizen}</div>";
+        $body .= "<label class='col-md-3 control-label'>Height:</label>";
+        $body .= "<div class='col-md-3'>{$height}</div>";
+        $body .= "</div>";
+  //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
+        $body .= "</form>";
+        
+ $objPage->displayPage($body);
 ?>

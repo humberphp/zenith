@@ -9,8 +9,7 @@ class memberMasterPage {
     private $user;
     private $userId;
 
-    public function __construct($user, $userId){
-        $this->user = $user;
+    public function __construct($userId){
         $this->userId = $userId;
     }
     public function setTitle($title){
@@ -51,7 +50,7 @@ class memberMasterPage {
         $this->html_body = $pageBody;
     }
     
-    public function intializePaze(){
+    private function intializePaze(){
         $initial = '<!DOCTYPE html> <html  lang="en">
     	<head>
             <title>'.$this->getTitle().'</title>                  
@@ -78,49 +77,60 @@ class memberMasterPage {
     	<body>';
         echo $initial;
     }
-    public function displayHeader(){
+    private function displayHeader(){
         include_once 'memberHeader.php';
         $objHead = new memberHeader();
         $objHead->displayHeader($this->user);
     }    
-    public function displayNavigation(){
+    private function displayNavigation(){
         include_once 'memberNavigation.php';
     }    
-//    public function displayBody() {
-//    	$pageBody = '<div class="content">
-//                <h1>'.$this->getPageHeading().'</h1>' 
-//               . $this->getBody()
-//               . '</div>';
-//    	return $pageBody;
-//    }
-    public function startBodyContent()
-    {
+    private function startBodyContent()    {
         echo "<div class='container'><div class='row'>";
     }
-    public function displayLeftSideBar(){
+    private function displayLeftSideBar(){
         include_once 'memberLeftSideBar.php';
         $objLSide = new memberLeftSideBar($this->userId);
         $objLSide->displayLeftSideBar();
     }
-    public function displayRightSideBar(){
+    private function displayRightSideBar(){
         include_once 'memberRightSideBar.php';
         $objRSide = new memberRightSideBar($this->userId);
         $objRSide->displayRightSideBar();
     }
-    public function endBodyContent()
-    {
+    private function endBodyContent()    {
         echo "</div><!-- row -->
             </div><!-- /.container -->";
     }
-    public function displayFooter(){
+    private function displayFooter(){
         include_once 'memberFooter.php';
     }    
-    public function endPage(){
+    private function endPage(){
         $end =   '</body>
     	</html>';        
         echo $end;
     }
     
+    public function displayPage($body) {
+        $this->intializePaze();
+        $this->displayHeader();
+        $this->displayNavigation();
+        $this->startBodyContent();
+        $this->displayLeftSideBar();
+       ?>
+        <div class="col-sm-6 blog-main">
+        <div class="blog-post">
+        <?php
+      #  ********************************  THIS IS MY CONTENT START *********************  
+              echo $body;
+      #  ********************************   THIS IS MY CONTENT END  *********************  
+        ?></div></div>
+      <?php
+        $this->displayRightSideBar();
+        $this->endBodyContent();
+        $this->displayFooter();
+        $this->endPage();
+    }
     
 }
 ?>

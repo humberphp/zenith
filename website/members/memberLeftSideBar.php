@@ -2,7 +2,8 @@
 /*
  * @author Jagsir Singh
  */
- //require_once 'userInfoDB.php';
+//require_once 'userInfoDB.php';
+ require_once 'userImagesDB.php';
 class memberLeftSideBar {
     //put your code here
     private $userId;
@@ -13,7 +14,7 @@ class memberLeftSideBar {
     public function displayLeftSideBar()
     {
         $userInfo = userInfoDB::getUserNameAddress($this->userId);
-        $imageInfo = userInfoDB::getUserDefaultThumb($this->userId);
+        $imageInfo = userImagesDB::getUserDefaultThumb($this->userId);
         if(count($imageInfo)>0)
         {
             $thumbnailPath = '../' . $imageInfo[0]['thumbnail'];  
@@ -31,8 +32,8 @@ class memberLeftSideBar {
              {
                 $content .= "<p>{$userInfo[0]['city']}, {$userInfo[0]['state']}</p>";
              }
-         $content .= "<a href='#'>Upload New Photo(s)</a> <br/>  
-            <a href='#' class='active'>Edit your Details</a>  <br/> 
+         $content .= "<a href='profileImages.php'>Upload New Photo(s)</a> <br/>  
+            <!-- <a href='#' class='active'>Edit your Details</a>  <br/> -->
             <a href='#'>Renew Subcription</a> <br/>
             <a href='#'>Change your Subscription Plan</a>
               <hr>

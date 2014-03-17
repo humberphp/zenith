@@ -1,33 +1,82 @@
 <?php
-// put your code here
+    // put your code here
     session_start();    
- include_once 'memberMasterPage.php';
- require_once 'userInfoDB.php';
+    include_once 'memberMasterPage.php';
+    require_once 'userInfoDB.php';
  
- // note for me(jassi): make the following code querystring based
- $_SESSION['loginUserId'] = 1;
+    // note for me(jassi): make the following code querystring based
+    $_SESSION['loginUserId'] = 4;
+    $_SESSION['userFName'] = "Tunde";
+    
+    if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])) 
+        {
+            header( 'Location: ../Login.aspx' ) ;
+        }
  
-        if(isset($_POST["searchUserId"])){
-            $searchUserId = $_POST["searchUserId"]; // THIS WILL BE THE VALUE FROM QUERYSTRING
+        if(isset($_GET["searchUserId"])){
+            $searchUserId = $_GET["searchUserId"]; // THIS WILL BE THE VALUE FROM QUERYSTRING
         }
         else {
             $searchUserId = $_SESSION['loginUserId'];
         }
  
+        
+        // ==================================== THIS CODE IS MUST  (START) ==============================================
         $objPage = new memberMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
         $objPage->setTitle('Zenith - Profile'); 
+        // ==================================== THIS CODE IS MUST  (END) ==============================================
+        
         $objUsers = new userInfoDB();
+  
+        $personalAcc = false;
+        $act = '';
+        if($searchUserId == $_SESSION['loginUserId']){
+            $personalAcc = true;
+            
+            if(isset($_GET['actEdit'])){
+                $act = $_GET['actEdit'];
+            }
+            
+            if(isset($_GET['action'])){
+                $action=$_GET['action'];
+                switch ($action){
+                    case 'updBasic':
+                        $bodyType = $_GET['rdbBodyType'];
+                        $complexion = $_GET['rdbComplexion'];
+                        $physicalStatus = $_GET['rdbPhysicalStatus'];
+                        $height = $_GET['txtHeight'];
+                        $weight = $_GET['txtWeight'];
+                        $motherTounge = $_GET['txtMotherTongue'];
+                        $martialStatus = $_GET['ddlMStatus'];
+                        $drinkHabits = $_GET['rdbdrinkHabits'];
+                        $smokeHabits = $_GET['rdbsmokeHabits'];
+                        $eatingHabits = $_GET['rdbeatingHabits'];
+                        $hairColor = $_GET['txtHairColor'];
+                        $updateResult = $objUsers->updateUserBasicInfo($bodyType, $complexion, $physicalStatus, $height
+                                , $weight, $motherTounge, $martialStatus, $drinkHabits, $smokeHabits, $eatingHabits, $hairColor);
+                        if($updateResult == 1){
+                            $message = "profile updated successfully!";
+                        }
+                        else{
+                            $message = "Error. Please try again!";
+                        }
+                        break;
+                }
+            }
+        }
+        
         $UserBInfo = $objUsers->getUserDetailsById($searchUserId);
         $UserFDet = $objUsers->getUserFamilyDetails($searchUserId);
         $UserHobbies = $objUsers->getUserHobbies($searchUserId);
         $UserLocation = $objUsers->getUserLocation($searchUserId);
         $UserPPref = $objUsers->getUserPartnerPref($searchUserId);
         $UserProf = $objUsers->getUserProfession($searchUserId);
-  
+        
         $body = "<form class='form-horizontal'>";
   //=========================== A FEW WORDS ABOUT ME AND BASIC INFO SECTIONS [STARTS HERE]==================================
-        if(count($UserBInfo)>0)
-        {
+        if(count($UserBInfo)>0){
+            $firstName = $UserBInfo[0]['firstName'];
+            $createsFor = $UserBInfo[0]['createsFor'];
             $aboutUser = $UserBInfo[0]['aboutUser'];
             $bodyType = $UserBInfo[0]['bodyType'];
             $complexion = $UserBInfo[0]['complexion'];
@@ -41,8 +90,9 @@
             $eatingHabits = $UserBInfo[0]['eatingHabits'];
             $hairColor = $UserBInfo[0]['hairColor'];
         }
-        else
-        {
+        else{
+            $firstName = "---";
+            $createsFor = "---";
             $aboutUser = "---";
             $bodyType = "---";
             $complexion = "---";
@@ -56,55 +106,280 @@
             $eatingHabits = "---";
             $hairColor = "---";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<br /><h3><strong>A few words about ";  
-        if($_SESSION['loginUserId'] == $searchUserId){
-          $body .= "me</strong></h3>";
+        if($personalAcc){
+            $body .= "<div  class='form-group'>";
+            $body .= "<br /><h3><strong>A few words about ";  
+            if($createsFor == "self"){
+              $body .= "me</strong></h3>";
+            }
+            else    {
+              $body .= "my " . $createsFor ."</strong></h3>";
+            }  
+            $body .= $aboutUser;
+            $body .= "<div class='col-md-12' align='right'><a href='deleteAccount.php?uId={$_SESSION['loginUserId']}'>Delete Account</a><hr /></div>";
+            $body .= "</div>";
         }
-        else    {
-          $body .= "my " . $UserBInfo[0]['firstName'] ."</strong></h3>";
-        }  
-        $body .= $aboutUser;
-        $body .= "<div class='col-md-12' align='right'><a href='deleteAccount.php?uId={$_SESSION['loginUserId']}'>Delete Account</a><hr /></div>";
-        $body .= "</div>";
+        else {
+            $body .= "<div  class='form-group'>";
+            $body .= "<br /><h3><strong>A few words about ";  
+            $body .= $firstName ."</strong></h3>";
+            $body .= "</div>";
+        }
         $body .= "<div  class='form-group'>";
         $body .= "<table style='width: 100%;'><tr><td><h3><strong>Basic Info</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Body Type:</label>";
-        $body .= "<div class='col-md-3'>{$bodyType}</div>";
-        $body .= "<label class='col-md-3 control-label'>Complexion:</label>";
-        $body .= "<div class='col-md-3'>{$complexion}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Physical Status:</label>";
-        $body .= "<div class='col-md-3'>{$physicalStatus}</div>";
-        $body .= "<label class='col-md-3 control-label'>Height:</label>";
-        $body .= "<div class='col-md-3'>{$height}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Weight:</label>";
-        $body .= "<div class='col-md-3'>{$weight}</div>";
-        $body .= "<label class='col-md-3 control-label'>Mother Tongue:</label>";
-        $body .= "<div class='col-md-3'>{$motherTounge}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Martial Status:</label>";
-        $body .= "<div class='col-md-3'>{$martialStatus}</div>";
-        $body .= "<label class='col-md-3 control-label'>Drink Habits:</label>";
-        $body .= "<div class='col-md-3'>{$drinkHabits}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Smoke Habits:</label>";
-        $body .= "<div class='col-md-3'>{$smokeHabits}</div>";
-        $body .= "<label class='col-md-3 control-label'>Eating Habits:</label>";
-        $body .= "<div class='col-md-3'>{$eatingHabits}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Hair Color:</label>";
-        $body .= "<div class='col-md-3'>{$hairColor}</div>";
-        $body .= "</div>";
+        $body .= "<td style='text-align: right;'>";  
+        if($act!='ubdEdit'){      
+            if($personalAcc){
+                $body .= "<a href='profile.php?actEdit=ubdEdit'>Edit</a>";
+            }
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Body Type:</label>";
+            $body .= "<div class='col-md-3'>{$bodyType}</div>";
+            $body .= "<label class='col-md-3 control-label'>Complexion:</label>";
+            $body .= "<div class='col-md-3'>{$complexion}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Physical Status:</label>";
+            $body .= "<div class='col-md-3'>{$physicalStatus}</div>";
+            $body .= "<label class='col-md-3 control-label'>Height:</label>";
+            $body .= "<div class='col-md-3'>{$height}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Weight:</label>";
+            $body .= "<div class='col-md-3'>{$weight}</div>";
+            $body .= "<label class='col-md-3 control-label'>Mother Tongue:</label>";
+            $body .= "<div class='col-md-3'>{$motherTounge}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Martial Status:</label>";
+            $body .= "<div class='col-md-3'>{$martialStatus}</div>";
+            $body .= "<label class='col-md-3 control-label'>Drink Habits:</label>";
+            $body .= "<div class='col-md-3'>{$drinkHabits}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Smoke Habits:</label>";
+            $body .= "<div class='col-md-3'>{$smokeHabits}</div>";
+            $body .= "<label class='col-md-3 control-label'>Eating Habits:</label>";
+            $body .= "<div class='col-md-3'>{$eatingHabits}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Hair Color:</label>";
+            $body .= "<div class='col-md-3'>{$hairColor}</div>";
+            $body .= "</div>";
+        }
+        else {
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Body Type:</label>";
+            //$body .= "<div class='col-md-8'>{$bodyType}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbBodyType' value='Slim'";
+            if($bodyType=='Slim'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Slim</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbBodyType' value='Athletic'";
+            if($bodyType=='Athletic'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Athletic</label><br/>";
+            $body .= "<label  class='radio-inline'><input name='rdbBodyType' value='Average'";
+            if($bodyType=='Average')
+                 $body .= " checked='checked'";
+            $body .= " type='radio'> Average</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbBodyType' value='Heavy'";
+            if($bodyType=='Heavy'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Heavy</label>";
+            $body .= "</div>";            
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Complexion:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Very Fair'";
+            if($complexion=='Very Fair'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Very Fair</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Fair'";
+            if($complexion=='Fair'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Fair</label><br/>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Wheatish'";
+            if($complexion=='Wheatish'){
+                 $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Wheatish</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Wheatish Brown'";
+            if($complexion=='Wheatish Brown'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Wheatish Brown</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Dark'";
+            if($complexion=='Dark'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Dark</label>";
+            $body .= "</div>";            
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Physical Status:</label>";
+            //$body .= "<div class='col-md-8'>{$physicalStatus}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbPhysicalStatus' value='Normal'";
+            if($physicalStatus=='Normal'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Normal</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbComplexion' value='Physical Chalanged'";
+            if($physicalStatus=='Physical Chalanged'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Physical Chalanged</label>";
+            $body .= "</div>";            
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Height:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='textinput' name='txtHeight' value='{$height}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Weight:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='textinput' name='txtWeight' value='{$weight}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Mother Tongue:</label>";
+            //$body .= "<div class='col-md-8'>{$motherTounge}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='textinput' name='txtMotherTongue' value='{$motherTounge}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Martial Status:</label>";
+            //$body .= "<div class='col-md-8'>{$martialStatus}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<select name='ddlMStatus' id='ddlMStatus' class='form-control input-lg'>";
+            $body .= "<option value='Widow'";
+            if($martialStatus == 'Widow')
+            {
+                $body .= "selected='selected'";
+            }
+            $body .= ">Widow</option>";
+            $body .= "<option value='Single'";
+            if($martialStatus == 'Single')
+            {
+                $body .= "selected='selected'";
+            }
+            $body .= ">Single</option>";
+            $body .= "<option value='Divorced'";
+            if($martialStatus == 'Divorced')
+            {
+                $body .= "selected='selected'";
+            }
+            $body .= ">Divorced</option>";
+            $body .= "<option value='Awaiting Divorce'";
+            if($martialStatus == 'Awaiting Divorce')
+            {
+                $body .= "selected='selected'";
+            }
+            $body .= ">Awaiting Divorce</option>";
+            $body .= "</select>";
+            $body .= "</div>";
+            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Drink Habits:</label>";
+            //$body .= "<div class='col-md-8'>{$drinkHabits}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbdrinkHabits' value='No'";
+            if($drinkHabits=='No'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> No</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbdrinkHabits' value='Yes'";
+            if($drinkHabits=='Yes'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Yes</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbdrinkHabits' value='Social'";
+            if($drinkHabits=='Social'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Social</label>";
+            $body .= "</div>";            
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Smoke Habits:</label>";
+            //$body .= "<div class='col-md-8'>{$smokeHabits}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbsmokeHabits' value='No'";
+            if($smokeHabits=='No'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> No</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbsmokeHabits' value='Yes'";
+            if($smokeHabits=='Yes'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Yes</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbsmokeHabits' value='Social'";
+            if($smokeHabits=='Social'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Social</label>";
+            $body .= "</div>";            
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Eating Habits:</label>";
+            //$body .= "<div class='col-md-8'>{$eatingHabits}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbeatingHabits' value='Vegetarian'";
+            if($eatingHabits=='Vegetarian'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Vegetarian</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbeatingHabits' value='Non-Veg'";
+            if($eatingHabits=='Non-Veg'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Non-Veg</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbeatingHabits' value='Eggetarian'";
+            if($eatingHabits=='Eggetarian'){
+                $body .= " checked='checked'";
+            }
+            $body .= " type='radio'> Eggetarian</label>";
+            $body .= "</div>";
+            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Hair Color:</label>";
+           // $body .= "<div class='col-md-8'>{$hairColor}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='textinput' name='txtHairColor' value='{$hairColor}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";            
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='hidden' name='action' value='updBasic'/>";
+            $body .= "<input type='submit' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;<a href='profile.php' class='btn btn-success'>Cancel</a>";
+            $body .= "</div>";            
+            $body .= "</div>";
+        }
   //=========================== USER FEW WORDS AND BASIC INFO SECTIONS [ENDS HERE]==================================
   
   //=========================== USER LOCATION SECTIONS [STARTS HERE]================================== 
@@ -122,8 +397,12 @@
         }
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
+        $body .= "<td style='text-align: right;'>";        
+        if($personalAcc){
+            $body .= "<a href='profile.php?actEdit=locEdit'>Edit</a>";
+        }
+        $body .= "</td></tr></table>"; 
         $body .= "</div>";
         $body .= "<div  class='form-group'>";
         $body .= "<label class='col-md-3 control-label'>Country:</label>";
@@ -160,7 +439,11 @@
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
         $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "<td style='text-align: right;'>";        
+        if($personalAcc){
+            $body .= "<a href='profile.php?actEdit=famDetEdit'>Edit</a>";
+        }
+        $body .= "</td></tr></table>"; 
         $body .= "</div>";
         $body .= "<div  class='form-group'>";
         $body .= "<label class='col-md-3 control-label'>Living With:</label>";
@@ -199,7 +482,11 @@
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
         $body .= "<table style='width: 100%;'><tr><td><h3><strong>Professional Details</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "<td style='text-align: right;'>";        
+        if($personalAcc){
+            $body .= "<a href='profile.php?actEdit=ProfDet'>Edit</a>";
+        }
+        $body .= "</td></tr></table>"; 
         $body .= "</div>";
         $body .= "<div  class='form-group'>";
         $body .= "<label class='col-md-3 control-label'>Education:</label>";
@@ -236,8 +523,12 @@
         }
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";      
+        $body .= "<td style='text-align: right;'>";        
+        if($personalAcc){
+            $body .= "<a href='profile.php?actEdit=hopEdit'>Edit</a>";
+        }
+        $body .= "</td></tr></table>"; 
         $body .= "</div>";
         $body .= "<div  class='form-group'>";
         $body .= "<label class='col-md-3 control-label'>Hobbies:</label>";
@@ -272,8 +563,12 @@
         }
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";    
-        $body .= "<td><div class='col-md-12' align='right'><a href='profile.php?uId={$_SESSION['loginUserId']}'>Edit</a></div></td></tr></table>"; 
+        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";      
+        $body .= "<td style='text-align: right;'>";        
+        if($personalAcc){
+            $body .= "<a href='profile.php?actEdit=partEdit'>Edit</a>";
+        }
+        $body .= "</td></tr></table>"; 
         $body .= "</div>";
         $body .= "<div  class='form-group'>";
         $body .= "<label class='col-md-3 control-label'>Age From:</label>";

@@ -80,7 +80,7 @@ class memberMasterPage {
     private function displayHeader(){
         include_once 'memberHeader.php';
         $objHead = new memberHeader();
-        $objHead->displayHeader($this->user);
+        $objHead->displayHeader();
     }    
     private function displayNavigation(){
         include_once 'memberNavigation.php';

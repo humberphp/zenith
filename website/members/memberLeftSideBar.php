@@ -17,12 +17,28 @@ class memberLeftSideBar {
         $imageInfo = userImagesDB::getUserDefaultThumb($this->userId);
         if(count($imageInfo)>0)
         {
-            $thumbnailPath = '../' . $imageInfo[0]['thumbnail'];  
+            if(empty($imageInfo[0]['thumbnail'])){     
+                if($imageInfo[0]['gender'] == 'F'){
+                    $thumbnailPath = '../images/default_FThumb.jpg';
+                }
+                else{
+                    $thumbnailPath = '../images/default_MThumb.jpg';
+                }
+            }
+            else{
+                $thumbnailPath = '../' . $imageInfo[0]['thumbnail'];  
+            }
         }
         else 
         {      
-            $thumbnailPath = "../images/default_thumb.jpg";
+            if($imageInfo[0]['gender'] == 'F'){
+                $thumbnailPath = '../images/default_FThumb.jpg';
+            }
+            else{
+                $thumbnailPath = '../images/default_MThumb.jpg';
+            }
         }
+        
         $content = "<div class='col-sm-3  blog-sidebar'>
           <div class='sidebar-module'>
             <!-- <h4>User Details</h4> -->

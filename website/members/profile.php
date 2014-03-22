@@ -24,6 +24,7 @@
         // ==================================== THIS CODE IS MUST  (START) ==============================================
         $objPage = new memberMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
         $objPage->setTitle('Zenith - Profile'); 
+        $objPage->setMetaAuthor('this is meta author');
         // ==================================== THIS CODE IS MUST  (END) ==============================================
         
         $objUsers = new userInfoDB();
@@ -37,25 +38,26 @@
                 $act = $_GET['actEdit'];
             }
             
-            if(isset($_GET['action'])){
-                $action=$_GET['action'];
+            if(isset($_POST['action'])){
+                $action=$_POST['action'];
                 switch ($action){
                     case 'updBasic':
-                        $bodyType = $_GET['rdbBodyType'];
-                        $complexion = $_GET['rdbComplexion'];
-                        $physicalStatus = $_GET['rdbPhysicalStatus'];
-                        $height = $_GET['txtHeight'];
-                        $weight = $_GET['txtWeight'];
-                        $motherTounge = $_GET['txtMotherTongue'];
-                        $martialStatus = $_GET['ddlMStatus'];
-                        $drinkHabits = $_GET['rdbdrinkHabits'];
-                        $smokeHabits = $_GET['rdbsmokeHabits'];
-                        $eatingHabits = $_GET['rdbeatingHabits'];
-                        $hairColor = $_GET['txtHairColor'];
+                        $bodyType = $_POST['rdbBodyType'];
+                        $complexion = $_POST['rdbComplexion'];
+                        $physicalStatus = $_POST['rdbPhysicalStatus'];
+                        $height = $_POST['txtHeight'];
+                        $weight = $_POST['txtWeight'];
+                        $motherTounge = $_POST['txtMotherTongue'];
+                        $martialStatus = $_POST['ddlMStatus'];
+                        $drinkHabits = $_POST['rdbdrinkHabits'];
+                        $smokeHabits = $_POST['rdbsmokeHabits'];
+                        $eatingHabits = $_POST['rdbeatingHabits'];
+                        $hairColor = $_POST['txtHairColor'];
                         $updateResult = $objUsers->updateUserBasicInfo($bodyType, $complexion, $physicalStatus, $height
                                 , $weight, $motherTounge, $martialStatus, $drinkHabits, $smokeHabits, $eatingHabits, $hairColor);
                         if($updateResult == 1){
                             $message = "profile updated successfully!";
+                            $act = '';
                         }
                         else{
                             $message = "Error. Please try again!";
@@ -72,10 +74,50 @@
         $UserPPref = $objUsers->getUserPartnerPref($searchUserId);
         $UserProf = $objUsers->getUserProfession($searchUserId);
         
-        $body = "<form class='form-horizontal'>";
+        $body = "<form class='form-horizontal' method='post'>";
+        if (isset($message) && !empty($message)) {
+            $body .= $message;
+            $body .= "<br/>";
+        } else {
+            $body .= "<br/>";
+            $body .= "<br/>";
+        }
   //=========================== A FEW WORDS ABOUT ME AND BASIC INFO SECTIONS [STARTS HERE]==================================
         if(count($UserBInfo)>0){
             $firstName = $UserBInfo[0]['firstName'];
+            $lastName = $UserBInfo[0]['lastName'];
+            $email = $UserBInfo[0]['email'];
+            $gender = $UserBInfo[0]['gender'];
+            $age = $UserBInfo[0]['age'];
+            $dob = $UserBInfo[0]['dateOfBirth'];
+            $photo = $UserBInfo[0]['thumbnail'];
+            if(empty($firstName)){
+                $firstName = '---';
+            }
+            if(empty($lastName)){
+                $lastName = '---';
+            }
+            if(empty($email)){
+                $email = '---';
+            }
+            if(empty($gender)){
+                $gender = '---';
+            }
+            if(empty($age)){
+                $age = '---';
+            }
+            if(empty($dob)){
+                $dob = '---';
+            }
+            if(empty($photo)){
+                if($gender == 'F'){
+                    $photo = 'images/default_FThumb.jpg';
+                }
+                else{
+                    $photo = 'images/default_MThumb.jpg';
+                }
+            }
+            
             $createsFor = $UserBInfo[0]['createsFor'];
             $aboutUser = $UserBInfo[0]['aboutUser'];
             $bodyType = $UserBInfo[0]['bodyType'];
@@ -92,6 +134,12 @@
         }
         else{
             $firstName = "---";
+            $lastName = "---";
+            $email = "---";
+            $gender = "---";
+            $age = "---";
+            $dob = "---";
+            
             $createsFor = "---";
             $aboutUser = "---";
             $bodyType = "---";
@@ -120,6 +168,10 @@
             $body .= "</div>";
         }
         else {
+            $body .= "<div  class='form-group'>";
+            //if(thumb)
+            $body .= "</div>";
+            
             $body .= "<div  class='form-group'>";
             $body .= "<br /><h3><strong>A few words about ";  
             $body .= $firstName ."</strong></h3>";
@@ -398,28 +450,118 @@
         $body .= "<div  class='form-group'>";
         $body .= "<div class='col-md-12'><hr /></div>";
         $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
-        $body .= "<td style='text-align: right;'>";        
-        if($personalAcc){
-            $body .= "<a href='profile.php?actEdit=locEdit'>Edit</a>";
+        $body .= "<td style='text-align: right;'>"; 
+        if($act!='locEdit'){
+            if($personalAcc){
+                $body .= "<a href='profile.php?actEdit=locEdit'>Edit</a>";
+            } 
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Country:</label>";
+            $body .= "<div class='col-md-3'>{$countryName}</div>";
+            $body .= "<label class='col-md-3 control-label'>Province:</label>";
+            $body .= "<div class='col-md-3'>{$state}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>City:</label>";
+            $body .= "<div class='col-md-3'>{$city}</div>";
+            $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
+            $body .= "<div class='col-md-3'>{$citizen}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
+            $body .= "<div class='col-md-3'>{$residentStatus}</div>";
+            $body .= "</div>";           
         }
-        $body .= "</td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Country:</label>";
-        $body .= "<div class='col-md-3'>{$countryName}</div>";
-        $body .= "<label class='col-md-3 control-label'>Province:</label>";
-        $body .= "<div class='col-md-3'>{$state}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>City:</label>";
-        $body .= "<div class='col-md-3'>{$city}</div>";
-        $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
-        $body .= "<div class='col-md-3'>{$citizen}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
-        $body .= "<div class='col-md-3'>{$residentStatus}</div>";
-        $body .= "</div>";
+        else{
+            require_once '../commonDB.php';
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Country:</label>";            
+           // $body .= "<div class='col-md-8'>{$countryName}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<select name='ddlCountry' id='ddlCountry' class='form-control input-lg' onchange='submit();'>";
+            $countries = commonDB::getCountries();
+            foreach ($countries as $cnt):
+                $body .= "<option value='{$cnt['countryName']}' ";
+                if(isset($_POST['ddlCountry'])){
+                    $ddlCountry = $_POST['ddlCountry'];
+                    if($_POST['ddlCountry'] == $cnt['countryName'])
+                    {
+                        $body .= " selected='selected'";
+                    }
+                }
+                else if($countryName == $cnt['countryName']){
+                    $body .= "selected='selected'";
+                    $ddlCountry = $countryName;
+                }
+                $body .= ">{$cnt['countryName']}</option>";
+            endforeach;
+            $body .= "</select>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Province:</label>";
+            //$body .= "<div class='col-md-8'>{$state}</div>";
+            $body .= "<div class='col-md-8'>";            
+            $body .= "<select name='ddlStates' id='ddlStates' class='form-control input-lg' onchange='submit();'>";
+            $states = commonDB::getStates($ddlCountry);
+            foreach ($states as $st):
+                $body .= "<option value='{$st['state']}' ";
+                if(isset($_POST['ddlStates'])){
+                    $ddlState = $_POST['ddlStates'];
+                    if($_POST['ddlStates'] == $st['state'])
+                    {
+                        $body .= " selected='selected'";
+                    }
+                }
+                else if($state == $st['state']){
+                    $body .= "selected='selected'";
+                    $ddlState = $state;
+                }
+                $body .= ">{$st['state']}</option>";
+            endforeach;
+            $body .= "</select>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>City:</label>";
+           // $body .= "<div class='col-md-8'>{$city}</div>";
+            $body .= "<div class='col-md-8'>";            
+            $body .= "<select name='ddlCities' id='ddlCities' class='form-control input-lg' onchange='submit();'>";
+            $cities = commonDB::getCities($ddlState);
+            foreach ($cities as $ct):
+                $body .= "<option value='{$ct['city']}' ";
+                if(isset($_POST['ddlCities'])){
+                    $ddlCities = $_POST['ddlCities'];
+                    if($_POST['ddlCities'] == $ct['city'])
+                    {
+                        $body .= " selected='selected'";
+                    }
+                }
+                else if($city == $ct['city']){
+                    $body .= "selected='selected'";
+                    $ddlCities = $city;
+                }
+                $body .= ">{$ct['city']}</option>";
+            endforeach;
+            $body .= "</select>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
+            //$body .= "<div class='col-md-8'>{$citizen}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Resident Status:</label>";
+           // $body .= "<div class='col-md-8'>{$residentStatus}</div>";
+            $body .= "</div>";  
+        }
   //=========================== USER LOCATION SECTIONS [ENDS HERE]==================================
     
   //=========================== USER FAMILY DETAILS SECTIONS [STARTS HERE]==================================

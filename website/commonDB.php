@@ -10,20 +10,20 @@ class commonDB {
         $rows = $stmt->fetchAll();
         return $rows;
     }
-    public static function getStates($countryName){    
+    public static function getStates($countryId){    
         $conn = Database::getDB(); 
         $sql = "CALL spGetStates(:Country)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('Country', $countryName, PDO::PARAM_STR, 45);
+        $stmt->bindParam('Country', $countryId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;
     }
-    public static function getCities($stateName){    
+    public static function getCities($stateId){    
         $conn = Database::getDB(); 
-        $sql = "CALL spGetCities(:stateName)";
+        $sql = "CALL spGetCities(:state)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('stateName', $stateName, PDO::PARAM_STR, 45);
+        $stmt->bindParam('state', $stateId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;

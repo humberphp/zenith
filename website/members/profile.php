@@ -3,13 +3,13 @@
     session_start();    
     include_once 'memberMasterPage.php';
     require_once 'userInfoDB.php';
+    require_once '../commonDB.php';
  
     // note for me(jassi): make the following code querystring based
     $_SESSION['loginUserId'] = 4;
     $_SESSION['userFName'] = "Tunde";
     
-    if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])) 
-        {
+    if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../Login.aspx' ) ;
         }
  
@@ -63,6 +63,23 @@
                             $message = "Error. Please try again!";
                         }
                         break;
+//                    case 'updLocation':
+//                        $countryId = $_POST['ddlCountry'];                        
+//                        $stateId = $_POST['ddlStates'];
+//                        $cityId = $_POST['ddlCities'];
+//                        $citizen = $_POST['txtCitizen'];
+//                        $residentStatus = $_POST['txtResident'];
+//                        
+//                        $updateResult = $objUsers->updateUserLocation($countryId, $stateId, $cityId, $citizen, $residentStatus);
+//                        if($updateResult == 1){
+//                            $message = "location updated successfully!";
+//                            $act = '';
+//                        }
+//                        else{
+//                           // $message = "Error. Please try again!";
+//                            $message = $updateResult;
+//                        }
+//                        break;
                 }
             }
         }
@@ -78,7 +95,8 @@
         if (isset($message) && !empty($message)) {
             $body .= $message;
             $body .= "<br/>";
-        } else {
+        } 
+        else {
             $body .= "<br/>";
             $body .= "<br/>";
         }
@@ -301,20 +319,20 @@
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Height:</label>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='textinput' name='txtHeight' value='{$height}' class='form-control input-md input-lg' required='required' />";
+            $body .= "<input type='text' id='txtHeight' name='txtHeight' value='{$height}' class='form-control input-md input-lg' required='required' />";
             $body .= "</div>";            
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Weight:</label>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='textinput' name='txtWeight' value='{$weight}' class='form-control input-md input-lg' required='required' />";
+            $body .= "<input type='text' id='txtWeight' name='txtWeight' value='{$weight}' class='form-control input-md input-lg' required='required' />";
             $body .= "</div>";            
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Mother Tongue:</label>";
             //$body .= "<div class='col-md-8'>{$motherTounge}</div>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='textinput' name='txtMotherTongue' value='{$motherTounge}' class='form-control input-md input-lg' required='required' />";
+            $body .= "<input type='text' id='txtMotherTongue' name='txtMotherTongue' value='{$motherTounge}' class='form-control input-md input-lg' required='required' />";
             $body .= "</div>";
             
             $body .= "</div>";
@@ -440,20 +458,30 @@
             $countryName = $UserLocation[0]['countryName'];
             $state = $UserLocation[0]['state'];
             $city = $UserLocation[0]['city'];
+            
+            $countryId = $UserLocation[0]['countryId'];
+            $stateId = $UserLocation[0]['stateId'];
+            $cityId = $UserLocation[0]['cityId'];
+            
             $citizen = $UserLocation[0]['citizen'];
             $residentStatus = $UserLocation[0]['residentStatus'];
         }
         else
         {      
+            
+            $countryId = $stateId = $cityId = 0;
+            
             $countryName = $state = $city = $citizen = $residentStatus = "---";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
-        $body .= "<td style='text-align: right;'>"; 
-        if($act!='locEdit'){
+        
+        $body .= "<div id='simpleDivLoc'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
+            $body .= "<td style='text-align: right;'>";        
             if($personalAcc){
-                $body .= "<a href='profile.php?actEdit=locEdit'>Edit</a>";
+                //$body .= "<a href='profile.php?actEdit=locEdit'>Edit</a>";
+                $body .= "<a href='#' id='locEdit'>Edit</a>";
             } 
             $body .= "</td></tr></table>"; 
             $body .= "</div>";
@@ -472,96 +500,63 @@
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
             $body .= "<div class='col-md-3'>{$residentStatus}</div>";
-            $body .= "</div>";           
-        }
-        else{
-            require_once '../commonDB.php';
-            $body .= "</td></tr></table>"; 
+            $body .= "</div>";   
+        $body .= "</div>";                   
+
+        $body .= "<div id='editDivLoc'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
+            $body .= "<td style='text-align: right;'></td></tr></table>"; 
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Country:</label>";            
-           // $body .= "<div class='col-md-8'>{$countryName}</div>";
+            $body .= "<label class='col-md-4 control-label'>Country:</label>"; 
             $body .= "<div class='col-md-8'>";
-            $body .= "<select name='ddlCountry' id='ddlCountry' class='form-control input-lg' onchange='submit();'>";
-            $countries = commonDB::getCountries();
-            foreach ($countries as $cnt):
-                $body .= "<option value='{$cnt['countryName']}' ";
-                if(isset($_POST['ddlCountry'])){
-                    $ddlCountry = $_POST['ddlCountry'];
-                    if($_POST['ddlCountry'] == $cnt['countryName'])
-                    {
-                        $body .= " selected='selected'";
-                    }
-                }
-                else if($countryName == $cnt['countryName']){
-                    $body .= "selected='selected'";
-                    $ddlCountry = $countryName;
-                }
-                $body .= ">{$cnt['countryName']}</option>";
-            endforeach;
+            $body .= "<input type='hidden' name='hdnCountryId' id='hdnCountryId' value='{$countryId}'/>";
+            $body .= "<select name='ddlCountry' id='ddlCountry' class='form-control input-lg' onchange='loadStates();'>";
             $body .= "</select>";
             $body .= "</div>";
             $body .= "</div>";
-            
+
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Province:</label>";
-            //$body .= "<div class='col-md-8'>{$state}</div>";
             $body .= "<div class='col-md-8'>";            
-            $body .= "<select name='ddlStates' id='ddlStates' class='form-control input-lg' onchange='submit();'>";
-            $states = commonDB::getStates($ddlCountry);
-            foreach ($states as $st):
-                $body .= "<option value='{$st['state']}' ";
-                if(isset($_POST['ddlStates'])){
-                    $ddlState = $_POST['ddlStates'];
-                    if($_POST['ddlStates'] == $st['state'])
-                    {
-                        $body .= " selected='selected'";
-                    }
-                }
-                else if($state == $st['state']){
-                    $body .= "selected='selected'";
-                    $ddlState = $state;
-                }
-                $body .= ">{$st['state']}</option>";
-            endforeach;
+            $body .= "<input type='hidden' name='hdnStateId' id='hdnStateId' value='{$stateId}'/>";
+            $body .= "<select name='ddlStates' id='ddlStates' class='form-control input-lg' onchange='loadCities();'>";
             $body .= "</select>";
             $body .= "</div>";
             $body .= "</div>";
-            
+
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>City:</label>";
-           // $body .= "<div class='col-md-8'>{$city}</div>";
             $body .= "<div class='col-md-8'>";            
-            $body .= "<select name='ddlCities' id='ddlCities' class='form-control input-lg' onchange='submit();'>";
-            $cities = commonDB::getCities($ddlState);
-            foreach ($cities as $ct):
-                $body .= "<option value='{$ct['city']}' ";
-                if(isset($_POST['ddlCities'])){
-                    $ddlCities = $_POST['ddlCities'];
-                    if($_POST['ddlCities'] == $ct['city'])
-                    {
-                        $body .= " selected='selected'";
-                    }
-                }
-                else if($city == $ct['city']){
-                    $body .= "selected='selected'";
-                    $ddlCities = $city;
-                }
-                $body .= ">{$ct['city']}</option>";
-            endforeach;
+            $body .= "<input type='hidden' name='hdnCityId' id='hdnCityId' value='{$cityId}'/>";
+            $body .= "<select name='ddlCities' id='ddlCities' class='form-control input-lg'>";
             $body .= "</select>";
             $body .= "</div>";
             $body .= "</div>";
-            
+
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
-            //$body .= "<div class='col-md-8'>{$citizen}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='textcitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Resident Status:</label>";
-           // $body .= "<div class='col-md-8'>{$residentStatus}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtResident' name='txtResident' value='{$residentStatus}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
             $body .= "</div>";  
-        }
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='submit' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+            $body .= "<a href='#' id='cancDivLoc' class='btn btn-success'>Cancel</a>";
+            $body .= "</div>";            
+            $body .= "</div>";
+        $body .= "</div>";            
+        
   //=========================== USER LOCATION SECTIONS [ENDS HERE]==================================
     
   //=========================== USER FAMILY DETAILS SECTIONS [STARTS HERE]==================================

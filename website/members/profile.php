@@ -2,7 +2,7 @@
     // put your code here
     session_start();    
     include_once 'memberMasterPage.php';
-    require_once 'userInfoDB.php';
+    require_once '../userInfoDB.php';
     require_once '../commonDB.php';
  
     // note for me(jassi): make the following code querystring based
@@ -90,8 +90,10 @@
         $UserLocation = $objUsers->getUserLocation($searchUserId);
         $UserPPref = $objUsers->getUserPartnerPref($searchUserId);
         $UserProf = $objUsers->getUserProfession($searchUserId);
-        
+       // $s = userInfoDB::updateUserLocation(1, 2, 5, 'i','r');
         $body = "<form class='form-horizontal' method='post'>";
+        $body .= "<input type='hidden' id='hdUId' name='hdUId' value='{$_SESSION['loginUserId']}'>";
+        $body .= "<label class='col-md-12 control-label' name='lblMsg' id='lblMsg'></label><br/>";
         if (isset($message) && !empty($message)) {
             $body .= $message;
             $body .= "<br/>";
@@ -487,19 +489,29 @@
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-3 control-label'>Country:</label>";
-            $body .= "<div class='col-md-3'>{$countryName}</div>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblCountry' name='lblCountry' style='font-weight: normal;'>{$countryName}</label>";
+            $body .= "</div>";
             $body .= "<label class='col-md-3 control-label'>Province:</label>";
-            $body .= "<div class='col-md-3'>{$state}</div>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblState' name='lblState' style='font-weight: normal;'>{$state}</label>";
+            $body .= "</div>";
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-3 control-label'>City:</label>";
-            $body .= "<div class='col-md-3'>{$city}</div>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblCity' name='lblCity' style='font-weight: normal;'>{$city}</label>";
+            $body .= "</div>";
             $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
-            $body .= "<div class='col-md-3'>{$citizen}</div>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblCitizen' name='lblCitizen' style='font-weight: normal;'>{$citizen}</label>";
+            $body .= "</div>";
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
-            $body .= "<div class='col-md-3'>{$residentStatus}</div>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label style='font-weight: normal;' id='lblResident' name='lblResident'>{$residentStatus}</label>";
+            $body .= "</div>";
             $body .= "</div>";   
         $body .= "</div>";                   
 
@@ -539,7 +551,7 @@
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='textcitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
+            $body .= "<input type='text' id='txtCitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
             $body .= "</div>";
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
@@ -551,7 +563,7 @@
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='submit' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+            $body .= "<input type='submit' name='updLoc' id='updLoc' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
             $body .= "<a href='#' id='cancDivLoc' class='btn btn-success'>Cancel</a>";
             $body .= "</div>";            
             $body .= "</div>";

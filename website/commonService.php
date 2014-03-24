@@ -1,6 +1,8 @@
 <?php
 require_once 'Database.php';
 require_once 'commonDB.php';
+require_once 'userInfoDB.php';
+
 extract($_REQUEST);
 
 $response;
@@ -30,6 +32,17 @@ switch ($data)
             $set = array("cityId" => $ct['cityId'],"city"=>$ct['city']);         
             $result[]=$set;
         endforeach;
+        break;
+    case 'updateLoc':
+        $response = userInfoDB::updateUserLocation($uid, $cntryId, $sttId, $ctyid, $citiz, $res);
+        if($response)
+        {
+            $result = true;
+        }
+        else 
+            {
+                $result = false;
+            }
         break;
     default:
         $result = "fail";            

@@ -1,5 +1,5 @@
 <?php
-require_once '../Database.php';
+include_once 'Database.php';
 
 class userInfoDB{
         
@@ -104,13 +104,13 @@ class userInfoDB{
         return $row_count;
     }   
     
-    public function updateUserLocation($countryName, $state, $city, $citizen, $residentStatus)
+    public static function updateUserLocation($userId, $country, $state, $city, $citizen, $residentStatus)
     {
         $conn = Database::getDB(); 
         $sql = "CALL spUpdateUserLocation(:UsersId, :country, :state, :city, :citizenship, :residency)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('UsersId', $_SESSION['loginUserId'], PDO::PARAM_INT, 11);
-        $stmt->bindParam('country', $countryName, PDO::PARAM_INT, 11);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('country', $country, PDO::PARAM_INT, 11);
         $stmt->bindParam('state', $state, PDO::PARAM_INT, 11);
         $stmt->bindParam('city', $city, PDO::PARAM_INT, 11);
         $stmt->bindParam('citizenship', $citizen, PDO::PARAM_STR, 50);

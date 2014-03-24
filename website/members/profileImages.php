@@ -2,7 +2,7 @@
 
 session_start();
 include_once 'memberMasterPage.php';
-require_once 'userInfoDB.php';
+require_once '../userInfoDB.php';
 require_once 'userImagesDB.php';
 // DELETE THE FOLLOWING LINE 
 if (!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])) {

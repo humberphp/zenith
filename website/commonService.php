@@ -44,6 +44,17 @@ switch ($data)
                 $result = false;
             }
         break;
+    case 'updateFamDet':
+        $response = userInfoDB::updateFamilyDetails($uid, $liveWith, $fType, $fVal, $fState, $nBros, $nSis, $marriedBros, $marriedSis, $fatherOcc, $motherOcc);
+        if($response)
+        {
+            $result = true;
+        }
+        else 
+            {
+                $result = false;
+            }
+        break;
     default:
         $result = "fail";            
 }

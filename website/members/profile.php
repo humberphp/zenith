@@ -63,23 +63,6 @@
                             $message = "Error. Please try again!";
                         }
                         break;
-//                    case 'updLocation':
-//                        $countryId = $_POST['ddlCountry'];                        
-//                        $stateId = $_POST['ddlStates'];
-//                        $cityId = $_POST['ddlCities'];
-//                        $citizen = $_POST['txtCitizen'];
-//                        $residentStatus = $_POST['txtResident'];
-//                        
-//                        $updateResult = $objUsers->updateUserLocation($countryId, $stateId, $cityId, $citizen, $residentStatus);
-//                        if($updateResult == 1){
-//                            $message = "location updated successfully!";
-//                            $act = '';
-//                        }
-//                        else{
-//                           // $message = "Error. Please try again!";
-//                            $message = $updateResult;
-//                        }
-//                        break;
                 }
             }
         }
@@ -90,7 +73,8 @@
         $UserLocation = $objUsers->getUserLocation($searchUserId);
         $UserPPref = $objUsers->getUserPartnerPref($searchUserId);
         $UserProf = $objUsers->getUserProfession($searchUserId);
-       // $s = userInfoDB::updateUserLocation(1, 2, 5, 'i','r');
+       // $s = userInfoDB::updateFamilyDetails(4,'Parents','Nuclear', 'Moderate','Rich', 2,1,1, 1, 'Manager', 'House Wife');;
+       
         $body = "<form class='form-horizontal' method='post'>";
         $body .= "<input type='hidden' id='hdUId' name='hdUId' value='{$_SESSION['loginUserId']}'>";
         $body .= "<label class='col-md-12 control-label' name='lblMsg' id='lblMsg'></label><br/>";
@@ -441,7 +425,7 @@
             $body .= "<label class='col-md-4 control-label'>Hair Color:</label>";
            // $body .= "<div class='col-md-8'>{$hairColor}</div>";
             $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='textinput' name='txtHairColor' value='{$hairColor}' class='form-control input-md input-lg' required='required' />";
+            $body .= "<input type='text' id='txtHairColor' name='txtHairColor' value='{$hairColor}' class='form-control input-md input-lg' required='required' />";
             $body .= "</div>";            
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
@@ -575,7 +559,11 @@
         if(count($UserFDet)>0)
         {
             $livingWith = $UserFDet[0]['livingWith'];
-            $siblings = $UserFDet[0]['siblings'];
+            $familyType = $UserFDet[0]['familyType'];
+            $familyValues = $UserFDet[0]['familyValues'];
+            $familyStatus = $UserFDet[0]['familyStatus'];
+            $noOfSisters = $UserFDet[0]['noOfSisters'];
+            $noOfBrothers = $UserFDet[0]['noOfBrothers'];
             $marriedSisters = $UserFDet[0]['marriedSisters'];
             $marriedBrothers = $UserFDet[0]['marriedBrothers'];
             $fatherOccupation = $UserFDet[0]['fatherOccupation'];
@@ -583,35 +571,186 @@
         }
         else
         {      
-            $livingWith = $siblings = $marriedSisters = $marriedBrothers = $fatherOccupation = $motherOccupation = "---";
+            $livingWith = $familyType = $familyValues = $familyStatus = "---"; 
+            $marriedSisters = $marriedBrothers = $fatherOccupation = $motherOccupation = "---";
+            $noOfSisters = $noOfBrothers = "0";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
-        $body .= "<td style='text-align: right;'>";        
-        if($personalAcc){
-            $body .= "<a href='profile.php?actEdit=famDetEdit'>Edit</a>";
-        }
-        $body .= "</td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Living With:</label>";
-        $body .= "<div class='col-md-3'>{$livingWith}</div>";
-        $body .= "<label class='col-md-3 control-label'>Siblings:</label>";
-        $body .= "<div class='col-md-3'>{$siblings}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Married Sisters:</label>";
-        $body .= "<div class='col-md-3'>{$marriedSisters}</div>";
-        $body .= "<label class='col-md-3 control-label'>Married Brothers:</label>";
-        $body .= "<div class='col-md-3'>{$marriedBrothers}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Father Occupation:</label>";
-        $body .= "<div class='col-md-3'>{$fatherOccupation}</div>";
-        $body .= "<label class='col-md-3 control-label'>Mother Occupation:</label>";
-        $body .= "<div class='col-md-3'>{$motherOccupation}</div>";
-        $body .= "</div>";
+        
+        $body .= "<div id='simpleDivFamDet'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
+            $body .= "<td style='text-align: right;'>";        
+            if($personalAcc){
+                //$body .= "<a href='profile.php?actEdit=famDetEdit'>Edit</a>";
+                $body .= "<a href='#' id='famDetEdit'>Edit</a>";
+            }
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Living With:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblLivingW' name='lblLivingW' style='font-weight: normal;'>{$livingWith}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Family Type:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblFType' name='lblFType' style='font-weight: normal;'>{$familyType}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Family Values:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblFValue' name='lblFValue' style='font-weight: normal;'>{$familyValues}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Family Status:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblFStat' name='lblFStat' style='font-weight: normal;'>{$familyStatus}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Brothers:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblNumBros' name='lblNumBros' style='font-weight: normal;'>{$noOfBrothers}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Sisters:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblNumSis' name='lblNumSis' style='font-weight: normal;'>{$noOfSisters}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Married Sisters:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblMSis' name='lblMSis' style='font-weight: normal;'>{$marriedSisters}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Married Brothers:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblMBros' name='lblMBros' style='font-weight: normal;'>{$marriedBrothers}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Father Occupation:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblFOcc' name='lblFOcc' style='font-weight: normal;'>{$fatherOccupation}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Mother Occupation:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblMOcc' name='lblMOcc' style='font-weight: normal;'>{$motherOccupation}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+        $body .= "</div>";          
+        
+        $body .= "<div id='editDivFamDet'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
+            $body .= "<td style='text-align: right;'>";  
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Living With:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Parents'";
+            $body .= " type='radio'> Parents</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Alone'";
+            $body .= " type='radio'> Alone</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Family Type:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Joint Family'";
+            $body .= " type='radio'> Joint Family</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Nuclear'";
+            $body .= " type='radio'> Nuclear</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Others'";
+            $body .= " type='radio'> Others</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Family Values:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Traditional'";
+            $body .= " type='radio'> Traditional</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Moderate'";
+            $body .= " type='radio'> Moderate</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Liberal'";
+            $body .= " type='radio'> Liberal</label>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Orthodox'";
+            $body .= " type='radio'> Orthodox</label>";            
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Family Status:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Middle Class'";
+            $body .= " type='radio'> Middle Class</label>"; 
+            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Upper Middle Class'";
+            $body .= " type='radio'> Upper Middle Class</label>";  
+            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Rich'";
+            $body .= " type='radio'> Rich</label>"; 
+            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Affluent'";
+            $body .= " type='radio'> Affluent</label>";             
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Brothers:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtNumBro' name='txtNumBro' value='{$noOfBrothers}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Sisters:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtNumSis' name='txtNumSis' value='{$noOfSisters}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Married Sisters:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtMrdSis' name='txtMrdSis' value='{$marriedSisters}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Married Brothers:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtMrdBro' name='txtMrdBro' value='{$marriedBrothers}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Father Occupation:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtFatherOcc' name='txtFatherOcc' value='{$fatherOccupation}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Mother Occupation:</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='text' id='txtMotherOcc' name='txtMotherOcc' value='{$motherOccupation}' class='form-control input-md input-lg' required='required' />";
+            $body .= "</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<input type='submit' name='updFamDet' id='updFamDet' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+            $body .= "<a href='#' id='cancFamDet' class='btn btn-success'>Cancel</a>";
+            $body .= "</div>";            
+            $body .= "</div>";
+        $body .= "</div>";          
   //=========================== USER FAMILY DETAILS SECTIONS [ENDS HERE]==================================
   //
   //=========================== USER PROFESSIONAL SECTIONS [STARTS HERE]==================================

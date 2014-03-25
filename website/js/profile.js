@@ -24,7 +24,20 @@ function loadCountries(){
                     }
                     else
                     {      
-                        $('#ddlCountry').val($cnt);
+                        $exists = false; 
+                        $('#ddlCountry  option').each(function(){
+                          if (this.value == $cnt) {
+                            $exists = true;
+                          }
+                        });
+                        if($exists)
+                        {
+                            $('#ddlCountry').val($cnt);
+                        }
+                        else
+                        {
+                            $("#ddlCountry option:first").attr('selected','selected');
+                        }      
                     }
                     loadStates();
             },
@@ -123,8 +136,7 @@ function loadCities(){
     });
 }
 
-function updateLocations()
-{
+function updateLocations(){
     $usid = $('#hdUId').val();
     $cnt = $('#ddlCountry').val();
     $stt = $('#ddlStates').val();
@@ -148,8 +160,6 @@ function updateLocations()
                 {
                     $('#lblCitizen').text($citizen);
                     $('#lblResident').text($resi);
-                    $('#simpleDivLoc').slideToggle("slow");
-                    $('#editDivLoc').slideToggle("slow");
                     
                     $('#lblCountry').html($("#ddlCountry option:selected").text());
                     $('#lblState').html($("#ddlStates option:selected").text());
@@ -161,7 +171,64 @@ function updateLocations()
                     $('#hdnStateId').html($stt);
                     $('#hdnCityId').html($cit);
                     
+                    $('#simpleDivLoc').slideToggle("slow");
+                    $('#editDivLoc').slideToggle("slow");
                     $('#lblMsg').html('Location information updated!');                    
+                }
+            },
+            dataType:"text"
+    });
+}
+
+function updateFamilyDetails(){
+    $usid = $('#hdUId').val();
+    $livWith = $('input[name=rdbLiv]:checked').val();
+    $famType = $('input[name=rdbFamType]:checked').val();
+    $famVal = $('input[name=rdbFamVal]:checked').val();
+    $famStat = $('input[name=rdbFamStat]:checked').val();    
+        
+    $numSis = $('#txtNumSis').val();
+    $numBro = $('#txtNumBro').val();
+    $mrdSis = $('#txtMrdSis').val();
+    $mrdBro = $('#txtMrdBro').val();
+    $FOccu = $('#txtFatherOcc').val();
+    $MOccu = $('#txtMotherOcc').val();
+    
+    $.ajax({
+            url:"../commonService.php",  
+            type:"POST",
+            data:{
+                    data:"updateFamDet",
+                    uid:$usid,
+                    liveWith:$livWith,
+                    fType:$famType,
+                    fVal:$famVal,
+                    fState:$famStat,
+                    nSis:$numSis,
+                    nBros:$numBro,
+                    marriedSis:$mrdSis,
+                    marriedBros:$mrdBro,
+                    fatherOcc:$FOccu,
+                    motherOcc:$MOccu
+            },
+            success:function(msg){
+                //alert(msg);
+                if(msg)
+                {                      
+                    $('#lblLivingW').html($livWith);
+                    $('#lblFType').html($famType);
+                    $('#lblFValue').html($famVal);
+                    $('#lblFStat').html($famStat);
+                    $('#lblNumSis').html($numSis);
+                    $('#lblNumBros').html($numBro);
+                    $('#lblMSis').html($mrdSis);
+                    $('#lblMBros').html($mrdBro);
+                    $('#lblFOcc').html($FOccu);
+                    $('#lblMOcc').html($MOccu);
+    
+                    $('#simpleDivFamDet').slideToggle("slow");
+                    $('#editDivFamDet').slideToggle("slow"); 
+                    $('#lblMsg').html('Family details updated!');                    
                 }
             },
             dataType:"text"
@@ -170,23 +237,18 @@ function updateLocations()
 
 $(document).ready(function(){
     $('#simpleDivLoc').show();
-    $('#editDivLoc').hide();    
+    $('#editDivLoc').hide();  
+    $('#simpleDivFamDet').show();
+    $('#editDivFamDet').hide();     
+    loadCountries();
      
-//  -----------------------------------  EDIT BUTTON CLICK STARTS -----------------------------------------
+//  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION STARTS -----------------------------------------
+    loadCountries();
+//  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION ENDS-----------------------------------------
+     
+//  -----------------------------------  LOCATION BUTTON CLICK STARTS -----------------------------------------
     $('#locEdit').click(function(e){
-        e.preventDefault();
-        $('#simpleDivLoc').slideToggle("slow");
-        $('#editDivLoc').slideToggle("slow");    
-    });
-//  -----------------------------------  EDIT BUTTON CLICK ENDS -----------------------------------------
-
-    
-    
-//  -----------------------------------  CANCEL BUTTON CLICK STARTS -----------------------------------------
-    $('#cancDivLoc').click(function(e){
-        e.preventDefault();
-        $('#simpleDivLoc').slideToggle("slow");
-        $('#editDivLoc').slideToggle("slow");
+        e.preventDefault();        
         $cnt = $('#hdnCountryId').val();
         $stt = $('#hdnStateId').val();
         $cit = $('#hdnCityId').val();
@@ -196,22 +258,63 @@ $(document).ready(function(){
             $('#ddlCountry').val($cnt);
             $('#ddlStates').val($stt);
             $('#ddlCities').val($cit);
-        }
+        }           
+        
+        
+        $('#simpleDivLoc').slideToggle("slow");
+        $('#editDivLoc').slideToggle("slow");  
+        $('#simpleDivFamDet').show("slow");
+        $('#editDivFamDet').hide("slow");  
+    });    
+    $('#cancDivLoc').click(function(e){
+        e.preventDefault();
+        $('#simpleDivLoc').slideToggle("slow");
+        $('#editDivLoc').slideToggle("slow");
         
     });
-//  -----------------------------------  CANCEL BUTTON CLICK ENDS -----------------------------------------
-
-
-//  -----------------------------------  UPDATE BUTTON CLICK ENDS -----------------------------------------
     $('#updLoc').click(function(e){
         e.preventDefault();
         updateLocations();
     });
-//  -----------------------------------  UPDATE BUTTON CLICK ENDS -----------------------------------------
+//  -----------------------------------  LOCATION BUTTON CLICK ENDS -----------------------------------------
 
      
-//  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION STARTS -----------------------------------------
-    loadCountries();
-//  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION ENDS-----------------------------------------
 
+//  -----------------------------------  FAMILY DETAILS BUTTON CLICK STARTS -----------------------------------------
+    $('#famDetEdit').click(function(e){
+        e.preventDefault();
+        
+        $("[name=rdbLiv]").prop("checked", false);
+        $("[name=rdbFamType]").prop("checked", false);
+        $("[name=rdbFamVal]").prop("checked", false);
+        $("[name=rdbFamStat]").prop("checked", false);
+        
+        $("[name=rdbLiv]").filter("[value='"+$('#lblLivingW').text()+"']").prop("checked",true);        
+        $("[name=rdbFamType]").filter("[value='"+$('#lblFType').text()+"']").prop("checked",true);
+        $("[name=rdbFamVal]").filter("[value='"+$('#lblFValue').text()+"']").prop("checked",true);
+        $("[name=rdbFamStat]").filter("[value='"+$('#lblFStat').text()+"']").prop("checked",true);
+        
+        $('#txtNumSis').val($('#lblNumSis').text());
+        $('#txtNumBro').val($('#lblNumBros').text());
+        $('#txtMrdSis').val($('#lblMSis').text());
+        $('#txtMrdBro').val($('#lblMBros').text());
+        $('#txtFatherOcc').val($('#lblFOcc').text());
+        $('#txtMotherOcc').val($('#lblMOcc').text());
+        
+        $('#simpleDivFamDet').slideToggle("slow");
+        $('#editDivFamDet').slideToggle("slow"); 
+        $('#simpleDivLoc').show("slow");
+        $('#editDivLoc').hide("slow");     
+    });    
+    $('#cancFamDet').click(function(e){
+        e.preventDefault();
+        $('#simpleDivFamDet').slideToggle("slow");
+        $('#editDivFamDet').slideToggle("slow"); 
+        
+    });
+    $('#updFamDet').click(function(e){
+        e.preventDefault();
+        updateFamilyDetails();
+    });
+//  -----------------------------------  FAMILY DETAILS BUTTON CLICK STARTS -----------------------------------------
 });

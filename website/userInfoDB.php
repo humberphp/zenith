@@ -30,7 +30,6 @@ class userInfoDB{
         $sql = "CALL spGetUserFamilyDetails(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;
@@ -81,8 +80,7 @@ class userInfoDB{
     }   
     
     public function updateUserBasicInfo($bodyType, $complexion, $physicalStatus, $height, $weight
-            , $motherTounge, $martialStatus, $drinkHabits, $smokeHabits, $eatingHabits, $hairColor)
-    {
+            , $motherTounge, $martialStatus, $drinkHabits, $smokeHabits, $eatingHabits, $hairColor){
         $conn = Database::getDB(); 
         $sql = "CALL spUpdateUserBasicInfo(:UsersId, :bodyTypes, :complexions, :physicalStatuss, :heights"
                 . ", :weights, :motherTounges, :martialStatuss, :drinkHabitss, :smokeHabitss, :eatingHabitss, :hairColors)";
@@ -104,8 +102,7 @@ class userInfoDB{
         return $row_count;
     }   
     
-    public static function updateUserLocation($userId, $country, $state, $city, $citizen, $residentStatus)
-    {
+    public static function updateUserLocation($userId, $country, $state, $city, $citizen, $residentStatus){
         $conn = Database::getDB(); 
         $sql = "CALL spUpdateUserLocation(:UsersId, :country, :state, :city, :citizenship, :residency)";
         $stmt = $conn->prepare($sql);
@@ -120,5 +117,24 @@ class userInfoDB{
         return $row_count;
     }
     
+    public static function updateFamilyDetails($userId, $livingWith, $familyType, $familyValues, $familyStatus, $noOfBrothers, $noOfSisters, $marriedBros, $marriedSis, $fatherOcc, $motherOcc){
+        $conn = Database::getDB(); 
+        $sql = "CALL spUpdateFamilyDetails(:UsersId, :livingWiths, :fType, :fValues, :fStatus, :numBros, :numSis, :marriedSister, :marriedBrother, :fatherOccu, :motherOccu)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('livingWiths', $livingWith, PDO::PARAM_STR, 45);
+        $stmt->bindParam('fType', $familyType, PDO::PARAM_STR, 45);
+        $stmt->bindParam('fValues', $familyValues, PDO::PARAM_STR, 45);
+        $stmt->bindParam('fStatus', $familyStatus, PDO::PARAM_STR, 45);
+        $stmt->bindParam('numBros', $noOfBrothers, PDO::PARAM_INT, 11);
+        $stmt->bindParam('numSis', $noOfSisters, PDO::PARAM_INT, 11);
+        $stmt->bindParam('marriedSister', $marriedBros, PDO::PARAM_INT, 11);
+        $stmt->bindParam('marriedBrother', $marriedSis, PDO::PARAM_INT, 11);
+        $stmt->bindParam('fatherOccu', $fatherOcc, PDO::PARAM_STR, 45);
+        $stmt->bindParam('motherOccu', $motherOcc, PDO::PARAM_STR, 45);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }
 }
 ?>

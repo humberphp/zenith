@@ -76,6 +76,8 @@
        // $s = userInfoDB::updateFamilyDetails(4,'Parents','Nuclear', 'Moderate','Rich', 2,1,1, 1, 'Manager', 'House Wife');;
        
         $body = "<form class='form-horizontal' method='post'>";
+        $body .= "<link href='../styles/profiles.css' rel='stylesheet'>";
+        $body .= "<div id='overlay'></div>";
         $body .= "<input type='hidden' id='hdUId' name='hdUId' value='{$_SESSION['loginUserId']}'>";
         $body .= "<label class='col-md-12 control-label' name='lblMsg' id='lblMsg'></label><br/>";
         if (isset($message) && !empty($message)) {

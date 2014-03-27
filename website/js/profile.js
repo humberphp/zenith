@@ -157,7 +157,9 @@ function updateLocations(){
                     sttId:$stt,
                     ctyid:$cit,
                     citiz:$citizen,
-                    res:$resi
+                    res:$resi,
+            beforeSend: function(){$("#overlay").show();},
+            complete: function(){$("#overlay").hide();}
             },
             success:function(msg){
                 if(msg)

@@ -166,6 +166,19 @@ class userInfoDB{
         $stmt->closeCursor();
         return $row_count;
     }
+        
+    public static function updateUserPartnerPrefs($userId, $fromAge, $toAge, $contrs){
+        $conn = Database::getDB(); 
+        $sql = "CALL spUpdatePartnerPref(:UsersId, :fromAge, :toAge, :countrys)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('fromAge', $fromAge, PDO::PARAM_INT, 11);
+        $stmt->bindParam('toAge', $toAge, PDO::PARAM_INT, 11);
+        $stmt->bindParam('countrys', $contrs, PDO::PARAM_STR, 100);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }
     
 }
 ?>

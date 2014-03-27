@@ -4,7 +4,10 @@
 
 function loadCountries(){ 
     var $cnt = $('#hdnCountryId').val();
+    
     $('#ddlCountry').find('option').remove().end();
+    $('#lstCntry').find('option').remove().end();
+    
     $.ajax({
             url:"../commonService.php",  
             type:"POST",
@@ -16,7 +19,9 @@ function loadCountries(){
                     for (var index in msg) 
                     {
                         $('#ddlCountry').append('<option value="'+ msg[index].countryId +'">' 
-                                + msg[index].countryName + '</option>').val( msg[index].countryId);                            
+                                + msg[index].countryName + '</option>').val( msg[index].countryId);    
+                        $('#lstCntry').append('<option value="'+ msg[index].countryName +'">' 
+                                + msg[index].countryName + '</option>').val( msg[index].countryName);                            
                     }
                     if($cnt == "0")
                     {
@@ -58,7 +63,6 @@ function loadStates(){
                     cntryId:$("#ddlCountry").val()
             },
             success:function(msg){
-                    // alert(msg);
                     msg = $.parseJSON(msg); 
                     for (var index in msg) 
                     {
@@ -306,13 +310,7 @@ function updateHobbies(){
         $chkDSArray.push($(this).val());
     });        
     $selectedDS = $chkDSArray.join(', ');
-    
-//    alert($selectedHobbies);
-//    alert($selectedInts);
-//    alert($selectedDS);
-//    alert($selectedLangs);
-    
-    
+        
     $.ajax({
             url:"../commonService.php",  
             type:"POST",
@@ -325,7 +323,6 @@ function updateHobbies(){
                     langs:$selectedLangs
             },
             success:function(msg){
-                alert(msg);
                 if(msg)
                 {                          
                     $('#lblHobbies').html($selectedHobbies);
@@ -342,10 +339,58 @@ function updateHobbies(){
     });
 }
 
+function updatePartnerPref()
+{
+    $usid = $('#hdUId').val();
+    $langArray = [];
+    $("#lstCntry option:selected").each(function () {
+            var $this = $(this);
+            if ($this.length) {
+             $langArray.push($this.text());
+            }
+         });
+    $selectedCntrs = $langArray.join(', ');
+         
+   $fromAg = $('#ddlFromAge').val();
+   $toAg = $('#ddlToAge').val();
+        
+    $.ajax({
+            url:"../commonService.php",  
+            type:"POST",
+            data:{
+                    data:"updatePartnerPref",
+                    uid:$usid,
+                    fromAge:$fromAg,
+                    toAge:$toAg,
+                    contrs:$selectedCntrs
+            },
+            success:function(msg){
+                if(msg)
+                {                          
+                    $('#lblFromAge').html($fromAg);
+                    $('#lblToAge').html($toAg);
+                    $('#lblCntry').html($selectedCntrs);
+                    
+                    $('#simpleDivPartPref').slideToggle("slow");
+                    $('#editDivPartPref').slideToggle("slow"); 
+                    $('#lblMsg').html('Partner Prefrences updated!');                    
+                }
+            },
+            dataType:"text"
+    });
+}
+
+function loadAges($selectId)
+{
+    for( var ind = 20; ind <= 50; ind++ ) 
+    {
+        $($selectId).append('<option value="'+ ind +'">' 
+                                + ind + '</option>').val(ind);    
+    }
+}
+
 $(document).ready(function(){
-    showHide();  
-    loadCountries();
-     
+    showHide();       
 //  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION STARTS -----------------------------------------
     loadCountries();
 //  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION ENDS-----------------------------------------
@@ -498,6 +543,41 @@ $(document).ready(function(){
 
 
 //  -----------------------------------  PARTNER PREFRENCES BUTTON CLICK STARTS -----------------------------------------
+    $('#partPrefEdit').click(function(e){
+        e.preventDefault();
+        showHide();     
+        $("#lstCntry option").prop("selected", false);
+        
+        loadAges('#ddlFromAge');
+        loadAges('#ddlToAge');
+        
+        $fa = $('#lblFromAge').html();
+        $ta = $('#lblToAge').html();
+                
+        $('#ddlFromAge').val($fa);        
+        $('#ddlToAge').val($ta);
+                        
+        $cntrs = $('#lblCntry').html();
+        
+        $.each($cntrs.split(", ").slice(0), function(index, item) {
+            $("#lstCntry option").filter("[value='"+item+"']").prop("selected",true);            
+        });
+        
+        $('#simpleDivPartPref').slideToggle("slow");
+        $('#editDivPartPref').slideToggle("slow"); 
+            
+    });     
+    $('#cancPartPref').click(function(e){
+        e.preventDefault();
+        $('#simpleDivPartPref').slideToggle("slow");
+        $('#editDivPartPref').slideToggle("slow"); 
+        
+    });
+    $('#updPartPref').click(function(e){
+        e.preventDefault();
+       updatePartnerPref();
+       
+    });
 //  -----------------------------------  PARTNER PREFRENCES BUTTON CLICK STARTS -----------------------------------------
 });
 

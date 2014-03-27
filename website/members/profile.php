@@ -1052,13 +1052,11 @@
         {
             $ageFrom = $UserPPref[0]['ageFrom'];
             $ageTo = $UserPPref[0]['ageTo'];
-            $religion = $UserPPref[0]['religion'];
-            $cast = $UserPPref[0]['cast'];
-            $country = $UserPPref[0]['country'];
+            $countries = $UserPPref[0]['countries'];
         }
         else
         {      
-            $ageFrom = $ageTo = $religion = $cast = $country = "---";
+            $ageFrom = $ageTo = $countries = "---";
         }
         $body .= "<div id='simpleDivPartPref'>";
             $body .= "<div  class='form-group'>";
@@ -1072,20 +1070,21 @@
             $body .= "</td></tr></table>"; 
             $body .= "</div>";
             $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-3 control-label'>Age From:</label>";
-            $body .= "<div class='col-md-3'>{$ageFrom}</div>";
-            $body .= "<label class='col-md-3 control-label'>Age To:</label>";
-            $body .= "<div class='col-md-3'>{$ageTo}</div>";
+            $body .= "<label class='col-md-4 control-label'>Age From:</label>";
+            $body .= "<div class='col-md-2'>";
+            $body .= "<label  id='lblFromAge' style='font-weight: normal;'>{$ageFrom}</label>";
             $body .= "</div>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-3 control-label'>Religions:</label>";
-            $body .= "<div class='col-md-3'>{$religion}</div>";
-            $body .= "<label class='col-md-3 control-label'>Cast:</label>";
-            $body .= "<div class='col-md-3'>{$cast}</div>";
+            $body .= "<label class='col-md-4 control-label'>Age To:</label>";
+            $body .= "<div class='col-md-2'>";
+            $body .= "<label  id='lblToAge' style='font-weight: normal;'>{$ageTo}</label>";
             $body .= "</div>";
+            $body .= "</div>";
+            
             $body .= "<div  class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Country:</label>";
-            $body .= "<div class='col-md-8'>{$country}</div>";
+            $body .= "<div class='col-md-8'>";
+            $body .= "<label id='lblCntry' style='font-weight: normal;'>{$countries}</label>";
+            $body .= "</div>";
             $body .= "</div>";
         $body .= "</div>";          
         if($personalAcc){
@@ -1096,25 +1095,29 @@
                 $body .= "<td style='text-align: right;'>";  
                 $body .= "</td></tr></table>"; 
                 $body .= "</div>";
+                
                 $body .= "<div  class='form-group'>";
                 $body .= "<label class='col-md-4 control-label'>Age From:</label>";
-                $body .= "<div class='col-md-8'>{$ageFrom}</div>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<select id='ddlFromAge' name='ddlFromAge' class='form-control input-lg'>";
+                $body .= "</select>";
+                $body .=  "</div>";
                 $body .= "</div>";
+                
                 $body .= "<div  class='form-group'>";
                 $body .= "<label class='col-md-4 control-label'>Age To:</label>";
-                $body .= "<div class='col-md-8'>{$ageTo}</div>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<select id='ddlToAge' name='ddlToAge' class='form-control input-lg'>";
+                $body .= "</select>";
+                $body .=  "</div>";
                 $body .= "</div>";
-                $body .= "<div  class='form-group'>";
-                $body .= "<label class='col-md-4 control-label'>Religions:</label>";
-                $body .= "<div class='col-md-8'>{$religion}</div>";
-                $body .= "</div>";
-                $body .= "<div  class='form-group'>";
-                $body .= "<label class='col-md-4 control-label'>Cast:</label>";
-                $body .= "<div class='col-md-8'>{$cast}</div>";
-                $body .= "</div>";
+                
                 $body .= "<div  class='form-group'>";
                 $body .= "<label class='col-md-4 control-label'>Country:</label>";
-                $body .= "<div class='col-md-8'>{$country}</div>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<select name='lstCntry[]' id='lstCntry'  multiple='multiple' size='10'>";
+                $body .= "</select>";
+                $body .= "</div>";
                 $body .= "</div>";
                 
                 $body .= "<div  class='form-group'>";

@@ -70,11 +70,22 @@ switch ($data)
         $response = userInfoDB::updateUserHobbies($uid, $hobs, $ints, $dS, $langs);
         if($response)
         {
-            $result = $dS;
+            $result = true;
         }
         else 
             {
-                $result = $dS;
+                $result = false;
+            }
+        break;
+    case 'updatePartnerPref':
+        $response = userInfoDB::updateUserPartnerPrefs($uid, $fromAge, $toAge, $contrs);
+        if($response)
+        {
+            $result = true;
+        }
+        else 
+            {
+                $result = false;
             }
         break;
     default:

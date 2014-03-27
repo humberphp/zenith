@@ -235,11 +235,115 @@ function updateFamilyDetails(){
     });
 }
 
+function updateProfessionalDetails(){
+    $usid = $('#hdUId').val();
+    
+    $edu = $('#txtEdu').val();
+    $clg = $('#txtClg').val();
+    $adeg = $('#txtADeg').val();
+    $occp = $('#txtOccp').val();
+    $empin = $('input[name=rdbEmpIn]:checked').val();  
+    $ainc = $('#txtAInc').val();
+    
+    $.ajax({
+            url:"../commonService.php",  
+            type:"POST",
+            data:{
+                    data:"updateProfDet",
+                    uid:$usid,
+                    educ:$edu,
+                    colg:$clg,
+                    adegree:$adeg,
+                    occup:$occp,
+                    empdin:$empin,
+                    anninc:$ainc
+            },
+            success:function(msg){
+                alert(msg);
+                if(msg)
+                {                          
+                    $('#lblEdu').html($edu);
+                    $('#lblColg').html($clg);
+                    $('#lblADeg').html($adeg);
+                    $('#lblOccup').html($occp);
+                    $('#lblEmpIn').html($empin);
+                    $('#lblAIncome').html($ainc);
+                    
+                    $('#simpleDivProfDet').slideToggle("slow");
+                    $('#editDivProfDet').slideToggle("slow"); 
+                    $('#lblMsg').html('Professional details updated!');                    
+                }
+            },
+            dataType:"text"
+    });
+}
+
+function updateHobbies(){
+    $usid = $('#hdUId').val();
+    $langArray = [];
+    $("#spokenLangs option:selected").each(function () {
+            var $this = $(this);
+            if ($this.length) {
+             $langArray.push($this.text());
+            }
+         });
+    $selectedLangs = $langArray.join(', ');
+         
+    $chkHBArray = [];
+    $("[name=chkHobbies]:checked").each(function() {
+        $chkHBArray.push($(this).val());
+    });        
+    $selectedHobbies = $chkHBArray.join(', ');
+    
+    $chkIntArray = [];
+    $("[name=chkInterests]:checked").each(function() {
+        $chkIntArray.push($(this).val());
+    });        
+    $selectedInts = $chkIntArray.join(', ');
+    
+    $chkDSArray = [];
+    $("[name=chkDressStyle]:checked").each(function() {
+        $chkDSArray.push($(this).val());
+    });        
+    $selectedDS = $chkDSArray.join(', ');
+    
+//    alert($selectedHobbies);
+//    alert($selectedInts);
+//    alert($selectedDS);
+//    alert($selectedLangs);
+    
+    
+    $.ajax({
+            url:"../commonService.php",  
+            type:"POST",
+            data:{
+                    data:"updateHobbies",
+                    uid:$usid,
+                    hobs:$selectedHobbies,
+                    ints:$selectedInts,
+                    dS:$selectedDS,
+                    langs:$selectedLangs
+            },
+            success:function(msg){
+                alert(msg);
+                if(msg)
+                {                          
+                    $('#lblHobbies').html($selectedHobbies);
+                    $('#lblInts').html($selectedInts);
+                    $('#lblDStyles').html($selectedDS);
+                    $('#lblSLanguages').html($selectedLangs);
+                    
+                    $('#simpleDivHobbies').slideToggle("slow");
+                    $('#editDivHobbies').slideToggle("slow"); 
+                    $('#lblMsg').html('Hobbies and Interests updated!');                    
+                }
+            },
+            dataType:"text"
+    });
+}
+
 $(document).ready(function(){
-    $('#simpleDivLoc').show();
-    $('#editDivLoc').hide();  
-    $('#simpleDivFamDet').show();
-    $('#editDivFamDet').hide();     
+    showHide();  
     loadCountries();
      
 //  -----------------------------------  (AT PAGE LOAD) LOAD COUNTRIES SECTION STARTS -----------------------------------------
@@ -260,11 +364,9 @@ $(document).ready(function(){
             $('#ddlCities').val($cit);
         }           
         
-        
+        showHide();
         $('#simpleDivLoc').slideToggle("slow");
-        $('#editDivLoc').slideToggle("slow");  
-        $('#simpleDivFamDet').show("slow");
-        $('#editDivFamDet').hide("slow");  
+        $('#editDivLoc').slideToggle("slow"); 
     });    
     $('#cancDivLoc').click(function(e){
         e.preventDefault();
@@ -279,7 +381,6 @@ $(document).ready(function(){
 //  -----------------------------------  LOCATION BUTTON CLICK ENDS -----------------------------------------
 
      
-
 //  -----------------------------------  FAMILY DETAILS BUTTON CLICK STARTS -----------------------------------------
     $('#famDetEdit').click(function(e){
         e.preventDefault();
@@ -301,10 +402,10 @@ $(document).ready(function(){
         $('#txtFatherOcc').val($('#lblFOcc').text());
         $('#txtMotherOcc').val($('#lblMOcc').text());
         
+        showHide();
         $('#simpleDivFamDet').slideToggle("slow");
         $('#editDivFamDet').slideToggle("slow"); 
-        $('#simpleDivLoc').show("slow");
-        $('#editDivLoc').hide("slow");     
+        
     });    
     $('#cancFamDet').click(function(e){
         e.preventDefault();
@@ -316,5 +417,99 @@ $(document).ready(function(){
         e.preventDefault();
         updateFamilyDetails();
     });
-//  -----------------------------------  FAMILY DETAILS BUTTON CLICK STARTS -----------------------------------------
+//  -----------------------------------  FAMILY DETAILS BUTTON CLICK ENDS -----------------------------------------
+
+     
+//  -----------------------------------  PROFESSIONAL DETAILS BUTTON CLICK STARTS -----------------------------------------
+    $('#profEdit').click(function(e){
+        e.preventDefault();
+             
+        $("[name=rdbEmpIn]").prop("checked", false);
+        
+        $("[name=rdbEmpIn]").filter("[value='"+$('#lblEmpIn').text()+"']").prop("checked",true); 
+        
+        $('#txtEdu').val($('#lblEdu').text());
+        $('#txtClg').val($('#lblColg').text());
+        $('#txtADeg').val($('#lblADeg').text());
+        $('#txtOccp').val($('#lblOccup').text());
+        $('#txtAInc').val($('#lblAIncome').text());
+        
+        showHide();     
+        $('#simpleDivProfDet').slideToggle("slow");
+        $('#editDivProfDet').slideToggle("slow"); 
+    });    
+    $('#cancProfDet').click(function(e){
+        e.preventDefault();
+        $('#simpleDivProfDet').slideToggle("slow");
+        $('#editDivProfDet').slideToggle("slow"); 
+        
+    });    
+    $('#updProfDet').click(function(e){
+        e.preventDefault();
+        updateProfessionalDetails();
+    });
+     
+//  -----------------------------------  PROFESSIONAL DETAILS BUTTON CLICK ENDS -----------------------------------------
+
+
+//  -----------------------------------  HOBBIES BUTTON CLICK STARTS -----------------------------------------
+    $('#hobbiesEdit').click(function(e){
+        e.preventDefault();
+        showHide();     
+        $('#simpleDivHobbies').slideToggle("slow");
+        $('#editDivHobbies').slideToggle("slow"); 
+        
+        $("[name=chkHobbies]").prop("checked", false);
+        $("[name=chkInterests]").prop("checked", false);
+        $("[name=chkDressStyle]").prop("checked", false);
+        $("#spokenLangs option").prop("selected", false);
+        
+        $hbs = $('#lblHobbies').html();
+        $Ints = $('#lblInts').html();
+        $Dstyles = $('#lblDStyles').html();
+        $langs = $('#lblSLanguages').html();
+        
+        $.each($hbs.split(", ").slice(0), function(index, item) {
+            $("[name=chkHobbies]").filter("[value='"+item+"']").prop("checked",true);            
+        });
+        $.each($Ints.split(", ").slice(0), function(index, item) {
+            $("[name=chkInterests]").filter("[value='"+item+"']").prop("checked",true);            
+        });
+        $.each($Dstyles.split(", ").slice(0), function(index, item) {
+            $("[name=chkDressStyle]").filter("[value='"+item+"']").prop("checked",true);            
+        });
+        $.each($langs.split(", ").slice(0), function(index, item) {
+            $("#spokenLangs option").filter("[value='"+item+"']").prop("selected",true);            
+        });
+            
+    });     
+    $('#cancHobbies').click(function(e){
+        e.preventDefault();
+        $('#simpleDivHobbies').slideToggle("slow");
+        $('#editDivHobbies').slideToggle("slow"); 
+        
+    });
+    $('#updHobbies').click(function(e){
+        e.preventDefault();
+       updateHobbies();
+       
+    });
+//  -----------------------------------  HOBBIES DETAILS BUTTON CLICK ENDS -----------------------------------------
+
+
+//  -----------------------------------  PARTNER PREFRENCES BUTTON CLICK STARTS -----------------------------------------
+//  -----------------------------------  PARTNER PREFRENCES BUTTON CLICK STARTS -----------------------------------------
 });
+
+function showHide(){
+        $('#simpleDivLoc').show("slow");
+        $('#editDivLoc').hide("slow");     
+        $('#simpleDivFamDet').show("slow");
+        $('#editDivFamDet').hide("slow"); 
+        $('#simpleDivProfDet').show("slow");
+        $('#editDivProfDet').hide("slow");     
+        $('#simpleDivHobbies').show("slow");
+        $('#editDivHobbies').hide("slow");     
+        $('#simpleDivPartPref').show("slow");
+        $('#editDivPartPref').hide("slow");  
+}

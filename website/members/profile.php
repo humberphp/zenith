@@ -498,61 +498,61 @@
             $body .= "</div>";
             $body .= "</div>";   
         $body .= "</div>";                   
+        if($personalAcc){
+               $body .= "<div id='editDivLoc'>";
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<div class='col-md-12'><hr /></div>";
+                   $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
+                   $body .= "<td style='text-align: right;'></td></tr></table>"; 
+                   $body .= "</div>";
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>Country:</label>"; 
+                   $body .= "<div class='col-md-8'>";
+                   $body .= "<input type='hidden' name='hdnCountryId' id='hdnCountryId' value='{$countryId}'/>";
+                   $body .= "<select name='ddlCountry' id='ddlCountry' class='form-control input-lg' onchange='loadStates();'>";
+                   $body .= "</select>";
+                   $body .= "</div>";
+                   $body .= "</div>";
 
-        $body .= "<div id='editDivLoc'>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<div class='col-md-12'><hr /></div>";
-            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Location</strong></h3></td>";   
-            $body .= "<td style='text-align: right;'></td></tr></table>"; 
-            $body .= "</div>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Country:</label>"; 
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='hidden' name='hdnCountryId' id='hdnCountryId' value='{$countryId}'/>";
-            $body .= "<select name='ddlCountry' id='ddlCountry' class='form-control input-lg' onchange='loadStates();'>";
-            $body .= "</select>";
-            $body .= "</div>";
-            $body .= "</div>";
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>Province:</label>";
+                   $body .= "<div class='col-md-8'>";            
+                   $body .= "<input type='hidden' name='hdnStateId' id='hdnStateId' value='{$stateId}'/>";
+                   $body .= "<select name='ddlStates' id='ddlStates' class='form-control input-lg' onchange='loadCities();'>";
+                   $body .= "</select>";
+                   $body .= "</div>";
+                   $body .= "</div>";
 
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Province:</label>";
-            $body .= "<div class='col-md-8'>";            
-            $body .= "<input type='hidden' name='hdnStateId' id='hdnStateId' value='{$stateId}'/>";
-            $body .= "<select name='ddlStates' id='ddlStates' class='form-control input-lg' onchange='loadCities();'>";
-            $body .= "</select>";
-            $body .= "</div>";
-            $body .= "</div>";
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>City:</label>";
+                   $body .= "<div class='col-md-8'>";            
+                   $body .= "<input type='hidden' name='hdnCityId' id='hdnCityId' value='{$cityId}'/>";
+                   $body .= "<select name='ddlCities' id='ddlCities' class='form-control input-lg'>";
+                   $body .= "</select>";
+                   $body .= "</div>";
+                   $body .= "</div>";
 
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>City:</label>";
-            $body .= "<div class='col-md-8'>";            
-            $body .= "<input type='hidden' name='hdnCityId' id='hdnCityId' value='{$cityId}'/>";
-            $body .= "<select name='ddlCities' id='ddlCities' class='form-control input-lg'>";
-            $body .= "</select>";
-            $body .= "</div>";
-            $body .= "</div>";
-
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtCitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Resident Status:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtResident' name='txtResident' value='{$residentStatus}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";  
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='submit' name='updLoc' id='updLoc' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-            $body .= "<a href='#' id='cancDivLoc' class='btn btn-success'>Cancel</a>";
-            $body .= "</div>";            
-            $body .= "</div>";
-        $body .= "</div>";            
-        
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
+                   $body .= "<div class='col-md-8'>";
+                   $body .= "<input type='text' id='txtCitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
+                   $body .= "</div>";
+                   $body .= "</div>";
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>Resident Status:</label>";
+                   $body .= "<div class='col-md-8'>";
+                   $body .= "<input type='text' id='txtResident' name='txtResident' value='{$residentStatus}' class='form-control input-md input-lg' required='required' />";
+                   $body .= "</div>";
+                   $body .= "</div>";  
+                   $body .= "<div  class='form-group'>";
+                   $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+                   $body .= "<div class='col-md-8'>";
+                   $body .= "<input type='submit' name='updLoc' id='updLoc' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                   $body .= "<a href='#' id='cancDivLoc' class='btn btn-success'>Cancel</a>";
+                   $body .= "</div>";            
+                   $body .= "</div>";
+               $body .= "</div>";            
+        }
   //=========================== USER LOCATION SECTIONS [ENDS HERE]==================================
     
   //=========================== USER FAMILY DETAILS SECTIONS [STARTS HERE]==================================
@@ -643,114 +643,115 @@
             $body .= "</div>";
             $body .= "</div>";
         $body .= "</div>";          
-        
-        $body .= "<div id='editDivFamDet'>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<div class='col-md-12'><hr /></div>";
-            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
-            $body .= "<td style='text-align: right;'>";  
-            $body .= "</td></tr></table>"; 
+        if($personalAcc){
+            $body .= "<div id='editDivFamDet'>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<div class='col-md-12'><hr /></div>";
+                $body .= "<table style='width: 100%;'><tr><td><h3><strong>Family Details</strong></h3></td>";    
+                $body .= "<td style='text-align: right;'>";  
+                $body .= "</td></tr></table>"; 
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Living With:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Parents'";
+                $body .= " type='radio'> Parents</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Alone'";
+                $body .= " type='radio'> Alone</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Family Type:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Joint Family'";
+                $body .= " type='radio'> Joint Family</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Nuclear'";
+                $body .= " type='radio'> Nuclear</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Others'";
+                $body .= " type='radio'> Others</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Family Values:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Traditional'";
+                $body .= " type='radio'> Traditional</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Moderate'";
+                $body .= " type='radio'> Moderate</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Liberal'";
+                $body .= " type='radio'> Liberal</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Orthodox'";
+                $body .= " type='radio'> Orthodox</label>";            
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Family Status:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Middle Class'";
+                $body .= " type='radio'> Middle Class</label>"; 
+                $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Upper Middle Class'";
+                $body .= " type='radio'> Upper Middle Class</label>";  
+                $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Rich'";
+                $body .= " type='radio'> Rich</label>"; 
+                $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Affluent'";
+                $body .= " type='radio'> Affluent</label>";             
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Brothers:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtNumBro' name='txtNumBro' value='{$noOfBrothers}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Sisters:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtNumSis' name='txtNumSis' value='{$noOfSisters}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Married Sisters:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtMrdSis' name='txtMrdSis' value='{$marriedSisters}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Married Brothers:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtMrdBro' name='txtMrdBro' value='{$marriedBrothers}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Father Occupation:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtFatherOcc' name='txtFatherOcc' value='{$fatherOccupation}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Mother Occupation:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtMotherOcc' name='txtMotherOcc' value='{$motherOccupation}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='submit' name='updFamDet' id='updFamDet' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<a href='#' id='cancFamDet' class='btn btn-success'>Cancel</a>";
+                $body .= "</div>";            
+                $body .= "</div>";
             $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Living With:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Parents'";
-            $body .= " type='radio'> Parents</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbLiv' value='Alone'";
-            $body .= " type='radio'> Alone</label>";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Family Type:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Joint Family'";
-            $body .= " type='radio'> Joint Family</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Nuclear'";
-            $body .= " type='radio'> Nuclear</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamType' value='Others'";
-            $body .= " type='radio'> Others</label>";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Family Values:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Traditional'";
-            $body .= " type='radio'> Traditional</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Moderate'";
-            $body .= " type='radio'> Moderate</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Liberal'";
-            $body .= " type='radio'> Liberal</label>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamVal' value='Orthodox'";
-            $body .= " type='radio'> Orthodox</label>";            
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Family Status:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Middle Class'";
-            $body .= " type='radio'> Middle Class</label>"; 
-            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Upper Middle Class'";
-            $body .= " type='radio'> Upper Middle Class</label>";  
-            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Rich'";
-            $body .= " type='radio'> Rich</label>"; 
-            $body .= "<label  class='radio-inline'><input name='rdbFamStat' value='Affluent'";
-            $body .= " type='radio'> Affluent</label>";             
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Brothers:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtNumBro' name='txtNumBro' value='{$noOfBrothers}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Sisters:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtNumSis' name='txtNumSis' value='{$noOfSisters}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Married Sisters:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtMrdSis' name='txtMrdSis' value='{$marriedSisters}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Married Brothers:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtMrdBro' name='txtMrdBro' value='{$marriedBrothers}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Father Occupation:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtFatherOcc' name='txtFatherOcc' value='{$fatherOccupation}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>Mother Occupation:</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='text' id='txtMotherOcc' name='txtMotherOcc' value='{$motherOccupation}' class='form-control input-md input-lg' required='required' />";
-            $body .= "</div>";
-            $body .= "</div>";
-            $body .= "<div  class='form-group'>";
-            $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
-            $body .= "<div class='col-md-8'>";
-            $body .= "<input type='submit' name='updFamDet' id='updFamDet' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-            $body .= "<a href='#' id='cancFamDet' class='btn btn-success'>Cancel</a>";
-            $body .= "</div>";            
-            $body .= "</div>";
-        $body .= "</div>";          
+        }
   //=========================== USER FAMILY DETAILS SECTIONS [ENDS HERE]==================================
   //
   //=========================== USER PROFESSIONAL SECTIONS [STARTS HERE]==================================
@@ -767,33 +768,110 @@
         {      
             $education = $college = $additionalDegree = $occupation = $employedIn = $annualIncome = "---";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Professional Details</strong></h3></td>";    
-        $body .= "<td style='text-align: right;'>";        
+        
+        $body .= "<div id='simpleDivProfDet'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Professional Details</strong></h3></td>";    
+            $body .= "<td style='text-align: right;'>";        
+            if($personalAcc){
+//                $body .= "<a href='profile.php?actEdit=ProfDet'>Edit</a>";
+                $body .= "<a href='#' id='profEdit'>Edit</a>";
+            }
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Education:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblEdu' name='lblEdu' style='font-weight: normal;'>{$education}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>College:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblColg' name='lblColg' style='font-weight: normal;'>{$college}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Additional Degree:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblADeg' name='lblADeg' style='font-weight: normal;'>{$additionalDegree}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Occupation:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblOccup' name='lblOccup' style='font-weight: normal;'>{$occupation}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Employed In:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblEmpIn' name='lblEmpIn' style='font-weight: normal;'>{$employedIn}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Annual Income:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblAIncome' name='lblAIncome' style='font-weight: normal;'>{$annualIncome}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+        $body .= "</div>";          
         if($personalAcc){
-            $body .= "<a href='profile.php?actEdit=ProfDet'>Edit</a>";
+            $body .= "<div id='editDivProfDet'>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<div class='col-md-12'><hr /></div>";
+                $body .= "<table style='width: 100%;'><tr><td><h3><strong>Professional Details</strong></h3></td>";    
+                $body .= "<td style='text-align: right;'>";  
+                $body .= "</td></tr></table>"; 
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Education:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtEdu' name='txtEdu' value='{$education}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>College:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtClg' name='txtClg' value='{$college}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Additional Degree:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtADeg' name='txtADeg' value='{$additionalDegree}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Occupation:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtOccp' name='txtOccp' value='{$occupation}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Employed In:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label  class='radio-inline'><input name='rdbEmpIn' value='Private'";
+                $body .= " type='radio'> Private</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbEmpIn' value='Government'";
+                $body .= " type='radio'> Government</label>";
+                $body .= "<label  class='radio-inline'><input name='rdbEmpIn' value='Others'";
+                $body .= " type='radio'> Others</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Annual Income:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='text' id='txtAInc' name='txtAInc' value='{$annualIncome}' class='form-control input-md input-lg' required='required' />";
+                $body .= "</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='submit' name='updProfDet' id='updProfDet' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<a href='#' id='cancProfDet' class='btn btn-success'>Cancel</a>";
+                $body .= "</div>";            
+                $body .= "</div>";
+            $body .= "</div>";
         }
-        $body .= "</td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Education:</label>";
-        $body .= "<div class='col-md-3'>{$education}</div>";
-        $body .= "<label class='col-md-3 control-label'>College:</label>";
-        $body .= "<div class='col-md-3'>{$college}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Additional Degree:</label>";
-        $body .= "<div class='col-md-3'>{$additionalDegree}</div>";
-        $body .= "<label class='col-md-3 control-label'>Occupation:</label>";
-        $body .= "<div class='col-md-3'>{$occupation}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Employed In:</label>";
-        $body .= "<div class='col-md-3'>{$employedIn}</div>";
-        $body .= "<label class='col-md-3 control-label'>Annual Income:</label>";
-        $body .= "<div class='col-md-3'>{$annualIncome}</div>";
-        $body .= "</div>";
   //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
     
   //
@@ -809,28 +887,164 @@
         {      
             $hobbies = $interests = $dressStyle = $spokenLanguage = "---";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";      
-        $body .= "<td style='text-align: right;'>";        
+        $body .= "<div id='simpleDivHobbies'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";      
+            $body .= "<td style='text-align: right;'>";        
+            if($personalAcc){
+//                $body .= "<a href='profile.php?actEdit=hopEdit'>Edit</a>";
+                $body .= "<a href='#' id='hobbiesEdit'>Edit</a>";
+            }
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Hobbies:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblHobbies' name='lblHobbies' style='font-weight: normal;'>{$hobbies}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Interests:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblInts' name='lblInts' style='font-weight: normal;'>{$interests}</label>";
+            $body .= "</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Dress Style:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblDStyles' name='lblDStyles' style='font-weight: normal;'>{$dressStyle}</label>";
+            $body .= "</div>";
+            $body .= "<label class='col-md-3 control-label'>Spoken Language:</label>";
+            $body .= "<div class='col-md-3'>";
+            $body .= "<label id='lblSLanguages' name='lblSLanguages' style='font-weight: normal;'>{$spokenLanguage}</label>";
+            $body .=  "</div>";
+            $body .= "</div>";
+        $body .= "</div>";          
         if($personalAcc){
-            $body .= "<a href='profile.php?actEdit=hopEdit'>Edit</a>";
+            $body .= "<div id='editDivHobbies'>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<div class='col-md-12'><hr /></div>";
+                $body .= "<table style='width: 100%;'><tr><td><h3><strong>Hobbies and Interests</strong></h3></td>";      
+                $body .= "<td style='text-align: right;'>";
+                $body .= "</td></tr></table>"; 
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Hobbies:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Acting' type='checkbox'>";
+                  $body .= "Acting";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Pets' type='checkbox'>";
+                  $body .= "Pets";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Collection' type='checkbox'>";
+                  $body .= "Collection";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Dancing' type='checkbox'>";
+                  $body .= "Dancing";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Fishing' type='checkbox'>";
+                  $body .= "Fishing";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Cooking' type='checkbox'>";
+                  $body .= "Cooking";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Photography' type='checkbox'>";
+                  $body .= "Photography";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Nature' type='checkbox'>";
+                  $body .= "Nature";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkHobbies'>";
+                  $body .= "<input name='chkHobbies' id='chkHobbies' value='Painting' type='checkbox'>";
+                  $body .= "Painting";
+                $body .= "</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+                
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Interests:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Palmistry' type='checkbox'>";
+                  $body .= "Palmistry";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Graphology' type='checkbox'>";
+                  $body .= "Graphology";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Numerology' type='checkbox'>";
+                  $body .= "Numerology";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Collectibles' type='checkbox'>";
+                  $body .= "Collectibles";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Astronomy' type='checkbox'>";
+                  $body .= "Astronomy";
+                $body .= "</label>";
+                $body .= "<label class='checkbox-inline' for='chkInterests'>";
+                  $body .= "<input name='chkInterests' id='chkInterests' value='Handicraft' type='checkbox'>";
+                  $body .= "Handicraft";
+                $body .= "</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+                
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Dress Style:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<label class='checkbox-inline' for='chkDressStyle'>";
+                  $body .= "<input name='chkDressStyle' id='chkDressStyle' value='Casual Wear' type='checkbox'>";
+                  $body .= "Casual Wear";
+                $body .= "</label>"; 
+                $body .= "<label class='checkbox-inline' for='chkDressStyle'>";
+                  $body .= "<input name='chkDressStyle' id='chkDressStyle' value='Designer Wear' type='checkbox'>";
+                  $body .= "Designer Wear";
+                $body .= "</label>"; 
+                $body .= "<label class='checkbox-inline' for='chkDressStyle'>";
+                  $body .= "<input name='chkDressStyle' id='chkDressStyle' value='Indian Wear' type='checkbox'>";
+                  $body .= "Indian Wear";
+                $body .= "</label>"; 
+                $body .= "<label class='checkbox-inline' for='chkDressStyle'>";
+                  $body .= "<input name='chkDressStyle' id='chkDressStyle' value='Western Wear' type='checkbox'>";
+                  $body .= "Western Wear";
+                $body .= "</label>";
+                $body .= "</div>";
+                $body .= "</div>";
+                
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Spoken Language:</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<select name='spokenLangs[]' id='spokenLangs' multiple='multiple' size='10'>";
+                $body .= "<option value='Arabic'>Arabic</option>";
+                $body .= "<option value='English'>English</option>";
+                $body .= "<option value='French'>French</option>";
+                $body .= "<option value='Punjabi'>Punjabi</option>";
+                $body .= "<option value='Russian'>Russian</option>";
+                $body .= "<option value='Spanish'>Spanish</option>";
+                $body .= "</select>";
+                $body .= "</div>";
+                $body .= "</div>";
+                
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='submit' name='updLang' id='updHobbies' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<a href='#' id='cancHobbies' class='btn btn-success'>Cancel</a>";
+                $body .= "</div>";            
+                $body .= "</div>";
+            $body .= "</div>";     
         }
-        $body .= "</td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Hobbies:</label>";
-        $body .= "<div class='col-md-3'>{$hobbies}</div>";
-        $body .= "<label class='col-md-3 control-label'>Interests:</label>";
-        $body .= "<div class='col-md-3'>{$interests}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Dress Style:</label>";
-        $body .= "<div class='col-md-3'>{$dressStyle}</div>";
-        $body .= "<label class='col-md-3 control-label'>Spoken Language:</label>";
-        $body .= "<div class='col-md-3'>{$spokenLanguage}</div>";
-        $body .= "</div>";
-  //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
+  //=========================== USER HOBBIES DETAILS SECTIONS [ENDS HERE]==================================
     
     
   //=========================== USER PARTNER PREFERENCES SECTIONS [STARTS HERE]==================================
@@ -841,47 +1055,77 @@
             $religion = $UserPPref[0]['religion'];
             $cast = $UserPPref[0]['cast'];
             $country = $UserPPref[0]['country'];
-            $residentStatus = $UserPPref[0]['residentStatus'];
-            $citizen = $UserPPref[0]['citizen'];
-            $height = $UserPPref[0]['height'];
         }
         else
         {      
-            $ageFrom = $ageTo = $religion = $cast = $country = $residentStatus = $citizen = $height = "---";
+            $ageFrom = $ageTo = $religion = $cast = $country = "---";
         }
-        $body .= "<div  class='form-group'>";
-        $body .= "<div class='col-md-12'><hr /></div>";
-        $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";      
-        $body .= "<td style='text-align: right;'>";        
+        $body .= "<div id='simpleDivPartPref'>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<div class='col-md-12'><hr /></div>";
+            $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";      
+            $body .= "<td style='text-align: right;'>";        
+            if($personalAcc){
+//                $body .= "<a href='profile.php?actEdit=partEdit'>Edit</a>";
+                $body .= "<a href='#' id='partPrefEdit'>Edit</a>";
+            }
+            $body .= "</td></tr></table>"; 
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Age From:</label>";
+            $body .= "<div class='col-md-3'>{$ageFrom}</div>";
+            $body .= "<label class='col-md-3 control-label'>Age To:</label>";
+            $body .= "<div class='col-md-3'>{$ageTo}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-3 control-label'>Religions:</label>";
+            $body .= "<div class='col-md-3'>{$religion}</div>";
+            $body .= "<label class='col-md-3 control-label'>Cast:</label>";
+            $body .= "<div class='col-md-3'>{$cast}</div>";
+            $body .= "</div>";
+            $body .= "<div  class='form-group'>";
+            $body .= "<label class='col-md-4 control-label'>Country:</label>";
+            $body .= "<div class='col-md-8'>{$country}</div>";
+            $body .= "</div>";
+        $body .= "</div>";          
         if($personalAcc){
-            $body .= "<a href='profile.php?actEdit=partEdit'>Edit</a>";
+            $body .= "<div id='editDivPartPref'>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<div class='col-md-12'><hr /></div>";
+                $body .= "<table style='width: 100%;'><tr><td><h3><strong>Partner Preferences</strong></h3></td>";      
+                $body .= "<td style='text-align: right;'>";  
+                $body .= "</td></tr></table>"; 
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Age From:</label>";
+                $body .= "<div class='col-md-8'>{$ageFrom}</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Age To:</label>";
+                $body .= "<div class='col-md-8'>{$ageTo}</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Religions:</label>";
+                $body .= "<div class='col-md-8'>{$religion}</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Cast:</label>";
+                $body .= "<div class='col-md-8'>{$cast}</div>";
+                $body .= "</div>";
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>Country:</label>";
+                $body .= "<div class='col-md-8'>{$country}</div>";
+                $body .= "</div>";
+                
+                $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
+                $body .= "<div class='col-md-8'>";
+                $body .= "<input type='submit' name='updPartPref' id='updPartPref' value='Update' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<a href='#' id='cancPartPref' class='btn btn-success'>Cancel</a>";
+                $body .= "</div>";            
+                $body .= "</div>";
+            $body .= "</div>";     
         }
-        $body .= "</td></tr></table>"; 
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Age From:</label>";
-        $body .= "<div class='col-md-3'>{$ageFrom}</div>";
-        $body .= "<label class='col-md-3 control-label'>Age To:</label>";
-        $body .= "<div class='col-md-3'>{$ageTo}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Religions:</label>";
-        $body .= "<div class='col-md-3'>{$religion}</div>";
-        $body .= "<label class='col-md-3 control-label'>Cast:</label>";
-        $body .= "<div class='col-md-3'>{$cast}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Country:</label>";
-        $body .= "<div class='col-md-3'>{$country}</div>";
-        $body .= "<label class='col-md-3 control-label'>Resident Status:</label>";
-        $body .= "<div class='col-md-3'>{$residentStatus}</div>";
-        $body .= "</div>";
-        $body .= "<div  class='form-group'>";
-        $body .= "<label class='col-md-3 control-label'>Citizen:</label>";
-        $body .= "<div class='col-md-3'>{$citizen}</div>";
-        $body .= "<label class='col-md-3 control-label'>Height:</label>";
-        $body .= "<div class='col-md-3'>{$height}</div>";
-        $body .= "</div>";
   //=========================== USER PROFESSIONAL DETAILS SECTIONS [ENDS HERE]==================================
         $body .= "</form>";
         

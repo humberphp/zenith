@@ -70,7 +70,7 @@ class userInfoDB{
     
     public function getUserProfession($userId){         
         $conn = Database::getDB(); 
-        $sql = "CALL getUserProfession(:UsersId)";
+        $sql = "CALL spGetUserProfession(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
@@ -136,5 +136,36 @@ class userInfoDB{
         $stmt->closeCursor();
         return $row_count;
     }
+        
+    public static function updateProfessionalDetails($userId, $education, $college, $addDegree, $occupation, $employedIn, $annualInc){
+        $conn = Database::getDB(); 
+        $sql = "CALL spUserProfession(:UsersId, :educations, :colleges, :additionalDeg, :occu, :employed, :annual)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('educations', $education, PDO::PARAM_STR, 200);
+        $stmt->bindParam('colleges', $college, PDO::PARAM_STR, 50);
+        $stmt->bindParam('additionalDeg', $addDegree, PDO::PARAM_STR, 50);
+        $stmt->bindParam('occu', $occupation, PDO::PARAM_STR, 50);
+        $stmt->bindParam('employed', $employedIn, PDO::PARAM_STR, 50);
+        $stmt->bindParam('annual', $annualInc, PDO::PARAM_STR, 50);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }
+        
+    public static function updateUserHobbies($userId, $hobs, $ints, $dS, $langs){
+        $conn = Database::getDB(); 
+        $sql = "CALL spUpdateUserHobbies(:UsersId, :hobby, :interest, :dressStyles, :languages)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('hobby', $hobs, PDO::PARAM_STR, 500);
+        $stmt->bindParam('interest', $ints, PDO::PARAM_STR, 500);
+        $stmt->bindParam('dressStyles', $dS, PDO::PARAM_STR, 200);
+        $stmt->bindParam('languages', $langs, PDO::PARAM_STR, 200);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }
+    
 }
 ?>

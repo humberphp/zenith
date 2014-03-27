@@ -55,6 +55,28 @@ switch ($data)
                 $result = false;
             }
         break;
+    case 'updateProfDet':
+        $response = userInfoDB::updateProfessionalDetails($uid, $educ, $colg, $adegree, $occup, $empdin, $anninc);
+        if($response)
+        {
+            $result = true;
+        }
+        else 
+            {
+                $result = false;
+            }
+        break;
+    case 'updateHobbies':
+        $response = userInfoDB::updateUserHobbies($uid, $hobs, $ints, $dS, $langs);
+        if($response)
+        {
+            $result = $dS;
+        }
+        else 
+            {
+                $result = $dS;
+            }
+        break;
     default:
         $result = "fail";            
 }

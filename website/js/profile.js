@@ -339,8 +339,7 @@ function updateHobbies(){
     });
 }
 
-function updatePartnerPref()
-{
+function updatePartnerPref(){
     $usid = $('#hdUId').val();
     $langArray = [];
     $("#lstCntry option:selected").each(function () {
@@ -380,8 +379,7 @@ function updatePartnerPref()
     });
 }
 
-function loadAges($selectId)
-{
+function loadAges($selectId){
     for( var ind = 20; ind <= 50; ind++ ) 
     {
         $($selectId).append('<option value="'+ ind +'">' 

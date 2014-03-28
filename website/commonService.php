@@ -9,6 +9,14 @@ $response;
 $result;
 switch ($data)
 {
+    case 'getContactDetails':
+	$response = commonDB::getContactDetails($uid, $contId);
+        $result = array();   
+        foreach ($response as $cont):
+            $set = array("email" => $cont['email'],"phone"=>$cont['phone']);         
+            $result[]=$set;
+        endforeach;
+        break;
     case 'getCountries':
 	$response = commonDB::getCountries();
         $result = array();   
@@ -79,6 +87,17 @@ switch ($data)
         break;
     case 'updatePartnerPref':
         $response = userInfoDB::updateUserPartnerPrefs($uid, $fromAge, $toAge, $contrs);
+        if($response)
+        {
+            $result = true;
+        }
+        else 
+            {
+                $result = false;
+            }
+        break;
+    case 'updateBasicDet':
+        $response = userInfoDB::updateUserBasicInfo($uid, $BodyT, $Complx, $PhysicalSt, $Height, $Weight, $MotherT, $MartialS, $DrinkH, $SmokeH, $EHabit, $HairC);
         if($response)
         {
             $result = true;

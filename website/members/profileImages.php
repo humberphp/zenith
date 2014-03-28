@@ -49,6 +49,10 @@ if (isset($_FILES['upImage']['tmp_name']) && !empty($_FILES['upImage']['tmp_name
     if ($success) {
         $message = 'Image saved successfully!';
     }
+    else
+    {
+        $message = "Error uploading file!";
+    }
 }
 
 $imagesAll = $objUserImgs->getUserImages($_SESSION['loginUserId']);
@@ -93,8 +97,7 @@ if (count($imagesAll) > 0) {
         $thumbnailPath = $value['thumbnail'];
         $fullImagePath = $value['image']; 
         $imageId = $value['imageId'];
-        //$deleteUrl = "profileImages.php?action=delete&id={$imageId}&thumbnailurl=" . urlencode($thumbnailPath) . "&fullimageurl=" . urlencode($fullImagePath);
-        
+         
         $isMainImage = $value['isMainImage'];
         $body .= "<li>";
         $body .= "<a href='#'><img src='../{$thumbnailPath}'></a>";

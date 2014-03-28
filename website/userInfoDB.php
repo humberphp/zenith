@@ -14,12 +14,12 @@ class userInfoDB{
         return $rows;
     }
     
-    public function getUserDetailsById($userId){    
+    public function getUserDetailsById($searchId, $userId){    
         $conn = Database::getDB(); 
-        $sql = "CALL spGetUserDetailsById(:UsersId)";
+        $sql = "CALL spGetUserDetailsById(:UsersId, :SearchId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
+        $stmt->bindParam('SearchId', $searchId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;
@@ -79,13 +79,13 @@ class userInfoDB{
         return $rows;
     }   
     
-    public function updateUserBasicInfo($bodyType, $complexion, $physicalStatus, $height, $weight
+    public  static function updateUserBasicInfo($userId, $bodyType, $complexion, $physicalStatus, $height, $weight
             , $motherTounge, $martialStatus, $drinkHabits, $smokeHabits, $eatingHabits, $hairColor){
         $conn = Database::getDB(); 
         $sql = "CALL spUpdateUserBasicInfo(:UsersId, :bodyTypes, :complexions, :physicalStatuss, :heights"
                 . ", :weights, :motherTounges, :martialStatuss, :drinkHabitss, :smokeHabitss, :eatingHabitss, :hairColors)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('UsersId', $_SESSION['loginUserId'], PDO::PARAM_INT, 11);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->bindParam('bodyTypes', $bodyType, PDO::PARAM_STR, 50);
         $stmt->bindParam('complexions', $complexion, PDO::PARAM_STR, 50);
         $stmt->bindParam('physicalStatuss', $physicalStatus, PDO::PARAM_STR, 50);

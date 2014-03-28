@@ -28,4 +28,14 @@ class commonDB {
         $rows = $stmt->fetchAll();
         return $rows;
     }
+    public static function getContactDetails($uid, $cntId){    
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetContactDetails(:UsersId, :contactsId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $uid, PDO::PARAM_INT, 11);
+        $stmt->bindParam('contactsId', $cntId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
 }

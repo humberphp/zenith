@@ -38,4 +38,31 @@ class commonDB {
         $rows = $stmt->fetchAll();
         return $rows;
     }
+    public static function  getReligions()
+    {
+        $conn=  Database::getDB();
+        $sql="CALL spGetReligion";
+        $stmt=$conn->prepare($sql);
+        $stmt->execute();
+        $rows=$stmt->fetchAll();
+        return $rows;
+    }
+    public static function getSearchResult($gender,$ageFrom,$ageTo,$heightFrom,$heightTo,$martialStatus,$religion,$countryName)
+    {
+        $conn=  Database::getDB();
+        $sql="CALL getSearchResult(:gender,:ageFrom,:ageTo,:heightFrom,:heightTo,:martialStatus,:religion,:countryName)";
+        $stmt=$conn->prepare($sql);
+        $stmt->bindParam('gender',$gender,  PDO::PARAM_STR,1);
+                $stmt->bindParam('ageFrom',$ageFrom,  PDO::PARAM_INT,11);
+$stmt->bindParam('ageTo',$ageTo,  PDO::PARAM_INT,11);
+$stmt->bindParam('heightFrom',$heightFrom,  PDO::PARAM_INT);
+$stmt->bindParam('heightTo',$heightTo,  PDO::PARAM_INT);
+$stmt->bindParam(':martialStatus',$martialStatus,  PDO::PARAM_STR,50);
+$stmt->bindParam(':religion',$religion,  PDO::PARAM_STR,50);
+$stmt->bindParam(':countryName',$countryName,  PDO::PARAM_STR,50);
+
+        $stmt->execute();
+        $rows=$stmt->fetchAll();
+        return $rows;;
+    }
 }

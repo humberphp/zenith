@@ -66,7 +66,7 @@ class memberMasterPage {
 
             <!-- Custom styles for this template -->
             <link href="../styles/blog.css" rel="stylesheet">
-
+ <link href="../styles/RegularSearch.css" rel="stylesheet">
             <!-- Bootstrap core JavaScript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
@@ -74,6 +74,8 @@ class memberMasterPage {
             <script src="../js/bootstrap.min.js"></script>
             <script src="../assets/js/docs.min.js"></script>
             <script type="text/javascript" src="../js/profile.js"></script>
+                        <script type="text/javascript" src="../js/regularSearch.js"></script>
+
     	</head>
     	<body>';
         echo $initial;

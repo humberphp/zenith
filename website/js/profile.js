@@ -378,7 +378,6 @@ function updateHobbies(){
                     langs:$selectedLangs
             },
             success:function(msg){
-                alert(msg);
                 if(msg)
                 {                          
                     $('#lblHobbies').html($selectedHobbies);
@@ -458,8 +457,7 @@ function showHide(){
         $('#editDivPartPref').hide("slow");  
 }
 
-function delAccount()
-{
+function delAccount(){
     $usid = $('#hdUId').val();
     $.ajax({
             url:"../commonService.php",  
@@ -515,9 +513,9 @@ $(document).ready(function(){
     var $uid = $('#hdUId').val();
     var $sid = $('#hdnSearchUserId').val();
     
-    $('#delAccount').click(function(e){        
+    $('#delAccount').click(function(e){      
             if (confirm("Delete Account?")){
-                 location.href='deleteAccount.php?uId=' + $uid;
+                 delAccount();
              }
              else
              {

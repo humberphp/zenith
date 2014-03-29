@@ -14,12 +14,10 @@ class userImagesDB {
         return $rows;
     } 
     
-    private function getUsersTotalImages($userId){    
+    private function getUsersTotalImages(){    
         $conn = Database::getDB(); 
-        $sql = "CALL spGetUsersTotalImages(:UsersId)";
+        $sql = "CALL spGetUsersTotalImages()";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -51,11 +49,8 @@ class userImagesDB {
 
     public function uploadNewImage($file, $isMainImage){
         $result = false;
-      //  $fileThumb = $file;
-       // $userName = "Tunde";
-       // $totalImages = 4;        
-        $totalImagesInfo = $this->getUsersTotalImages($_SESSION['loginUserId']);
-        $userName = $totalImagesInfo[0]['firstName'];
+        $userName = $_SESSION['userFName'];
+        $totalImagesInfo = $this->getUsersTotalImages();
         $totalImages = $totalImagesInfo[0]['TotalImages'];
         $image_info = getimagesize($file);
         $image_type = $image_info[2];

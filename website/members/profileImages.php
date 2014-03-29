@@ -23,7 +23,8 @@ if(isset($_POST['action'])){
             $thumnail = $_POST['thumbnailurl'];
             $fimage = $_POST['fullimageurl'];
             $fid = $_POST['deleteImageId'];
-           $delResult = $objUserImgs->deleteImage($thumnail, $fimage, $fid);
+            $delResult = $objUserImgs->deleteImage($thumnail, $fimage, $fid);
+            //echo $fid;
             if($delResult > 0){
                 $message = 'Image deleted successfully!';
             }
@@ -111,10 +112,12 @@ if (count($imagesAll) > 0) {
             $body .= "<input type='radio' name='imgIdNew' value='{$imageId}' onclick='submit();'>Main";
             $body .= "</td>";
             $body .= "<td style='text-align: right; height: 40px;'>";
+            $body .= "<form method='POST'>";
             $body .= "<input type='hidden' value='{$imageId}' name='deleteImageId' /> ";     
             $body .= "<input type='hidden' value='{$thumbnailPath}' name='thumbnailurl' /> ";     
             $body .= "<input type='hidden' value='{$fullImagePath}' name='fullimageurl' /> ";            
             $body .= "<input type='submit' name='action' value='Delete' class='btn btn-success' />";
+            $body .= "</form>";
             //$body .= "<a href='{$deleteUrl}'>Delete</a>";
             $body .= "</td>";
         }

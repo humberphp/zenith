@@ -6,7 +6,6 @@ class memberMasterPage {
     private $meta_author;
     private $html_body;
     private $page_heading;
-    private $user;
     private $userId;
 
     public function __construct($userId){

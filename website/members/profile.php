@@ -6,7 +6,7 @@
     require_once '../commonDB.php';
  
     // note for me(jassi): make the following code querystring based
-    $_SESSION['loginUserId'] = 4;
+    $_SESSION['loginUserId'] = 7;
     $_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
@@ -138,7 +138,7 @@
               $body .= "my " . $createsFor ."</strong></h3>";
             }  
             $body .= $aboutUser;
-            $body .= "<div class='col-md-12' align='right'><a href='deleteAccount.php?uId={$_SESSION['loginUserId']}'>Delete Account</a><hr /></div>";
+            $body .= "<div class='col-md-12' align='right'><a href='#' id='delAccount'>Delete Account</a><hr /></div>";
             $body .= "</div>";
         }
         else {

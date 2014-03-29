@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/zenith/website/members/profileImages.php</file>
-            <file>file:/C:/xampp/htdocs/zenith/website/members/profile.php</file>
-            <file>file:/C:/xampp/htdocs/zenith/website/members/userImagesDB.php</file>
+            <file>file:/C:/xampp/htdocs/zenith/website/members/template.php</file>
             <file>file:/C:/xampp/htdocs/zenith/website/commonService.php</file>
+            <file>file:/C:/xampp/htdocs/zenith/website/members/userImagesDB.php</file>
+            <file>file:/C:/xampp/htdocs/zenith/website/members/profile.php</file>
+            <file>file:/C:/xampp/htdocs/zenith/website/userInfoDB.php</file>
             <file>file:/C:/xampp/htdocs/zenith/website/commonDB.php</file>
+            <file>file:/C:/xampp/htdocs/zenith/website/members/memberMasterPage.php</file>
             <file>file:/C:/xampp/htdocs/zenith/website/js/profile.js</file>
         </group>
     </open-files>

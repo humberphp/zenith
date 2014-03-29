@@ -319,7 +319,6 @@ function updateProfessionalDetails(){
                     anninc:$ainc
             },
             success:function(msg){
-                alert(msg);
                 if(msg)
                 {                          
                     $('#lblEdu').html($edu);
@@ -379,6 +378,7 @@ function updateHobbies(){
                     langs:$selectedLangs
             },
             success:function(msg){
+                alert(msg);
                 if(msg)
                 {                          
                     $('#lblHobbies').html($selectedHobbies);
@@ -458,6 +458,32 @@ function showHide(){
         $('#editDivPartPref').hide("slow");  
 }
 
+function delAccount()
+{
+    $usid = $('#hdUId').val();
+    $.ajax({
+            url:"../commonService.php",  
+            type:"POST",
+            data:{
+                    data:"delAccount",
+                    uid:$usid
+            },
+            success:function(msg){
+                if(msg)
+                {                          
+                    location.href='../login.php';                
+                }
+            },
+            dataType:"text"
+    });
+}
+
+function popup(){
+    $ssid = $('#hdnSearchUserId').val();
+    $link = "viewGallary.php?sid=" + $ssid;
+    window.open($link, 'Gallary', 'width=600,height=600,scrollbars=no');
+}
+
 function getContactDetails(){
     $usid = $('#hdUId').val();
     $contsId = $('#hdnSearchUserId').val();
@@ -488,6 +514,16 @@ $(document).ready(function(){
 
     var $uid = $('#hdUId').val();
     var $sid = $('#hdnSearchUserId').val();
+    
+    $('#delAccount').click(function(e){        
+            if (confirm("Delete Account?")){
+                 location.href='deleteAccount.php?uId=' + $uid;
+             }
+             else
+             {
+                e.preventDefault();             
+             }
+    });
     
     if($uid == $sid){
         showHide();       
@@ -719,8 +755,7 @@ $(document).ready(function(){
         });
     //  -----------------------------------  PARTNER PREFRENCES BUTTON CLICK ENDS -----------------------------------------
     }
-    else
-    {
+    else{
         $('#divHide').hide();
         $('#btnCloseContact').click(function(e){
             e.preventDefault();
@@ -739,9 +774,3 @@ $(document).ready(function(){
     }
 });
 
-function popup()
-{
-    $ssid = $('#hdnSearchUserId').val();
-    $link = "viewGallary.php?sid=" + $ssid;
-    window.open($link, 'Gallary', 'width=600,height=600,scrollbars=no');
-}

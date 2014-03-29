@@ -180,5 +180,15 @@ class userInfoDB{
         return $row_count;
     }
     
+    public static function deleteUserAccount($userId){
+        $conn = Database::getDB(); 
+        $sql = "CALL spDelUserAccount(:UsersId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }
+    
 }
 ?>

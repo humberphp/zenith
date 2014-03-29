@@ -34,7 +34,8 @@ and open the template in the editor.
                 {
                     foreach ($UserImages as $img):
                     ?>
-                        <img alt='image' src='../<?php echo $img["image"]; ?>' />
+                        <a href='../<?php echo $img["image"]; ?>'><img src='../<?php echo $img["thumbnail"]; ?>' data-title='Image' data-big='../<?php echo $img["image"]; ?>'></a>
+                        
                     <?php
                     endforeach;                    
                 }
@@ -42,6 +43,10 @@ and open the template in the editor.
         </div>
         <script>
             Galleria.loadTheme('../galleria/themes/classic/galleria.classic.min.js');
+                Galleria.configure({
+                    transition: 'fade',
+                     autoplay: 5000
+                });
             Galleria.run('.galleria');
         </script>
     </body>

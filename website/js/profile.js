@@ -479,7 +479,7 @@ function delAccount(){
 function popup(){
     $ssid = $('#hdnSearchUserId').val();
     $link = "viewGallary.php?sid=" + $ssid;
-    window.open($link, 'Gallary', 'width=600,height=600,scrollbars=no');
+    window.open($link, 'Gallary', 'width=725,height=450,scrollbars=no,resizable=0,titlebar=0,menubar=0,status=0,toolbar=0');
 }
 
 function getContactDetails(){

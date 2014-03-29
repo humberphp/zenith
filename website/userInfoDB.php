@@ -1,6 +1,9 @@
 <?php
-include_once 'Database.php';
-
+/**
+ * Description of userInfoDB
+ *
+ * @author Jagsir Singh
+ */
 class userInfoDB{
         
     public static function getUserNameAddress($userId){    

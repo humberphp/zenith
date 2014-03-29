@@ -1,6 +1,7 @@
 <?php
     session_start();    
     include_once 'adminMasterPage.php';
+    include_once '../membershipPlansDB.php';
     
     $_SESSION['loginUserId'] = 1;
     $_SESSION['userFName'] = "Jagsir Singh";
@@ -16,10 +17,33 @@
     $objPage->setMetaAuthor('this is meta author');
     // ==================================== THIS CODE IS MUST  (END) =================================================================
     
+    $objMembership = new membershipPlansDB();
     
-        $body = "<form class='form-horizontal' method='post'>";
-        $body .= "<h1>Hello</h1>";
-        $body .= "</form>";  
+    //$memberships = $objMembership->
+    
+    $body = "<form class='form-horizontal' method='post'>";
+    $body .= "<div id='divForm' style='padding:5px'>";
+    $body .= "<h1>Hi!</h1>";
+    $body .= "</div>";
+    $body .= "<div id='divRecords' style='padding:5px'>";
+    
+    $body .= "<div class='form-group'>";
+    $body .= "<div class='col-md-12'>";
+    $body .= "<a href='#' id='addNew' class='btn btn-success'>Add New Membership Plan</a>";
+    $body .= "</div>";
+    $body .= "</div>";
+    $body .= "<div class='form-group'>";
+     $body .= "<div class='col-md-1'>";
+    $body .= "</div>";
+     $body .= "<div class='col-md-4'>";
+    $body .= "</div>";
+     $body .= "<div class='col-md-1'>";
+    $body .= "</div>";
+    $body .= "</div>";
+    
+    $body .= "</div>";
+    
+    $body .= "</form>";  
        
  $objPage->displayPage($body);
     

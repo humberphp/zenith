@@ -8,13 +8,19 @@ $response;
 $result;
 switch ($data)
 {
-    case 'getAllMembershipPlans':
-	$response = commonDB::getContactDetails($uid, $contId);
-        $result = array();   
-        foreach ($response as $cont):
-            $set = array("email" => $cont['email'],"phone"=>$cont['phone']);         
-            $result[]=$set;
-        endforeach;
+    case 'updPlan':
+        $response = membershipPlansDB::updateMembership($membershipId, $membership, $daysAllowed, $contactsAllowed, $price, $comments);
+        if($response)
+        {
+            $result = $response;
+        }
+        else 
+            {
+                $result = $response;
+            }
+        break;
+    case 'svPlan':
+        $result = membershipPlansDB::saveMembership($membership, $daysAllowed, $contactsAllowed, $price, $comments);
         break;
     default:
         $result = "fail";            

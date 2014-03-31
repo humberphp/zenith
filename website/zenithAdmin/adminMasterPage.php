@@ -111,7 +111,7 @@ class adminMasterPage {
         $this->startBodyContent();
         //$this->displayLeftSideBar();
        ?>
-        <div class="col-sm-6 blog-main">
+        <div class="col-sm-12 blog-main">
         <div class="blog-post">
         <?php
       #  ********************************  THIS IS MY CONTENT START *********************  

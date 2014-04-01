@@ -1,4 +1,5 @@
 <?php
+require_once '../userInfoDB.php';
 class memberMasterPage {
     private $meta_title;
     private $meta_keywords;

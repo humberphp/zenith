@@ -16,8 +16,13 @@
             <li><a href='membershipPlans.php'>Membership Plans</a></li>
             <li><a href='#'>Special Offers</a></li>
             <li><a href='#'>Success Stories</a></li>
-            <li><a href='#'>Support Tickets</a></li>
-            <li><a href='#'>Chat</a></li>
+            <li class='dropdown'>
+              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support<b class='caret'></b></a>
+              <ul class='dropdown-menu'>
+                <li><a href='#'>Tickets</a></li>
+                <li><a href='#'>Chat</a></li>
+              </ul>
+            </li>
             <li><a href='#'>FAQ</a></li>
           </ul>
         </div><!--/.nav-collapse -->

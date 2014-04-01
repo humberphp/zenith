@@ -6,7 +6,7 @@
     require_once '../commonDB.php';
  
     // note for me(jassi): make the following code querystring based
-    $_SESSION['loginUserId'] = 6;
+    $_SESSION['loginUserId'] = 4;
     $_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){

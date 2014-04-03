@@ -5,8 +5,8 @@
     require_once '../supportTicketsDB.php';
  
     // note for me(jassi): make the following code querystring based
-    $_SESSION['loginUserId'] = 4;
-    $_SESSION['userFName'] = "Tunde";
+    //$_SESSION['loginUserId'] = 4;
+    //$_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../Login.aspx' ) ;
@@ -21,8 +21,8 @@
         $objTickets = new supportTicketsDB();
         $allTickets =$objTickets->getSUserTickets($_SESSION['loginUserId']);
         
-       // $res = supportTicketsDB::saveNewTicket(4, 'Test', '2014-04-04', 1, 'This is testing');
-       // echo $res[0]['newTicketId'];
+       // $r = supportTicketsDB::saveTicketReply(7, 4,'2014-05-04 10:24:25', 'direct value from form', 'False');
+        //echo $r;
    
         $body = "<form class='form-horizontal' method='post'>";
         $body .= "<input type='hidden' id='hdUId' name='hdUId' value='{$_SESSION['loginUserId']}'>";
@@ -82,7 +82,7 @@
                         $body .= "<div class='form-group'>";
                             $body .= "<label class='col-md-4 control-label'>Subject:</label>";
                             $body .= "<div class='col-md-8'>";
-                                $body .= "<label id='lblSub_{$ticket['supportTicketId']}' class='control-label' style='font-weight:normal;'>{$ticket['Subject']}</label>";
+                                $body .= "<a href='ticketReply.php?ticketId={$ticket['supportTicketId']}'>{$ticket['Subject']}</a>";
                             $body .= "</div>";        
                         $body .= "</div>";  
 
@@ -104,7 +104,7 @@
                             $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                             $body .= "<div class='col-md-8'>";
                                 $body .= " <a href='#' id='btnClose' onclick='closeTicket({$ticket['supportTicketId']});return false;' class='btn btn-success'>Close</a>&nbsp;&nbsp;&nbsp;";
-                                $body .= "<a href='#' id='btnReply' class='btn btn-success'>Reply</a>";
+                                $body .= "<a href='ticketReply.php?ticketId={$ticket['supportTicketId']}' id='btnReply' class='btn btn-success'>Reply</a>";
                             $body .= "</div>";            
                         $body .= "</div>";
 

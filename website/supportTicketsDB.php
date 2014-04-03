@@ -25,6 +25,16 @@ class supportTicketsDB {
         return $rows;
     }
     
+    public function getTicketDetails($ticketId){    
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetTicketDetails(:ticketId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('ticketId', $ticketId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+    
     public  static function closeTicket($ticketId){
         $conn = Database::getDB(); 
         $sql = "CALL spCloseTicket(:ticketId)";
@@ -50,10 +60,34 @@ class supportTicketsDB {
         return $newTicketId['newTicketId'];
     }   
     
+    public  static function saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied){
+        $conn = Database::getDB(); 
+        $sql = "CALL spSaveTicketReply(:ticketId, :senderId, :subDate, :msg, :isRep )";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('ticketId', $ticketId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('senderId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindValue('subDate', $submitDate);
+        $stmt->bindParam('msg', $message, PDO::PARAM_STR, 500);
+        $stmt->bindParam('isRep', $isReplied, PDO::PARAM_BOOL);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        return $row_count;
+    }   
+    
     public static function getDepartments(){    
         $conn = Database::getDB(); 
         $sql = "CALL spGetDepartments()";
         $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+    
+    public static function getAllTickets($departmentId){    
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetAllTickets(:depId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('depId', $departmentId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;

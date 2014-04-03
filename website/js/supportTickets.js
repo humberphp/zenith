@@ -1,7 +1,6 @@
 
-function closeTicket($ticketId)
-{    
-    if(confirm('Are you sure to delete?'))
+function closeTicket($ticketId){    
+    if(confirm('Are you sure to close?'))
     {
         $.ajax({
                 url:"../ticketsService.php",  
@@ -17,6 +16,7 @@ function closeTicket($ticketId)
         });
     }
 }
+
 function loadDepartments(){ 
     
     $('#ddlDepartments').find('option').remove().end();
@@ -34,21 +34,19 @@ function loadDepartments(){
                         $('#ddlDepartments').append('<option value="'+ msg[index].departmentId +'">' 
                                 + msg[index].department + '</option>').val( msg[index].departmentId);                           
                     }
-                        $("#ddlDepartments option:first").attr('selected','selected');       
-                    loadStates();
+                        $("#ddlDepartments option:first").attr('selected','selected'); 
             },
             dataType:"text"
     });
  }
  
- function saveTicket(){
+function saveTicket(){
     $usid = $('#hdUId').val();
     $depId = $('#ddlDepartments').val();     
     $sub = $('#txtSubject').val();
     $msg = $('#txtMessage').val();
     $subDate = new Date($.now());
-    //$subDate = $subDate.toLocaleString();
-   $subDate = getNewFormat($subDate.toLocaleString());
+    $subDate = getNewFormat($subDate.toLocaleString());
         
     $.ajax({
             url:"../ticketsService.php",  
@@ -97,7 +95,7 @@ function loadDepartments(){
                             $newRec += "<label class='col-md-4 control-label'>&nbsp;</label>";
                             $newRec += "<div class='col-md-8'>";
                                 $newRec += " <a href='#' id='btnClose' onclick='closeTicket(" + newTicketId + ");return false;' class='btn btn-success'>Close</a>&nbsp;&nbsp;&nbsp;";
-                                $newRec += "<a href='#' id='btnReply' class='btn btn-success'>Reply</a>";
+                                $newRec += "<a href='ticketReply.php?ticketId=" + newTicketId + "' id='btnReply' class='btn btn-success'>Reply</a>";
                             $newRec += "</div>";            
                         $newRec += "</div>";
 

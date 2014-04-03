@@ -1,7 +1,7 @@
 <?php
     // put your code here
     session_start();    
-    include_once 'memberMasterPage.php';
+    include_once 'adminMasterPage.php';
     require_once '../supportTicketsDB.php';
  
     // note for me(jassi): make the following code querystring based
@@ -14,13 +14,14 @@
         $userId = $_SESSION['loginUserId'];
         if(isset($_GET["ticketId"])){
             $ticketId = $_GET["ticketId"]; // THIS WILL BE THE VALUE FROM QUERYSTRING
+            $senderId = $_GET["uid"];
         }
         else {
             header( 'Location: ../Login.aspx' ) ;
         }
          
         // ==================================== THIS CODE IS MUST  (START) ==============================================
-        $objPage = new memberMasterPage($userId);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
+        $objPage = new adminMasterPage($userId);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
         $objPage->setTitle('Zenith - Profile'); 
         $objPage->setMetaAuthor('this is meta author');
         // ==================================== THIS CODE IS MUST  (END) ==============================================
@@ -30,7 +31,7 @@
         
         $body = "<form class='form-horizontal' method='post'>";
         $body .= "<input type='hidden' id='hdUId' name='hdUId' value='{$userId}'>"; 
-        $body .= "<input type='hidden' id='hdTRep' name='hdTRep' value='No'>"; 
+        $body .= "<input type='hidden' id='hdTRep' name='hdTRep' value='Yes'>"; 
         $body .= "<script type='text/javascript' src='../js/ticketReply.js'></script>";    
         $body .= "<label style='color:Red;' name='lblMsg' id='lblMsg'></label><br/>";       
         if(count($ticketHistory)>0)
@@ -75,14 +76,14 @@
                 $body .= "<div  class='form-group col-md-12' style='padding-bottom: 10px;'>";
                     $body .= "<table class='ticketHis' id='ticketHis'>";
                     foreach($ticketHistory as $msg):
-                        if($msg['userId'] == $userId){
+                        if($msg['userId'] == $senderId){
                             $body .= "<tr>";
-                                $body .= "<td><div class='meCol'>Me:  </div></td><td><div class='divMe'>{$msg['message']}</td></div>";
+                                $body .= "<td class='otherCol'><div>User:  </div></td><td class='divOther'><div>{$msg['message']}</div>";
                             $body .= "</tr>";
                         }
                         else{
                             $body .= "<tr>";
-                                $body .= "<td><div class='otherCol'>Zenith Team:  </div></td><td><div class='divOther'>{$msg['message']}</div>";
+                                $body .= "<td class='meCol'><div>Zenith Team:  </div></td><td class='divMe'><div>{$msg['message']}</td></div>";
                             $body .= "</tr>";
                         }
                     endforeach;

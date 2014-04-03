@@ -67,6 +67,7 @@ class memberMasterPage {
             <!-- Custom styles for this template -->
             <link href="../styles/blog.css" rel="stylesheet">
  <link href="../styles/RegularSearch.css" rel="stylesheet">
+            <link href="../styles/tickets.css" rel="stylesheet">
             <!-- Bootstrap core JavaScript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->

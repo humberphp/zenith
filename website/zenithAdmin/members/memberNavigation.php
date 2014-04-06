@@ -29,6 +29,13 @@
                 <li><a href='#'>Special Offers</a></li>
               </ul>
             </li>
+            <li class='dropdown'>
+              <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support <b class='caret'></b></a>
+              <ul class='dropdown-menu'>
+                <li><a href='supportTickets.php'>Tickets</a></li>
+                <li><a href='#'>Chat</a></li>
+              </ul>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div><!-- container ends -->

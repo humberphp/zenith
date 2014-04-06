@@ -5,6 +5,17 @@
  * @author Jagsir Singh
  */
 class userInfoDB{
+    
+    public static function getUserRole($userId)
+    { 
+        $conn = Database::getDB(); 
+        $sql = 'CALL spGetUserRole(:UsersId)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
         
     public static function getUserNameAddress($userId){    
         $conn = Database::getDB(); 

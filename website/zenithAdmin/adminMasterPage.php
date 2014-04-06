@@ -7,9 +7,22 @@ class adminMasterPage {
     private $html_body;
     private $page_heading;
     private $userId;
+    private $roleId;
 
     public function __construct($userId){
         $this->userId = $userId;
+        include_once '../userInfoDB.php';        
+        $roles = userInfoDB::getUserRole($userId);
+        if(count($roles)>0)
+        {
+            foreach($roles as $rl):
+                $this->roleId = $rl['RoleId'];
+            endforeach;
+        }
+        else
+        {
+            $this->roleId = 1;
+        }
     }
     public function setTitle($title){
         $this->meta_title = $title;
@@ -62,19 +75,18 @@ class adminMasterPage {
             <link rel="shortcut icon" href="../assets/ico/favicon.ico">
             <!-- Bootstrap core CSS -->
             <link href="../css/bootstrap.min.css" rel="stylesheet">
+            <link href="../styles/ticketsAdmin.css" rel="stylesheet">
 
             <!-- Custom styles for this template -->
             <link href="../styles/blog.css" rel="stylesheet">
- <link href="../styles/RegularSearch.css" rel="stylesheet">
             <!-- Bootstrap core JavaScript
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
             <script src="../js/bootstrap.min.js"></script>
             <script src="../assets/js/docs.min.js"></script>
-            <script type="text/javascript" src="../js/profile.js"></script>
-    <script type="text/javascript" src="../js/adminMemberships.js"></script>
-                        <script type="text/javascript" src="../js/regularSearch.js"></script>
+            <script type="text/javascript" src="../js/adminMemberships.js"></script>
+            <script type="text/javascript" src="../js/regularSearch.js"></script>
 
     	</head>
     	<body>';
@@ -87,6 +99,8 @@ class adminMasterPage {
     }    
     private function displayNavigation(){
         include_once 'adminNavigation.php';
+        $objNav = new adminNavigation();
+        $objNav->displayNavigation($this->roleId);
     }    
     private function startBodyContent()    {
         echo "<div class='container'><div class='row'>";

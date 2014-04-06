@@ -1,112 +1,17 @@
 <?php
 require 'LoginRegistration/core.php';
-$generalClass->logged_in_protect();
- 
+$generalClass->logged_out_protect();
 
-if (isset($_POST['submitbutton'])) {
- 
-    $selected_radio = $_POST['sexradios'];
-    $religionindex = $_POST['religions'];
-	if(empty($_POST['textfirst']) || empty($_POST['textlast']) || empty($_POST['email']) || empty($_POST['passwordinput']) ||
-                empty($_POST['username'])){
- 
-		echo $errors[] = 'All fields are required.';
- 
-	}else{
-        
-        #validating user's input with functions that we will create next
-        if ($userClass->user_exists($_POST['username']) === true) {
-            $errors[] = 'That username already exists';
-        }
-        if(!ctype_alnum($_POST['username'])){
-            $errors[] = 'Please enter a username with only alphabets and numbers';	
-        }
-        if (strlen($_POST['passwordinput']) <6){
-            $errors[] = 'Your password must be at least 6 characters';
-        } else if (strlen($_POST['passwordinput']) >18){
-            $errors[] = 'Your password cannot be more than 18 characters long';
-        }
-        if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false) {
-            $errors[] = 'Please enter a valid email address';
-        }else if ($userClass->email_exists($_POST['email']) === true) {
-            $errors[] = 'That email already exists.';
-        }
-	}
- 
-	if(empty($errors) === true){
-		
-                $textfirst = htmlentities($_POST['textfirst']);
-                $textlast = htmlentities($_POST['textlast']);
-		$username = htmlentities($_POST['username']);
-		$password = $_POST['passwordinput'];
-		$email = htmlentities($_POST['email']);
-                $selected_radio = $_POST['sexradios'];
- 
-		$userClass->register($textfirst,$textlast,$username, $password, $email,$selected_radio);// Calling the register function, which we will create soon.
-		header('Location:index.php?success');
-		exit();
-	}
-}
- 
-if (isset($_GET['success']) && empty($_GET['success'])) {
-  echo 'Thank you for registering. Please check your email.';
-}
-		# if there are errors, they would be displayed here.
-		if(empty($errors) === false){
-			echo '<p>' . implode('</p><p>', $errors) . '</p>';
-		}
- 
+$user = $userClass->userdata($_SESSION['loginUserId']);
+$username = $user['userName'];
 
-
-//if (empty($_POST) === false) 
-if (isset($_POST['loginsubmit'])) 
-{
- 
-	$username = trim($_POST['username']);
-	$password = trim($_POST['password']);
- 
-	if (empty($username) === true || empty($password) === true)
-            {
-		echo $errors[] = 'Sorry, but we need your username and password.';
-            }
-	else if ($userClass->user_exists($username) === false)
-            {
-		echo $errors[] = 'Sorry that username doesn\'t exists.';
-            }
-//	 else if ($userClass->email_confirmed($username) === false) {
-//		$errors[] = 'Sorry, but you need to activate your account. 
-//					 Please check your email.';
-//	} 
-else {
- 
-		$login = $userClass->login($username, $password);
-		if ($login === false) {
-			echo $errors[] = 'Sorry, that username/password is invalid';
-		}else {
-			// username/password is correct and the login method of the $users object returns the user's id, which is stored in $login.
- 
- 			$_SESSION['loginUserId'] =  $login; // The user's id is now set into the user's session  in the form of $_SESSION['id'] 
-			
-			#Redirect the user to Template.php.
-			header('Location: Template.php');
-			exit();
-		}
-	}
-
-}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      
-<script>
-  $(document).ready(function() {
-    $("#religion").change(function(){
-      $("#religion_hidden").val(("#religion").find(":selected").text());
-    });
-  });
-</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,18 +19,7 @@ else {
     <meta name="author" content="">
     <link rel="shortcut icon" href="../project2/docs/examples/blog/assets/ico/favicon.ico">
 
-    <title>Zenith Matrimony</title>
-    <script type="text/javascript">
-    <!--
-    var img1 = new Image()
-    img1.src = "img/slide1.jpg"
-    var img2 = new Image()
-    img2.src = "img/slide2.jpg"
-    var img3 = new Image()
-    img3.src = "img/slide3.jpg"
-    
-    //-->
-    </script>
+    <title>Zenith - Edit Details</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -145,50 +39,13 @@ else {
 
   <body>
     <div class="container"><!-- Container is a class used throughout the document -->
-        
-        <a href="index.html"><img src="img/logo.png" alt="Zenith Matrimony" id="logo" /></a>
-       
+    <div id="logo"><a href="index.html"><img src="img/logo.png" alt="Zenith Matrimony"></a></div>
     <div id="login">
-        <form method="post" action="">
-             <div class="form-group col-md-10">
-                  <div class="col-md-4">
-                        <label class="control-label" for="username">Username</label> 
-			<input type="text" name="username" required >
-		  </div>
-                      <div class="col-md-4">
-                        <label class="control-label" for="password">Password</label>
-			<input type="password" name="password" required >
-                       </div>
-                         <div class="col-md-2">
-                             <br>
-			<input type="submit" name="loginsubmit" class="btn btn-success" value="Sign In">
-                        </div>
-                     </div>
-            </form>
+    <?php echo "Welcome".", ".$username; ?>
+<!--    <input type="submit" name="logout" value="Sign Out" class="btn btn-warning" ID="logout">-->
+    <a href="LoginRegistration/Logout.php">Logout</a>
     </div>
-    
     </div>
-<!--        <form action="" method="POST" >
-        <div class="form-group col-md-12">
-            
-            
-      <div class="col-md-5">
- <label class="control-label" for="email">Email</label>  
- <input id="email" name="email" placeholder="functional@email.com" class="form-control input-md input-lg" required type="text"> 
-      </div>
-      <div class="col-md-5">
-  <label class="control-label" for="passwordinput">Password</label>
-  <input id="passwordinput" name="passwordinput" placeholder="******" class="form-control input-md input-lg" required type="password">
-  
-      </div>
-      <div class="col-md-2">
-          <br>
-    <input  type="submit" class="btn btn-success" value="Sign In" name="Submit" ID="Submit">
-      </div>
-    </div>
- </form>-->
-
-    
     <div class="blog-masthead"><!-- Navigation starts here -->
       <div class="container">
       
@@ -203,7 +60,7 @@ else {
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#hot_offers">Hot Offers</a></li>
@@ -222,72 +79,44 @@ else {
             </li>
           </ul>
         </div><!--/.nav-collapse -->
-      </div>
-      </div>
-   <!-- Navigation ends here -->
+      </div><!-- container ends -->
+    </div><!-- Blog-masthead ends here -->
 
     <div class="container">
 
      <div class="row">
-        <div class="col-sm-8 blog-main">
-        <div id="slider">
-          <img src="img/slide1.jpg" class="img-responsive" name="slide" />
-   
-            <script type="text/javascript">
-	        <!--
-            var pic = 1;
-            function show() {
-            if (!document.images)
-            return
-            document.images.slide.src=eval("img"+pic+".src")
-            if (pic < 3)
-            pic++
-            else
-            pic = 1
-            setTimeout ("show()",3000)
-            }
-            show()
-	        //-->
-            </script>
-            </div>
-          <div class="blog-post">
-          <div class="panel">
-          <div class="panel-body">
-          <h3>Success Stories</h3>
-             <p><img src="img/success1.jpg" alt="success-story" class="imgcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum.</p>
-      </div>
-      </div>
-      </div><!-- /.blog-main --> 
-      </div><!-- /col sm-8 -->
+      
+      <div class="col-sm-3  blog-sidebar">
+          <div class="sidebar-module">
+            <h4>User Details</h4>
+            <p><img src="img/thumbnail.png" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Amta Bhancha</h4><p>Scarborough, Toronto</p>
+            <a href="#">Upload New Photo(s)</a> <br/>  
+            <a href="#" class="active">Edit your Details</a>  <br/> 
+            <a href="#">Renew Subcription</a> <br/>
+            <a href="#">Change your Subscription Plan</a>
+              <hr>
+            <ol class="list-unstyled">
+              <li><a href="#">View Requests</a></li>
+              <li><a href="#">View Messages</a></li>
+              <li><a href="#">Other Actions</a></li>
+            </ol>
+          </div><!-- sidebar module -->
+        </div><!-- /.blog-sidebar -->
 
-        <div class="col-sm-4 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-              <form class="form-horizontal" action="" method="post">
+        <div class="col-sm-6 blog-main">
+
+          <div class="blog-post">
+             <form class="form-horizontal">
 <fieldset>
 
 <!-- Form Name -->
-<legend>Register</legend>
+<legend>Edit My Details</legend>
 
 <!-- Text input-->
-
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Name</label>  
   <div class="col-md-8">
-  <input id="textinput" name="textfirst" placeholder="First Name" class="form-control input-md input-lg" type="text"> 
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Surname</label>  
-  <div class="col-md-8">
-  <input id="textinput" name="textlast" placeholder="Last Name" class="form-control input-md input-lg" type="text"> 
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Username</label>  
-  <div class="col-md-8">
-  <input id="textinput" name="username" placeholder="Second name" class="form-control input-md input-lg" type="text"> 
+  <input id="textinput" name="textinput" placeholder="Full Name" class="form-control input-md input-lg" required type="text"> 
   </div>
 </div>
 
@@ -296,11 +125,11 @@ else {
   <label class="col-md-4 control-label" for="sexradios">Sex</label>
   <div class="col-md-8"> 
     <label class="radio-inline" for="sexradios-0">
-      <input name="sexradios" id="sexradios-0" value="male" checked="checked" type="radio">
+      <input name="sexradios" id="sexradios-0" value="1" checked="checked" type="radio">
       Male
     </label> 
     <label class="radio-inline" for="sexradios-1">
-      <input name="sexradios" id="sexradios-1" value="female" type="radio">
+      <input name="sexradios" id="sexradios-1" value="2" type="radio">
       Female
     </label>
   </div>
@@ -323,20 +152,12 @@ else {
   </div>
 </div>
 
-<!--<div class="form-group">
-  <label class="col-md-4 control-label" for="confirmpasswordinput">Confirm Password</label>
-  <div class="col-md-8">
-    <input id="confirmpasswordinput" name="confirmpasswordinput" placeholder="******" class="form-control input-md input-lg" required type="password">
-    
-  </div>
-</div>-->
-
 <!-- Select Basic -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="religion">Religion</label>
   <div class="col-md-8">
     <select id="religion" name="religion" class="form-control input-lg input-sm">
-      <option value="1">Ayyavazhi</option>
+      <option value="1">-Select-</option>
       <option value="2">Atheist</option>
       <option value="3">Agnostic</option>
       <option value="4">Christian - Orthodox</option>
@@ -355,7 +176,6 @@ else {
       <option value="17">Buddhist</option>
       <option value="18">Inter - Religion</option>
     </select>
-      <input type="hidden" name="religions" id="religion_hidden">
   </div>
 </div>
 
@@ -576,7 +396,7 @@ else {
   </div>
 </div>
 
-<!-- Multiple Checkboxes (inline)
+<!-- Multiple Checkboxes (inline) -->
 <div class="form-group">
   <label class="col-md-3 control-label" for="account">Plan</label>
   <div class="col-md-9">
@@ -593,35 +413,32 @@ else {
       Bronze
     </label>
   </div>
-</div> -->
+</div>
 
 <!-- Button (Submit) -->
 <div class="form-group">
   
   <div class="col-md-12" align="right">
-      <input type="submit" id="submitbutton" name="submitbutton" class="btn btn-success" value="Register">
+    <button id="submitbutton" name="submitbutton" class="btn btn-success">Submit</button>
   </div>
 </div>
 
 </fieldset>
 </form>
- </div>
- </div>
- </div><!-- /.row -->
+      
+      </div><!-- /.blog-post --> 
+      </div><!-- /col sm-6 -->
 
- <div class="row">
-      <h3>Newest Members</h3>
-      <div class="col-sm-3">
-      <p><img src="img/success1.jpg" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Amta Bhancha</h4><p>Scarborough, Toronto</p></div>
-          <div class="col-sm-3">
-          <p><img src="img/success1.jpg" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Sexy flirt 21</h4><p>Woodbridge, Toronto</p></div>
-              <div class="col-sm-3">
-  <p><img src="img/success1.jpg" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Lady's Man</h4><p>Dallas, USA</p></div>
-              <div class="col-sm-3">
-              <p><img src="img/success1.jpg" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Trojan Horse</h4><p>GTA, Toronto</p></div>
-              </div>
-              </div><!-- row -->
-  <!-- /.container -->
+        <div class="col-sm-3 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>Highlighted Profiles</h4>
+      <p><img src="img/thumbnail.png" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>Amta Russell</h4><p>Scarborough, Toronto</p><p><a href="#">Send your Interest</a>  |  <a href="#">Send a Private Message</a>  |  <a href="#">Request contact details</a></p><br/>
+              <hr>
+          <p><img src="img/thumbnail.png" alt="success-story" class="img-thumbnail" class="img-thumbnail"><h4>User Two</h4><p>Woodbridge, Toronto</p><p><a href="#">Send your Interest</a>  |  <a href="#">Send a Private Message</a>  |  <a href="#">Request contact details</a></p><br/>
+          </div>
+ </div><!-- /.blog-sidebar -->
+ </div><!-- row -->
+ </div><!-- /.container -->
 
     <div class="blog-footer">
       <p> THIS IS A STUDENT PROJECT WEBSITE FOR HUMBER COLLEGE WEB DEV PROGRAM &copy; Team Zenith - All Rights Reserved 2014 </p>

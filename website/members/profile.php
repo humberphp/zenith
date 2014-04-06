@@ -5,12 +5,12 @@
     require_once '../userInfoDB.php';
     require_once '../commonDB.php';
  
-    // note for me(jassi): make the following code querystring based
-    $_SESSION['loginUserId'] = 4;
-    $_SESSION['userFName'] = "Tunde";
+ // note for me(jassi): make the following code querystring based
+//    $_SESSION['loginUserId'] = 4;
+//    $_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
-            header( 'Location: ../Login.aspx' ) ;
+            header( 'Location: ../index.php' ) ;
         }
  
         if(isset($_GET["searchUserId"])){

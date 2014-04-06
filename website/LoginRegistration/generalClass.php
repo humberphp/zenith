@@ -5,7 +5,7 @@ class General
  
     #Check if the user is logged in.
 	public function logged_in () {
-		return(isset($_SESSION['userId'])) ? true : false;
+		return(isset($_SESSION['loginUserId'])) ? true : false;
 	}
  
 	#if logged in then redirect to Template

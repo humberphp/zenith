@@ -9,7 +9,7 @@
     //$_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
-            header( 'Location: ../Login.aspx' ) ;
+            header( 'Location: ../index.php' ) ;
         }
          
         // ==================================== THIS CODE IS MUST  (START) ==============================================

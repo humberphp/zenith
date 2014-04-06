@@ -1,13 +1,16 @@
 <?php
-    session_start();    
+       
     include_once 'adminMasterPage.php';
     include_once '../membershipPlansDB.php';
     
-    $_SESSION['loginUserId'] = 1;
-    $_SESSION['userFName'] = "Jagsir Singh";
+    
+//    $_SESSION['loginUserId'] = 1;
+//    $_SESSION['userFName'] = "Jagsir Singh";
+    session_start();    
+      
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
-            header( 'Location: ../Login.aspx' ) ;
+            header( 'Location: ../index.php' ) ;
         }
         
         

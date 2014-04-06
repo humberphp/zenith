@@ -1,6 +1,7 @@
 <?php
 require 'LoginRegistration/core.php';
-$generalClass->logged_in_protect();
+//$generalClass->logged_in_protect();
+    session_start();    
  
 
 if (isset($_POST['submitbutton'])) {
@@ -86,9 +87,24 @@ else {
 			// username/password is correct and the login method of the $users object returns the user's id, which is stored in $login.
  
  			$_SESSION['loginUserId'] =  $login; // The user's id is now set into the user's session  in the form of $_SESSION['id'] 
-			
+			$user = $userClass->userdata($_SESSION['loginUserId']);
+                        $_SESSION['userFName'] = $user['firstName'].' '.$user['lastName']. '  ';
+                        $roleId = $user['RoleId'];
 			#Redirect the user to Template.php.
-			header('Location: Template.php');
+                        
+                        switch ($roleId) 
+                        {
+                          case 1:
+                          header('Location: zenithAdmin/membershipPlans.php');
+                          break;
+                          case 2:
+                          header('Location: zenithAdmin/supportTickets.php');
+                          break;
+                          case 3:
+                          header('Location: members/profile.php');
+                          break;
+                        }
+			
 			exit();
 		}
 	}

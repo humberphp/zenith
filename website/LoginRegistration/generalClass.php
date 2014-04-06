@@ -10,9 +10,24 @@ class General
  
 	#if logged in then redirect to Template
 	public function logged_in_protect() {
-		if ($this->logged_in() === true) {
-			header('Location:Template.php');
-			exit();		
+		if ($this->logged_in() === true) 
+                    {
+                    
+                   
+			 switch ($roleId) 
+                        {
+                          case 1:
+                          header('Location: zenithAdmin/membershipPlans.php');
+                          break;
+                          case 2:
+                          header('Location: zenithAdmin/supportTickets.php');
+                          break;
+                          case 3:
+                          header('Location: Template.php');
+                          break;
+                        }
+			
+			exit();
 		}
 	}
 	

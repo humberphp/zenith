@@ -5,7 +5,7 @@ class Users
  
 	public function __construct($database) 
         {
-	    $this->db = $database;
+	    $this->db = Database::getDB(); 
 	}
         
         public function login($username, $password)

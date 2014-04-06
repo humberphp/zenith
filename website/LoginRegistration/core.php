@@ -2,8 +2,8 @@
 
 global $db;
 #starting the users session
-session_start();
-require 'dbcon.php';
+//session_start();
+require 'Database.php';
 require 'userClass.php';
 require 'generalClass.php';
  

@@ -6,7 +6,7 @@ require_once '../userInfoDB.php';
 require_once 'userImagesDB.php';
 // DELETE THE FOLLOWING LINE 
 if (!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])) {
-    header('Location: ../Login.aspx');
+    header('Location: ../index.php');
 }
 
 // ==================================== THIS CODE IS MUST  (START) ==============================================

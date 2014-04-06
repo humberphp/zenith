@@ -9,6 +9,9 @@
 //    $_SESSION['loginUserId'] = 4;
 //    $_SESSION['userFName'] = "Tunde";
     
+    
+    
+    
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../index.php' ) ;
         }
@@ -19,6 +22,8 @@
         else {
             $searchUserId = $_SESSION['loginUserId'];
         }
+        
+      
  
         
         // ==================================== THIS CODE IS MUST  (START) ==============================================

@@ -92,4 +92,24 @@ class supportTicketsDB {
         $rows = $stmt->fetchAll();
         return $rows;
     }
+    
+    public static function getUserEmailByUserId($userId){  
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetUserEmailByUserId(:UsersId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+    
+    public static function getUserEmailByTicketId($ticketId){  
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetUserEmailByTicketId(:tktId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('tktId', $ticketId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
 }

@@ -28,6 +28,20 @@ switch ($data)
         break;
     case 'closeT':
         $response = supportTicketsDB::closeTicket($tId);
+        if((int)$response > 0)
+        {
+            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
+            include_once '../emails.php';
+            foreach($email as $em):
+                $emAdd = $em['email'];
+                $name = $em['Name'];
+                $subject = "RE: Ticket [Ticket ID: " . $result . "]";
+                $body = "<h3>Dear " . $name . "</h3>";
+                $body .= "Your ticket [Ticket ID: " . $ticketId . '] is closed.<br /><br />' ;
+                $body .= "We hope you are satisfied with our services. <br />";
+                $body .= "Team Zenith";                
+            endforeach;
+        }
         if($response)
         {
             $result = true;
@@ -39,16 +53,45 @@ switch ($data)
         break;
     case 'saveTicket':
         $result = supportTicketsDB::saveNewTicket($userId, $subject, $submitDate, $departmentId, $message);
+        if((int)$result > 0)
+        {
+            $email = supportTicketsDB::getUserEmailByUserId($userId);
+            include_once '../emails.php';
+            foreach($email as $em):
+                $emAdd = $em['email'];
+                $name = $em['Name'];
+                $subject = "Ticket [Ticket ID: " . $result . "]";
+                $body = "<h3>Dear " . $name . "</h3>";
+                $body .= "Your ticket regarding " . $subject . "has been submited successfully.<br />";
+                $body .= "Please login into your account to track status and response from us.<br />";
+                $body .= "Team Zenith";                
+            endforeach;
+        }
         break;
     case 'saveReply':
         $response = supportTicketsDB::saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied);
+        if((int)$response > 0)
+        {
+            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
+            include_once '../emails.php';
+            foreach($email as $em):
+                $emAdd = $em['email'];
+                $name = $em['Name'];
+                $subject = "RE: Ticket [Ticket ID: " . $result . "]";
+                $body = "<h3>Dear " . $name . "</h3>";
+                $body .= "Your ticket [Ticket ID: " . $ticketId . '] is updated.' ;
+                $body .= "<br />";
+                $body .= "Please login into your account to track status and response <br />";
+                $body .= "Team Zenith";                
+            endforeach;
+        }
         if($response)
         {
-            $result = $response;
+            $result = true;
         }
         else 
             {
-                $result = $response;
+                $result = false;
             }
         break;
     default:

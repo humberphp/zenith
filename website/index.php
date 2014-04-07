@@ -1,7 +1,12 @@
 <?php
 require 'LoginRegistration/core.php';
-//$generalClass->logged_in_protect();
-    session_start();    
+require_once './members/userStory.php';
+require_once './Database.php';
+    
+$story = new userStory();
+$result = $story->getApprovedStories();
+
+$generalClass->logged_in_protect();
  
 
 if (isset($_POST['submitbutton'])) {
@@ -88,24 +93,9 @@ else {
 			// username/password is correct and the login method of the $users object returns the user's id, which is stored in $login.
  
  			$_SESSION['loginUserId'] =  $login; // The user's id is now set into the user's session  in the form of $_SESSION['id'] 
-			$user = $userClass->userdata($_SESSION['loginUserId']);
-                        $_SESSION['userFName'] = $user['firstName'].' '.$user['lastName']. '  ';
-                        $roleId = $user['RoleId'];
-			#Redirect the user to Template.php.
-                        
-                        switch ($roleId) 
-                        {
-                          case 1:
-                          header('Location: zenithAdmin/membershipPlans.php');
-                          break;
-                          case 2:
-                          header('Location: zenithAdmin/supportTickets.php');
-                          break;
-                          case 3:
-                          header('Location: members/profile.php');
-                          break;
-                        }
 			
+			#Redirect the user to Template.php.
+			header('Location: Template.php');
 			exit();
 		}
 	}
@@ -220,7 +210,7 @@ else {
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#hot_offers">Hot Offers</a></li>
@@ -271,7 +261,14 @@ else {
           <div class="panel">
           <div class="panel-body">
           <h3>Success Stories</h3>
-             <p><img src="img/success1.jpg" alt="success-story" class="imgcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum.</p>
+             <?php foreach ($result as $value): ?>
+             <div class="blog row"> 
+              <h4><?php echo $value['storyTitle']; ?></h4>
+              <p><img src="<?php echo $value['imageName'];?>" alt="successstory" class="imgstory"/><?php echo $value['message']. "<br/><br/>"; ?></p>
+              </div>
+                      
+              <?php endforeach; ?>  
+              <p align="center"><a href="./members/membersubmitstory.php">Submit Your Success Story</a></p>  
       </div>
       </div>
       </div><!-- /.blog-main --> 

@@ -47,28 +47,35 @@ h6, .h6 {
   width:  auto;
   height: auto;		
 }
-@media (min-width: 1200px) {
-#slider {
-  width: 604px;
-  height: 390px;
-  }
+#slider{
+  display: block;
 }
-@media (min-width: 800px) {
-#slider {
-  width: 403px;
-  height: 260px;
-  }
-}
-@media (min-width: 600px) {
-#slider {
-  width: 302px;
-  height: 195px;
-  }
-}
+
 @media (min-width: 300px) {
 #slider {
-  width: 151px;
-  height: 98px;
+  width: 35%;
+  height: 35%;
+  }
+}
+
+@media (min-width: 600px) {
+  #slider{
+  width: 60%;
+  height: 60%;
+  }
+}
+
+@media (min-width: 760px) {
+  #slider{
+  width: 80%;
+  height: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #slider{
+  width: 100%;
+  height: 100%;
   }
 }
 
@@ -80,6 +87,14 @@ h6, .h6 {
   float: left;	
 }
 
+.imgstory {
+  width: 100px;
+  height: 100px;
+  margin: 4px;
+  padding: 4px;
+  display: block;
+  float: left;  
+}
 /*
  * Masthead for nav
  */

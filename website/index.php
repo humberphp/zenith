@@ -42,8 +42,9 @@ if (isset($_POST['submitbutton'])) {
 		$password = $_POST['passwordinput'];
 		$email = htmlentities($_POST['email']);
                 $selected_radio = $_POST['sexradios'];
+                $age = $_POST['age'];
  
-		$userClass->register($textfirst,$textlast,$username, $password, $email,$selected_radio);// Calling the register function, which we will create soon.
+		$userClass->register($textfirst,$textlast,$username, $password, $email,$selected_radio,$age);// Calling the register function, which we will create soon.
 		header('Location:index.php?success');
 		exit();
 	}
@@ -306,21 +307,31 @@ else {
   <input id="textinput" name="username" placeholder="Second name" class="form-control input-md input-lg" type="text"> 
   </div>
 </div>
-
+<br>
 <!-- Multiple Radios (inline) -->
 <div class="form-group">
   <label class="col-md-4 control-label" for="sexradios">Sex</label>
   <div class="col-md-8"> 
     <label class="radio-inline" for="sexradios-0">
-      <input name="sexradios" id="sexradios-0" value="male" checked="checked" type="radio">
+      <input name="sexradios" id="sexradios-0" value="M" checked="checked" type="radio">
       Male
     </label> 
     <label class="radio-inline" for="sexradios-1">
-      <input name="sexradios" id="sexradios-1" value="female" type="radio">
+      <input name="sexradios" id="sexradios-1" value="F" type="radio">
       Female
     </label>
   </div>
 </div>
+
+<br>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Age</label>  
+  <div class="col-md-8">
+  <input id="textinput" name="age" placeholder="Put your age here" class="form-control input-md input-lg" type="text"> 
+  </div>
+</div>
+
 
 <!-- Text input-->
 <div class="form-group">

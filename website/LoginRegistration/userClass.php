@@ -101,7 +101,7 @@ class Users
        }
        
        
-  public function register($textfirst,$textlast,$username, $password, $email,$selected_radio)
+  public function register($textfirst,$textlast,$username, $password, $email,$selected_radio,$age)
   {
 	$time = time();
 	$ip = $_SERVER['REMOTE_ADDR'];
@@ -123,12 +123,28 @@ class Users
         $query->bindValue(9, $email_code);
         $query->bindValue(10, $time);
         $query->bindValue(11, $ip);
-       
- 
-	try{
+        
+        try{
 		$query->execute();
  
- mail($email, 'Please activate your account', "Hello " . $username. ",\r\nThank you for registering with us. Please visit the link below so we can activate your account:\r\n\r\nhttp://www.krunalpatel1.com/phpfinal/website/activate.php?email=" . $email . "&email_code=" . $email_code . "\r\n\r\n-- Zenith");
+ //mail($email, 'Please activate your account', "Hello " . $username. ",\r\nThank you for registering with us. Please visit the link below so we can activate your account:\r\n\r\nhttp://www.krunalpatel1.com/phpfinal/website/activate.php?email=" . $email . "&email_code=" . $email_code . "\r\n\r\n-- Zenith");
+	}catch(PDOException $e)
+        {
+		die($e->getMessage());
+	}	
+       
+        $u_id = $this->db->lastInsertId();
+   $query1 = $this->db->prepare("INSERT INTO `tbl_userbasicdetails` (`userId`, `gender`, `age`) VALUES (?, ?, ?)");     
+        
+        $query1->bindValue(1, $u_id);
+	$query1->bindValue(2, $selected_radio);
+	$query1->bindValue(3, $age);
+     
+ 
+	try{
+		$query1->execute();
+ 
+ //mail($email, 'Please activate your account', "Hello " . $username. ",\r\nThank you for registering with us. Please visit the link below so we can activate your account:\r\n\r\nhttp://www.krunalpatel1.com/phpfinal/website/activate.php?email=" . $email . "&email_code=" . $email_code . "\r\n\r\n-- Zenith");
 	}catch(PDOException $e){
 		die($e->getMessage());
 	}	

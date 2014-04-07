@@ -33,13 +33,16 @@ switch ($data)
             $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
             include_once '../emails.php';
             foreach($email as $em):
-                $emAdd = $em['email'];
+                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];
-                $subject = "RE: Ticket [Ticket ID: " . $result . "]";
-                $body = "<h3>Dear " . $name . "</h3>";
-                $body .= "Your ticket [Ticket ID: " . $ticketId . '] is closed.<br /><br />' ;
-                $body .= "We hope you are satisfied with our services. <br />";
-                $body .= "Team Zenith";                
+                $subject = "RE: Ticket [Ticket ID: {$result}]";
+                $emailbody = "<h3>Dear " . $name . "</h3>";
+                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is closed.<br /><br />" ;
+                $emailbody .= "We hope you are satisfied with our services. <br />";
+                $emailbody .= "Team Zenith";     
+                
+                $emailObj = new emails();
+                $emailObj->send_email($toAdd, $subject, $emailbody, true);                 
             endforeach;
         }
         if($response)
@@ -58,13 +61,16 @@ switch ($data)
             $email = supportTicketsDB::getUserEmailByUserId($userId);
             include_once '../emails.php';
             foreach($email as $em):
-                $emAdd = $em['email'];
+                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];
-                $subject = "Ticket [Ticket ID: " . $result . "]";
-                $body = "<h3>Dear " . $name . "</h3>";
-                $body .= "Your ticket regarding " . $subject . "has been submited successfully.<br />";
-                $body .= "Please login into your account to track status and response from us.<br />";
-                $body .= "Team Zenith";                
+                $subject = "Ticket [Ticket ID:  {$result}]";
+                $emailbody = "<h3>Dear {$name}</h3>";
+                $emailbody .= "Your ticket regarding {$subject} has been submited successfully.<br />";
+                $emailbody .= "Please login into your account to track status and response from us.<br />";
+                $emailbody .= "Team Zenith";        
+                
+                $emailObj = new emails();
+                $emailObj->send_email($toAdd, $subject, $emailbody, true);              
             endforeach;
         }
         break;
@@ -75,14 +81,17 @@ switch ($data)
             $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
             include_once '../emails.php';
             foreach($email as $em):
-                $emAdd = $em['email'];
+                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];
-                $subject = "RE: Ticket [Ticket ID: " . $result . "]";
-                $body = "<h3>Dear " . $name . "</h3>";
-                $body .= "Your ticket [Ticket ID: " . $ticketId . '] is updated.' ;
-                $body .= "<br />";
-                $body .= "Please login into your account to track status and response <br />";
-                $body .= "Team Zenith";                
+                $subject = "RE: Ticket [Ticket ID:  {$result}]";
+                $emailbody = "<h3>Dear " . $name . "</h3>";
+                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is updated." ;
+                $emailbody .= "<br />";
+                $emailbody .= "Please login into your account to track status and response <br />";
+                $emailbody .= "Team Zenith";                
+                
+                $emailObj = new emails();
+                $emailObj->send_email($toAdd, $subject, $emailbody, true);      
             endforeach;
         }
         if($response)

@@ -31,7 +31,14 @@
                                     <li><a href='#'>FAQ</a></li>";
                             }
                             else if($roleId == "2" || $roleId == 2) {
-                                $nav .= "<li><a href='supportTickets.php'>Tickets</a></li>
+                                $nav .= "
+                                    <li class='dropdown'>
+                                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support<b class='caret'></b></a>
+                                        <ul class='dropdown-menu'>
+                                            <li><a href='supportTickets.php'>Tickets</a></li>
+                                            <li><a href='#'>Chat</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href='#'>Success Stories</a></li>
                                     <li><a href='#'>FAQ</a></li>";
                             }

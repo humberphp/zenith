@@ -133,7 +133,7 @@ class Users
 		die($e->getMessage());
 	}	
        
-        $u_id = $this->db->lastInsertId();
+    $u_id = $this->db->lastInsertId();
    $query1 = $this->db->prepare("INSERT INTO `tbl_userbasicdetails` (`userId`, `gender`, `age`) VALUES (?, ?, ?)");     
         
         $query1->bindValue(1, $u_id);

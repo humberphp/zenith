@@ -56,7 +56,8 @@ if (isset($_POST['submitbutton'])) {
 }
  
 if (isset($_GET['success']) && empty($_GET['success'])) {
-  echo 'Thank you for registering. Please check your email.';
+ 
+  header('Location: members/profile.php');
 }
 		# if there are errors, they would be displayed here.
 		if(empty($errors) === false){

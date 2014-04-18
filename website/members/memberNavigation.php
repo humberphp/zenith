@@ -25,7 +25,7 @@
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Upgrade <b class='caret'></b></a>
               <ul class='dropdown-menu'>
-                <li><a href='#'>Membership Plans</a></li>
+                <li><a href='userMemberships.php'>Membership Plans</a></li>
                 <li><a href='#'>Special Offers</a></li>
               </ul>
             </li>

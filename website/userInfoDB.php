@@ -14,7 +14,9 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
         
     public static function getUserNameAddress($userId){    
@@ -25,7 +27,9 @@ class userInfoDB{
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserDetailsById($searchId, $userId){    
@@ -36,7 +40,9 @@ class userInfoDB{
         $stmt->bindParam('SearchId', $searchId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserFamilyDetails($userId){         
@@ -46,7 +52,9 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserHobbies($userId){         
@@ -58,6 +66,7 @@ class userInfoDB{
         $stmt->execute();
         $rows = $stmt->fetchAll();
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserLocation($userId){         
@@ -68,7 +77,9 @@ class userInfoDB{
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserPartnerPref($userId){         
@@ -79,7 +90,9 @@ class userInfoDB{
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }
     
     public function getUserProfession($userId){         
@@ -90,7 +103,9 @@ class userInfoDB{
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
+       // mysql_close($conn);
     }   
     
     public  static function updateUserBasicInfo($userId, $bodyType, $complexion, $physicalStatus, $height, $weight
@@ -113,7 +128,9 @@ class userInfoDB{
         $stmt->bindParam('hairColors', $hairColor, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }   
     
     public static function updateUserLocation($userId, $country, $state, $city, $citizen, $residentStatus){
@@ -128,7 +145,9 @@ class userInfoDB{
         $stmt->bindParam('residency', $residentStatus, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
     
     public static function updateFamilyDetails($userId, $livingWith, $familyType, $familyValues, $familyStatus, $noOfBrothers, $noOfSisters, $marriedBros, $marriedSis, $fatherOcc, $motherOcc){
@@ -148,7 +167,9 @@ class userInfoDB{
         $stmt->bindParam('motherOccu', $motherOcc, PDO::PARAM_STR, 45);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
         
     public static function updateProfessionalDetails($userId, $education, $college, $addDegree, $occupation, $employedIn, $annualInc){
@@ -164,7 +185,9 @@ class userInfoDB{
         $stmt->bindParam('annual', $annualInc, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
         
     public static function updateUserHobbies($userId, $hobs, $ints, $dS, $langs){
@@ -178,7 +201,9 @@ class userInfoDB{
         $stmt->bindParam('languages', $langs, PDO::PARAM_STR, 200);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
         
     public static function updateUserPartnerPrefs($userId, $fromAge, $toAge, $contrs){
@@ -191,7 +216,9 @@ class userInfoDB{
         $stmt->bindParam('countrys', $contrs, PDO::PARAM_STR, 100);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
     
     public static function deleteUserAccount($userId){
@@ -201,7 +228,9 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
+       // mysql_close($conn);
     }
     
 }

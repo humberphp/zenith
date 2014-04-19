@@ -77,6 +77,7 @@ foreach($recdetails as $recdetail):
 $body .= '<option value="'. $rname .'">'. $rname .'</option>';
 endforeach;
 $body .= '</select>';
+$body .= '<input name="stage" type="hidden" value="sendpm">';
 $body .= '</div>';
 $body .= '</div>';
 

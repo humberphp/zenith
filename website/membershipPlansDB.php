@@ -51,4 +51,26 @@ class membershipPlansDB {
         $conn = null;
         return $lastMemId;
     }
+    
+    public function getUserMembershipDetails($userId){  
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetUserMembershipDetails(:UsersId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $conn = null;
+        return $rows;
+    }
+    
+    public function getMembershipPlanDetails($planId){
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetMembershipPlanDetails(:PlanId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('PlanId', $planId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $conn = null;
+        return $rows;
+    }
 }

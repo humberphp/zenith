@@ -11,15 +11,17 @@
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../index.php' ) ;
         }
- 
+    $userId = $_SESSION['loginUserId'];
         
         // ==================================== THIS CODE IS MUST  (START) ==============================================
-        $objPage = new memberMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
-        $objPage->setTitle('Zenith - Profile'); 
+        $objPage = new memberMasterPage($userId);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
+        $objPage->setTitle('Zenith - Memberhip Plans'); 
         $objPage->setMetaAuthor('this is meta author');
         // ==================================== THIS CODE IS MUST  (END) ==============================================
         $objMem = new membershipPlansDB();
         $allPlans = $objMem->getMembershipPlans();
+        $myPlan = $objMem->getUserMembershipDetails($userId);
+        
         $body = "<form class='form-horizontal' method='post'>";
         $body .= "<br/><h3>Membership Plans</h4><br/>";
         foreach($allPlans as $plan):

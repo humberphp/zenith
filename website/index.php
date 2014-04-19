@@ -55,7 +55,8 @@ if (isset($_POST['submitbutton'])) {
 	}
 }
  
-if (isset($_GET['success']) && empty($_GET['success'])) {
+if (isset($_GET['success']) && empty($_GET['success'])) 
+    {
  
   header('Location: members/profile.php');
 }
@@ -102,7 +103,7 @@ else {
                         switch ($roleId) 
                         {
                           case 1:
-                          header('Location: zenithAdmin/membershipPlans.php');
+                          header('Location: zenithAdmin/specialOffers.php');
                           break;
                           case 2:
                           header('Location: zenithAdmin/supportTickets.php');

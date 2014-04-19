@@ -17,7 +17,7 @@ class General
 			 switch ($roleId) 
                         {
                           case 1:
-                          header('Location: zenithAdmin/membershipPlans.php');
+                          header('Location: zenithAdmin/specialOffers.php');
                           break;
                           case 2:
                           header('Location: zenithAdmin/supportTickets.php');

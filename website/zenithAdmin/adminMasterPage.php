@@ -86,6 +86,7 @@ class adminMasterPage {
             <script src="../js/bootstrap.min.js"></script>
             <script src="../assets/js/docs.min.js"></script>
             <script type="text/javascript" src="../js/adminMemberships.js"></script>
+            <script type="text/javascript" src="../js/adminOffers.js"></script>
             <script type="text/javascript" src="../js/regularSearch.js"></script>
 
     	</head>

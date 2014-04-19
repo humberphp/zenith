@@ -15,6 +15,8 @@ class memberLeftSideBar {
     {
         $userInfo = userInfoDB::getUserNameAddress($this->userId);
         $imageInfo = userImagesDB::getUserDefaultThumb($this->userId);
+        $memInfo = userInfoDB::checkMembershipStatus($this->userId);
+        
         if(count($imageInfo)>0)
         {
             if(empty($imageInfo[0]['thumbnail'])){     
@@ -49,10 +51,12 @@ class memberLeftSideBar {
                 $content .= "<p>{$userInfo[0]['city']}, {$userInfo[0]['state']}</p>";
              }
          $content .= "<a href='profileImages.php'>Upload New Photo(s)</a> <br/>  
-            <!-- <a href='#' class='active'>Edit your Details</a>  <br/> -->
-            <a href='#'>Renew Subcription</a> <br/>
-            <a href='#'>Change your Subscription Plan</a>
-              <hr>
+            <!-- <a href='#' class='active'>Edit your Details</a>  <br/> -->";
+            if($memInfo[0]['member']=="1"):                
+                $content .= "<a href='../members/userMemberships.php'>Renew Subcription</a> <br/>
+                <a href='../members/userMemberships.php'>Change your Subscription Plan</a>";
+            endif;
+              $content .= "<hr>
             <ol class='list-unstyled'>
               <li><a href='#'>View Requests</a></li>
               <li><a href='#'>View Messages</a></li>

@@ -20,8 +20,8 @@
         // ==================================== THIS CODE IS MUST  (END) ==============================================
         $objMem = new membershipPlansDB();
         $allPlans = $objMem->getMembershipPlans();
-          $body = "";
-        //$body = "<form class='form-horizontal' method='post'>";
+        $body = "<form class='form-horizontal' method='post'>";
+        $body .= "<br/><h3>Membership Plans</h4><br/>";
         foreach($allPlans as $plan):
             $membId = $plan['membershipId'];
             $title = $plan['membership'];
@@ -29,7 +29,7 @@
             $price = "$" . $plan['price'] . " CA";
             $contactsAllowed = $plan['contactsAllowed'];
             $comments = $plan['comments'];
-            $body .= "<form method='POST' id='frmMemPlans'  action='subscribe.php'>";
+            //$body .= "<form method='POST' id='frmMemPlans'  action='subscribe.php'>";
                 $body .= "<div  class='form-group'>";
                     $body .= "<div class='col-md-12'><h4><strong>{$title}</strong></h4></div>";
                     $body .= "<div class='col-md-2'><strong>Days:</strong></div>";
@@ -47,13 +47,13 @@
                     $body .= "<div class='col-md-12'><strong>Comments:</strong> {$comments}</div>";
                     $body .= "<div class='col-md-8'></div>";
                     $body .= "<div class='col-md-4'>";
-                        $body .= "<input type='submit' name='btnSubscribe' value='Subscribe' class='btn btn-success' />";                      
+                        $body .= "<a href='subscribe.php?memId={$membId}' class='btn btn-success'>Subscribe</a>";                      
                     $body .= "</div>"; 
                     $body .= "<div class='col-md-12'><hr /></div>";  
                 $body .= "</div>";
-            $body .= "</form>";
+            //$body .= "</form>";
         endforeach;
-        //$body .= "</form>";  
+        $body .= "</form>";  
         
  $objPage->displayPage($body);
 ?>

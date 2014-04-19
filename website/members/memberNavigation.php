@@ -26,14 +26,14 @@
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Upgrade <b class='caret'></b></a>
               <ul class='dropdown-menu'>
-                <li><a href='userMemberships.php'>Membership Plans</a></li>
+                <li><a href='../members/userMemberships.php'>Membership Plans</a></li>
                 <li><a href='#'>Special Offers</a></li>
               </ul>
             </li>
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support <b class='caret'></b></a>
               <ul class='dropdown-menu'>
-                <li><a href='supportTickets.php'>Tickets</a></li>
+                <li><a href='../members/supportTickets.php'>Tickets</a></li>
                 <li><a href='#'>Chat</a></li>
               </ul>
             </li>

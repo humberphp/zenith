@@ -8,6 +8,7 @@ class commonDB {
         //$stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     public static function getStates($countryId){    
@@ -17,6 +18,7 @@ class commonDB {
         $stmt->bindParam('Country', $countryId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     public static function getCities($stateId){    
@@ -26,6 +28,7 @@ class commonDB {
         $stmt->bindParam('state', $stateId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     public static function getContactDetails($uid, $cntId){    
@@ -36,6 +39,7 @@ class commonDB {
         $stmt->bindParam('contactsId', $cntId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     public static function  getReligions()
@@ -45,6 +49,7 @@ class commonDB {
         $stmt=$conn->prepare($sql);
         $stmt->execute();
         $rows=$stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     public static function getSearchResult($gender,$ageFrom,$ageTo,$heightFrom,$heightTo,$martialStatus,$religion,$countryName)
@@ -63,6 +68,7 @@ $stmt->bindParam(':countryName',$countryName,  PDO::PARAM_STR,50);
 
         $stmt->execute();
         $rows=$stmt->fetchAll();
+        $conn = null;
         return $rows;;
     }
 }

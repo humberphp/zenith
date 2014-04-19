@@ -7,7 +7,6 @@ class Database{
     public static function getDB(){
         if(!isset(self::$db)){
             try{    
-           // mysql_close(self::$db);
             self::$db = new PDO(self::$dsn,self::$user,self::$pass);
             }
             catch(PDOException $e){

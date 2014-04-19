@@ -14,7 +14,8 @@
         <div class='navbar-collapse collapse'>
           <ul class='nav navbar-nav'>
             <li><a href='../members/profile.php'>Home</a></li>
-            <li><a href='#'>Messages</a></li>
+            <li><a href='memberinbox.php'>Inbox</a></li>
+            <li><a href='memberpmsend.php'>Send Message</a></li>
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Search <b class='caret'></b></a>
               <ul class='dropdown-menu'>

@@ -1,11 +1,9 @@
 <?php
     session_start();    
     include_once '../Database.php';
-    include_once 'adminMasterPage.php';
+    include_once './adminMasterPage.php';
     include_once '../members/userstory.php';
     
-    $_SESSION['loginUserId'] = 1;
-    $_SESSION['userFName'] = "Tunde Obatayo";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../Login.aspx' ) ;
@@ -14,8 +12,8 @@
         
     // ==================================== THIS CODE IS MUST  (START) =============================================================
     $objPage = new adminMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
-    $objPage->setTitle('Zenith - Approve Success Stories'); 
-    $objPage->setMetaAuthor('this is meta author');
+    $objPage->setTitle('Zenith - Admin Success Stories'); 
+    $objPage->setMetaAuthor('Tunde Obatayo');
     // ==================================== THIS CODE IS MUST  (END) =================================================================
     
     $story = new userStory();

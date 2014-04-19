@@ -226,33 +226,25 @@ class userPM {
             return 2;
     }
 
-    /**
-     * @return Int 1			Error while collectic info on database
-     * @return Int 2			No messeges with this settings
-     * @return Array			Returns one array with all messeges
-     * 
-     * @param Int $order		Can take values from 0 to 3(0-> Order By senderLevel Ascendent,
-     * 													1-> Order By senderLevel Descendent,
-     * 													2-> Order By readed messege Ascendent,
-     * 													3-> Order By senderLevel Descendent)
-     * @param Int $receiver
-     * @param Int $sender
-     *
-     * @desc This function outputs all messages ordered by $order field and filtered by sender and/or receiver or none to display all messeges
-     */
     
     function getAll($order = 0, $sender = 0, $receiver = 0){
+        
         $conn = Database::getDB();
         switch ($order) {
-       
+            case 0:
+                $order = 'senderLevel ASC';
+                break;
             case 1:
-                $order = 'read ASC';
+                $order = 'senderLevel DESC';
                 break;
             case 2:
+                $order = 'read ASC';
+                break;
+            case 3:
                 $order = 'read DESC';
                 break;
         }
-        $where = '1';
+        $where = '2';
         if ($receiver)
             $where = ' receiver = '.$receiver;
         
@@ -323,7 +315,7 @@ class userPM {
 
     function getReceiver() {
         $conn = Database::getDB();
-        $query = 'SELECT userId, userName FROM tbl_users WHERE RoleId = 2 OR 3';
+        $query = 'SELECT userId, userName FROM tbl_users WHERE RoleId = 1 OR 3';
         $statement = $conn -> prepare($query);
         $statement -> execute();
         

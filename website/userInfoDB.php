@@ -6,6 +6,21 @@
  */
 class userInfoDB{
     
+    public static function checkMembershipStatus($userId){
+        
+        $conn = Database::getDB(); 
+        $sql = 'CALL spCheckMembershipStatus(:UsersId)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
+        return $rows;
+    }
+    
     public static function getUserRole($userId)
     { 
         $conn = Database::getDB(); 
@@ -14,6 +29,10 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
         
@@ -22,9 +41,12 @@ class userInfoDB{
         $sql = "CALL spGetUserNameAddress(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
     
@@ -36,6 +58,10 @@ class userInfoDB{
         $stmt->bindParam('SearchId', $searchId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
     
@@ -46,6 +72,10 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
     
@@ -54,9 +84,11 @@ class userInfoDB{
         $sql = "CALL spGetUserHobbies(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
+        
         $rows = $stmt->fetchAll();
+        //mysql_close($conn);
+        
         return $rows;
     }
     
@@ -65,9 +97,12 @@ class userInfoDB{
         $sql = "CALL spGetUserLocation(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
     
@@ -76,9 +111,12 @@ class userInfoDB{
         $sql = "CALL spGetUserPartnerPref(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }
     
@@ -87,9 +125,12 @@ class userInfoDB{
         $sql = "CALL spGetUserProfession(:UsersId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
-//        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $rows;
     }   
     
@@ -113,6 +154,10 @@ class userInfoDB{
         $stmt->bindParam('hairColors', $hairColor, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }   
     
@@ -128,6 +173,10 @@ class userInfoDB{
         $stmt->bindParam('residency', $residentStatus, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
     
@@ -148,6 +197,10 @@ class userInfoDB{
         $stmt->bindParam('motherOccu', $motherOcc, PDO::PARAM_STR, 45);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
         
@@ -164,6 +217,10 @@ class userInfoDB{
         $stmt->bindParam('annual', $annualInc, PDO::PARAM_STR, 50);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
         
@@ -178,6 +235,10 @@ class userInfoDB{
         $stmt->bindParam('languages', $langs, PDO::PARAM_STR, 200);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
         
@@ -191,6 +252,10 @@ class userInfoDB{
         $stmt->bindParam('countrys', $contrs, PDO::PARAM_STR, 100);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
     
@@ -201,6 +266,10 @@ class userInfoDB{
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        
+        //mysql_close($conn);
+        $conn = null;
+        
         return $row_count;
     }
     

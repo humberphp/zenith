@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Description of membershipPlansDB
@@ -14,6 +15,7 @@ class membershipPlansDB {
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -29,6 +31,7 @@ class membershipPlansDB {
         $stmt->bindParam('cmnts', $comments, PDO::PARAM_STR, 500);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
     }
     
@@ -45,7 +48,30 @@ class membershipPlansDB {
         $row_count = $stmt->execute();
         $stmt->closeCursor();
         $lastMemId = $conn->lastInsertId();
+        $conn = null;
         return $lastMemId;
+    }
+    
+    public function getUserMembershipDetails($userId){  
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetUserMembershipDetails(:UsersId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $conn = null;
+        return $rows;
+    }
+    
+    public function getMembershipPlanDetails($planId){
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetMembershipPlanDetails(:PlanId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('PlanId', $planId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $conn = null;
+        return $rows;
     }
 }
 

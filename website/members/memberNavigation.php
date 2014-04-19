@@ -14,7 +14,8 @@
         <div class='navbar-collapse collapse'>
           <ul class='nav navbar-nav'>
             <li><a href='../members/profile.php'>Home</a></li>
-            <li><a href='#'>Messages</a></li>
+            <li><a href='../members/memberinbox.php'>Inbox</a></li>
+            <li><a href='../members/memberpmsend.php'>Send Message</a></li>
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Search <b class='caret'></b></a>
               <ul class='dropdown-menu'>
@@ -25,15 +26,15 @@
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Upgrade <b class='caret'></b></a>
               <ul class='dropdown-menu'>
-                <li><a href='#'>Membership Plans</a></li>
+                <li><a href='../members/userMemberships.php'>Membership Plans</a></li>
                 <li><a href='#'>Special Offers</a></li>
               </ul>
             </li>
             <li class='dropdown'>
               <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support <b class='caret'></b></a>
               <ul class='dropdown-menu'>
-                <li><a href='supportTickets.php'>Tickets</a></li>
-                <li><a href='#'>Chat</a></li>
+                <li><a href='../members/supportTickets.php'>Tickets</a></li>
+                <li><a href='helpchat.php'>Chat</a></li>
               </ul>
             </li>
           </ul>

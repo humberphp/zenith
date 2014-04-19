@@ -71,17 +71,6 @@ class userStory{
         return $result;
     }
 
-    public function getStorytitles($StoryId, $title){
-        $conn = Database::getDB();
-        $query = 'SELECT successStoryId, storyTitle FROM tbl_successstories WHERE successStoryId = 5'; 
-        $statement = $conn -> prepare($query);
-        
-        $statement -> execute();
-        $result = $statement -> fetch();
-
-        return $result;
-    }
-
     public function updateApprovedstories($StoryId,$storyTitle,$message) {
     	$conn = Database::getDB();
     	$query = 'UPDATE tbl_successstories SET message = :message, storyTitle = :title

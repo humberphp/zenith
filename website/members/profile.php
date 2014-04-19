@@ -2,8 +2,8 @@
     // put your code here
     session_start();    
     include_once 'memberMasterPage.php';
-    require_once '../userInfoDB.php';
-    require_once '../commonDB.php';
+    include_once '../userInfoDB.php';
+    include_once '../commonDB.php';
  
  // note for me(jassi): make the following code querystring based
 //    $_SESSION['loginUserId'] = 4;

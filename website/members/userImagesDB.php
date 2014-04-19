@@ -11,6 +11,7 @@ class userImagesDB {
 //        $stmt->bindParam(1, $second_name, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 32);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     } 
     
@@ -21,6 +22,7 @@ class userImagesDB {
         $stmt->execute();
         $rows = $stmt->fetchAll();
         $stmt->closeCursor();
+        $conn = null;
         return $rows;
     }
     
@@ -33,6 +35,7 @@ class userImagesDB {
         $stmt->execute();
         $rows = $stmt->fetchAll();
         $stmt->closeCursor();
+        $conn = null;
         return $rows;
     }
     
@@ -44,6 +47,7 @@ class userImagesDB {
         $stmt->bindParam('ImgId', $imageId, PDO::PARAM_INT, 11);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
     }
 
@@ -140,6 +144,7 @@ class userImagesDB {
             $row_count = $stmt->execute();
             $stmt->closeCursor();
             $lastImageId = $conn->lastInsertId();
+            $conn = null;
             return $row_count;
         }
         catch (Exception $e){
@@ -165,6 +170,7 @@ class userImagesDB {
                 unlink("../" . $image);
             }
         }
+        $conn = null;
         return $row_count;
     }
 }

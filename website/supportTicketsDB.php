@@ -22,6 +22,7 @@ class supportTicketsDB {
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -32,6 +33,7 @@ class supportTicketsDB {
         $stmt->bindParam('ticketId', $ticketId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -42,6 +44,7 @@ class supportTicketsDB {
         $stmt->bindParam('ticketId', $ticketId, PDO::PARAM_INT, 11);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
     }   
     
@@ -57,6 +60,7 @@ class supportTicketsDB {
         $row_count = $stmt->execute();
         $newTicketId = $stmt->fetch();
         $stmt->closeCursor();
+        $conn = null;
         return $newTicketId['newTicketId'];
     }   
     
@@ -71,6 +75,7 @@ class supportTicketsDB {
         $stmt->bindParam('isRep', $isReplied, PDO::PARAM_BOOL);
         $row_count = $stmt->execute();
         $stmt->closeCursor();
+        $conn = null;
         return $row_count;
     }   
     
@@ -80,6 +85,7 @@ class supportTicketsDB {
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -90,6 +96,7 @@ class supportTicketsDB {
         $stmt->bindParam('depId', $departmentId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -100,6 +107,7 @@ class supportTicketsDB {
         $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
     
@@ -110,6 +118,7 @@ class supportTicketsDB {
         $stmt->bindParam('tktId', $ticketId, PDO::PARAM_INT, 11);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $conn = null;
         return $rows;
     }
 }

@@ -25,7 +25,7 @@
                                         <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support<b class='caret'></b></a>
                                         <ul class='dropdown-menu'>
                                             <li><a href='supportTickets.php'>Tickets</a></li>
-                                            <li><a href='#'>Chat</a></li>
+                                            <li><a href='helpchatadmin.php'>Chat</a></li>
                                         </ul>
                                     </li>
                                     <li><a href='#'>FAQ</a></li>";

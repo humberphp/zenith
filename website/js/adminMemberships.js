@@ -102,7 +102,7 @@ function saveMembership(){
                          $newMem += "<label class='col-md-4 control-label'>&nbsp;</label>";
                          $newMem += "<div class='col-md-8'>";
                          $newMem += "<input type='submit' id='updMembership_'" + memId + "' onclick='showUpdate(" + memId + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-                         $newMem += "<input type='submit' id='delMembership_'" + memId + "' value='Delete' class='btn btn-success' />";
+                         $newMem += "<input type='submit' id='delMembership_'" + memId + "' onclick='deleteMembership(" + memId + "); return false;' value='Delete' class='btn btn-success' />";
                          $newMem += "</div>";            
                          $newMem += "</div>";
 
@@ -159,14 +159,19 @@ function UpdateMembership(){
     });
 }
 
-function showUpdate($membershipId){
-    $('#txtTitle').val($('#lblTitle_' + $membershipId).html());
-    $('#txtDays').val($('#lblDays_' + $membershipId).html());
-    $('#txtContact').val($('#lblContacts_' + $membershipId).html());
-    $('#txtPrice').val($('#lblPrice_' + $membershipId).html());
-    $('#txtComments').val($('#lblComments_' + $membershipId).html());
-    $('#hdnMemId').val($membershipId);
-        
+function showUpdate($membershipId, $title, $days, $contacts, $price, $comments){    
+    $('#hdnMemId').val($membershipId);    
+//    $('#txtTitle').val($('#lblTitle_' + $membershipId).html());
+//    $('#txtDays').val($('#lblDays_' + $membershipId).html());
+//    $('#txtContact').val($('#lblContacts_' + $membershipId).html());
+//    $('#txtPrice').val($('#lblPrice_' + $membershipId).html());
+//    $('#txtComments').val($('#lblComments_' + $membershipId).html());
+    $('#txtTitle').val($title);
+    $('#txtDays').val($days);
+    $('#txtContact').val($contacts);
+    $('#txtPrice').val($price);
+    $('#txtComments').val($comments);
+            
     $('#divRecords').slideToggle("slow");
     $('#divForm').slideToggle("slow");
     $('#btnSU').val('Update');
@@ -175,4 +180,25 @@ function showUpdate($membershipId){
     //alert($('#lblTitle_' + $membershipId).html());
 }
 
-
+function deleteMembership($membershipId)
+{
+    if(confirm('Confirm delete!')){
+        $.ajax({
+                url:"../zenithAdmin/membershipService.php",  
+                type:"POST",
+                data:{
+                        data:"delPlan",
+                        planId:$membershipId
+                },
+                success:function(msg){
+                    if(msg)
+                    {
+                        $('#divRec_' + $membershipId).remove();
+                        $('#lblMsg').html('Membership plan deleted!');                    
+                    }
+                },
+                dataType:"text"
+        });
+        
+    }
+}

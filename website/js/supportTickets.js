@@ -60,9 +60,8 @@ function saveTicket(){
                     message:$msg
             },
             success:function(newTicketId){
-                  alert(newTicketId)
+                  alert(newTicketId);
                   newTicketId = $.parseJSON(newTicketId);
-                  alert(newTicketId)
                     $newRec = "<div id='divRec_" + newTicketId + "'>";
                         $newRec += "<div class='form-group'>";
                             $newRec += "<label class='col-md-4 control-label'>Ticket Id:</label>";

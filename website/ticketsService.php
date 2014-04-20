@@ -1,7 +1,7 @@
 <?php
 require_once 'Database.php';
 require_once 'supportTicketsDB.php';
-
+require_once 'emails.php';
 extract($_REQUEST);
 
 $response;
@@ -31,7 +31,6 @@ switch ($data)
         if((int)$response > 0)
         {
             $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
-            include_once '../emails.php';
             foreach($email as $em):
                 $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];
@@ -59,7 +58,6 @@ switch ($data)
         if((int)$result > 0)
         {
             $email = supportTicketsDB::getUserEmailByUserId($userId);
-            include_once '../emails.php';
             foreach($email as $em):
                 $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];
@@ -79,7 +77,6 @@ switch ($data)
         if((int)$response > 0)
         {
             $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
-            include_once '../emails.php';
             foreach($email as $em):
                 $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
                 $name = $em['Name'];

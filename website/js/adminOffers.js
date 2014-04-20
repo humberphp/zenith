@@ -84,7 +84,7 @@ function saveOffers(){
                          $newOffer += "<div  class='form-group col-md-12'>";
                          $newOffer += "<label class='col-md-4 control-label'>&nbsp;</label>";
                          $newOffer += "<div class='col-md-8'>";
-                         $newOffer += "<input type='submit' id='updOffer_'" + speId + "' onclick='showUpdate(" + speId + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                         $newOffer += "<input type='submit' id='updOffer_'" + speId + "' onclick='showOfferUpdate(" + speId + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
                          $newOffer += "<input type='submit' id='delOffer_'" + speId + "' value='Delete' class='btn btn-success' />";
                          $newOffer += "</div>";            
                          $newOffer += "</div>";
@@ -140,7 +140,7 @@ function UpdateOffers(){
     });
 }
 
-function showUpdate($specialId){
+function showOfferUpdate($specialId){
     $('#txtTitle').val($('#lblTitle_' + $specialId).html());
     $('#txtDays').val($('#lblDays_' + $specialId).html());
     $('#txtPrice').val($('#lblPrice_' + $specialId).html());

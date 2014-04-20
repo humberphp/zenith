@@ -58,12 +58,12 @@ function saveMembership(){
             },
             success:function(memId){
                 if(memId)
-                {                    
+                { 
                     $('#divRecords').slideToggle("slow");
                     $('#divForm').slideToggle("slow");    
                     $('#lblMsg').html('Membership information added!');   
                     
-                    $newMem = "<div class='form-group col-md-5'>";
+                    $newMem = "<div class='form-group col-md-5' id='divRec_" + memId + "'>";
                          $newMem += "<div class='form-group col-md-12'>";
                              $newMem += "<label class='col-md-6 control-label'>Title:</label>";
                              $newMem += "<div class='col-md-6'>";
@@ -142,6 +142,26 @@ function UpdateMembership(){
             },
             success:function(msg){
                 if(msg)
+                {  
+                    $('#lblMsg').html('Membership information deleted!');                    
+                }
+            },
+            dataType:"text"
+    });
+}
+
+function DeleteMembership(){
+    $memberId = $('#hdnMemId').val();
+    $.ajax({
+            url:"../zenithAdmin/membershipService.php",  
+            type:"POST",
+            data:{
+                    data:"delPlan",
+                    planId:$memberId
+            },
+            success:function(msg){
+                alert(msg);
+                if(msg)
                 {
                     $('#lblTitle_' + $memberId).html($title);
                     $('#lblDays_' + $memberId).html($daysA);
@@ -171,8 +191,8 @@ function showUpdate($membershipId){
     $('#divForm').slideToggle("slow");
     $('#btnSU').val('Update');
     
-    alert($membershipId);
-    alert($('#lblTitle_' + $membershipId).html());
+    //alert($membershipId);
+    //alert($('#lblTitle_' + $membershipId).html());
 }
 
 

@@ -58,9 +58,7 @@
             $body .= "</div>";
         endif;
         
-        $body .= "<h3>Membership Plans</h4><br/>";
-        
-        $body .= "<br/><h3>Membership Plans</h4><br/>";
+        $body .= "<h3><strong>Membership Plans</strong></h4><br/>";
         foreach($allPlans as $plan):
             $membId = $plan['membershipId'];
             $title = $plan['membership'];
@@ -93,8 +91,7 @@
                             $body .= "<a href='subscribe.php?memId={$membId}' class='btn btn-success'>Upgrade</a>";   
                         else:                            
                             $body .= "<a href='subscribe.php?memId={$membId}' class='btn btn-success'>Subscribe</a>"; 
-                        endif;                  
-                        $body .= "<a href='subscribe.php?memId={$membId}' class='btn btn-success'>Subscribe</a>";                      
+                        endif;                                     
                     $body .= "</div>"; 
                 $body .= "</div>";
                 $body .= "<div  class='form-group'>";

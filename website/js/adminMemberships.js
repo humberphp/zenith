@@ -57,66 +57,63 @@ function saveMembership(){
                     comments:$comnts
             },
             success:function(memId){
-                if(memId)
-                {                    
-                    $('#divRecords').slideToggle("slow");
-                    $('#divForm').slideToggle("slow");    
-                    $('#lblMsg').html('Membership information added!');   
-                    
-                    $newMem = "<div class='form-group col-md-6'>";
-                         $newMem += "<div class='form-group col-md-12'>";
-                             $newMem += "<label class='col-md-6 control-label'>Title:</label>";
-                             $newMem += "<div class='col-md-6'>";
-                             $newMem += "<label id='lblTitle_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $title + "</label>";
-                             $newMem += "</div>";
-                         $newMem += "</div>";
+                memId = $.parseJSON(memId);               
+                  $newMem = "<div class='form-group col-md-6' id='divRec_" + memId + "'>";
+                       $newMem += "<div class='form-group col-md-12'>";
+                           $newMem += "<label class='col-md-6 control-label'>Title:</label>";
+                           $newMem += "<div class='col-md-6'>";
+                           $newMem += "<label id='lblTitle_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $title + "</label>";
+                           $newMem += "</div>";
+                       $newMem += "</div>";
 
-                         $newMem += "<div class='form-group col-md-12'>";
-                             $newMem += "<label class='col-md-6 control-label'>Days Allowed:</label>";
-                             $newMem += "<div class='col-md-6'>";
-                             $newMem += "<label id='lblDays_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $daysA + "</label>";
-                             $newMem += "</div>";
-                         $newMem += "</div>";
+                       $newMem += "<div class='form-group col-md-12'>";
+                           $newMem += "<label class='col-md-6 control-label'>Days Allowed:</label>";
+                           $newMem += "<div class='col-md-6'>";
+                           $newMem += "<label id='lblDays_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $daysA + "</label>";
+                           $newMem += "</div>";
+                       $newMem += "</div>";
 
-                         $newMem += "<div class='form-group col-md-12'>";
-                             $newMem += "<label class='col-md-6 control-label'>Contacts:</label>";
-                             $newMem += "<div class='col-md-6'>";
-                             $newMem += "<label id='lblContacts_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $contactsA + "</label>";
-                             $newMem += "</div>";
-                         $newMem += "</div>";
+                       $newMem += "<div class='form-group col-md-12'>";
+                           $newMem += "<label class='col-md-6 control-label'>Contacts:</label>";
+                           $newMem += "<div class='col-md-6'>";
+                           $newMem += "<label id='lblContacts_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $contactsA + "</label>";
+                           $newMem += "</div>";
+                       $newMem += "</div>";
 
-                         $newMem += "<div class='form-group col-md-12'>";
-                             $newMem += "<label class='col-md-6 control-label'>Price:</label>";
-                             $newMem += "<div class='col-md-6'>";
-                             $newMem += "$ ";
-                             $newMem += "<label id='lblPrice_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $priceA + "</label>";
-                             $newMem += " CA";
-                             $newMem += "</div>";
-                         $newMem += "</div>";
+                       $newMem += "<div class='form-group col-md-12'>";
+                          $newMem += "<label class='col-md-6 control-label'>Price:</label>";
+                          $newMem += "<div class='col-md-6'>";
+                          $newMem += "$ ";
+                          $newMem += "<label id='lblPrice_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $priceA + "</label>";
+                          $newMem += " CA";
+                          $newMem += "</div>";
+                       $newMem += "</div>";
 
-                         $newMem += "<div class='form-group col-md-12'>";
-                             $newMem += "<label id='lblComments_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $comnts + "</label>";
-                         $newMem += "</div>";
+                       $newMem += "<div class='form-group col-md-12'>";
+                          $newMem += "<label id='lblComments_'" + memId + "' class='control-label' style='font-weight:normal;'>" + $comnts + "</label>";
+                       $newMem += "</div>";
 
-                         $newMem += "<div  class='form-group col-md-12'>";
-                         $newMem += "<label class='col-md-4 control-label'>&nbsp;</label>";
-                         $newMem += "<div class='col-md-8'>";
-                         $newMem += "<input type='submit' id='updMembership_'" + memId + "' onclick='showUpdate(" + memId + ",";
-                         $newMem +=  '"' + $title + '"' + "," + '"' + $daysA + '"' + "," + '"' + $contactsA + '"' + "," + '"' + $priceA + '"' + "," + '"' + $comnts + '"' + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-                         $newMem += "<input type='submit' id='delMembership_'" + memId + "' onclick='deleteMembership(" + memId + "); return false;' value='Delete' class='btn btn-success' />";
-                         $newMem += "</div>";            
-                         $newMem += "</div>";
+                       $newMem += "<div  class='form-group col-md-12'>";
+                          $newMem += "<label class='col-md-4 control-label'>&nbsp;</label>";
+                          $newMem += "<div class='col-md-8'>";
+                             $newMem += "<input type='submit' id='updMembership_'" + memId + "' onclick='showUpdate(" + memId + ",";
+                             $newMem +=  '"' + $title + '"' + "," + '"' + $daysA + '"' + "," + '"' + $contactsA + '"' + "," + '"' + $priceA + '"' + "," + '"' + $comnts + '"' + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                             $newMem += "<input type='submit' id='delMembership_'" + memId + "' onclick='deleteMembership(" + memId + "); return false;' value='Delete' class='btn btn-success' />";
+                          $newMem += "</div>";            
+                       $newMem += "</div>";
 
-                         $newMem += "<div  class='form-group col-md-12'>";
-                             $newMem += "<hr/>";
-                         $newMem += "</div>";    
+                       $newMem += "<div  class='form-group col-md-12'>";
+                          $newMem += "<hr/>";
+                       $newMem += "</div>";    
 
-                    $newMem += "</div>";    
+                  $newMem += "</div>";    
 
 //                    $newMem += "<div class='form-group col-md-1' >";
 //                    $newMem += "</div>";   
-                    $('#divRecords').append($newMem);
-                }
+                  $('#divRecords').append($newMem);
+                  $('#divRecords').slideToggle("slow");
+                  $('#divForm').slideToggle("slow");    
+                  $('#lblMsg').html('Membership information added!');                   
             },
             dataType:"text"
     });
@@ -144,6 +141,8 @@ function UpdateMembership(){
             success:function(msg){
                 if(msg)
                 {
+                    $('#divRecords').slideToggle("slow");
+                    $('#divForm').slideToggle("slow");    
                     $('#lblTitle_' + $memberId).html($title);
                     $('#lblDays_' + $memberId).html($daysA);
                     
@@ -151,8 +150,6 @@ function UpdateMembership(){
                     $('#lblPrice_' + $memberId).html($priceA);
                     $('#lblComments_' + $memberId).html($comnts);
                     
-                    $('#divRecords').slideToggle("slow");
-                    $('#divForm').slideToggle("slow");    
                     $('#lblMsg').html('Membership information updated!');                    
                 }
             },
@@ -194,7 +191,7 @@ function deleteMembership($membershipId)
                 success:function(msg){
                     if(msg)
                     {
-                        $('#divRec_' + $membershipId).remove();
+                        $('#divRec_' + $membershipId).slideToggle("slow");
                         $('#lblMsg').html('Membership plan deleted!');                    
                     }
                 },

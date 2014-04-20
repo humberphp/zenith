@@ -82,13 +82,12 @@
         
     $body .= "</div>";
     
-    $body .= "<div id='divRecords'>";
-    
-    $body .= "<div class='form-group'>";
-    $body .= "<div class='col-md-12'>";
-    $body .= "<a href='#' id='addNew' class='btn btn-success'>Add New Membership Plan</a>";
-    $body .= "</div>";
-    $body .= "</div>";
+    $body .= "<div id='divRecords'>";    
+        $body .= "<div class='form-group'>";
+            $body .= "<div class='col-md-12'>";
+                $body .= "<a href='#' id='addNew' class='btn btn-success'>Add New Membership Plan</a>";
+            $body .= "</div>";
+        $body .= "</div>";
     if(count($memberships)>0)
     {
         for($ind = 0; $ind < count($memberships); $ind++):

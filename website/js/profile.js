@@ -468,8 +468,9 @@ function delAccount(){
             },
             success:function(msg){
                 if(msg)
-                {                          
-                    location.href='../login.php';                
+                {            
+                    alert(msg.d);
+                    //location.href='../index.php';                
                 }
             },
             dataType:"text"

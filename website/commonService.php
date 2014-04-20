@@ -109,14 +109,14 @@ switch ($data)
         break;
     case 'delAccount':
         $response = userInfoDB::deleteUserAccount($uid);
-        if($response)
-        {
-            $result = true;
-        }
-        else 
-            {
-                $result = false;
-            }
+//        if($response)
+//        {
+            $result = $response;
+//        }
+//        else 
+//            {
+//                $result = false;
+//            }
         break;
     default:
         $result = "fail";            

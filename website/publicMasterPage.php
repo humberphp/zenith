@@ -6,6 +6,8 @@ class publicMasterPage{
     private $meta_author;
     private $page_heading;
     
+    public function __construct(){
+    }
     public function setTitle($title){
         $this->meta_title = $title;
     }    
@@ -38,6 +40,61 @@ class publicMasterPage{
     }   
     
     public function displayPage($body){
+        require_once 'LoginRegistration/core.php';
+        require_once 'Database.php';
+        if (isset($_GET['success']) && empty($_GET['success'])){ 
+            header('Location: members/profile.php');
+        }
+        if(empty($errors) === false){
+			echo '<p>' . implode('</p><p>', $errors) . '</p>';
+		}
+       
+   
+    if (isset($_POST['loginsubmit'])){
+
+            $username = trim($_POST['username']);
+            $password = trim($_POST['password']);
+
+            if (empty($username) === true || empty($password) === true)
+                {
+                    echo $errors[] = 'Sorry, but we need your username and password.';
+                }
+            else if ($userClass->user_exists($username) === false)
+                {
+                    echo $errors[] = 'Sorry that username doesn\'t exists.';
+                }   
+                else {
+                    $login = $userClass->login($username, $password);
+                    if ($login === false) {
+                            echo $errors[] = 'Sorry, that username/password is invalid';
+                    }else {
+                            // username/password is correct and the login method of the $users object returns the user's id, which is stored in $login.
+
+                            $_SESSION['loginUserId'] =  $login; // The user's id is now set into the user's session  in the form of $_SESSION['id'] 
+                            $user = $userClass->userdata($_SESSION['loginUserId']);
+                            $_SESSION['userFName'] = $user['firstName'].' '.$user['lastName']. '  ';
+                            $roleId = $user['RoleId'];
+                            #Redirect the user to Template.php.
+
+                            switch ($roleId) 
+                            {
+                              case 1:
+                              header('Location: zenithAdmin/specialOffers.php');
+                              break;
+                              case 2:
+                              header('Location: zenithAdmin/supportTickets.php');
+                              break;
+                              case 3:
+                              header('Location: members/profile.php');
+                              break;
+                            }
+
+                            exit();
+                    }
+                }
+    }             
+                
+                
        $page = '<!DOCTYPE html> <html  lang="en">
     	<head>
             <title>'.$this->getTitle().'</title>                  

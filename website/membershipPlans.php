@@ -1,5 +1,6 @@
 
 <?php 
+    session_start();    
     require_once 'publicMasterPage.php';
     require_once 'membershipPlansDB.php';
         

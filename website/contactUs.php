@@ -1,9 +1,10 @@
 <?php 
+    session_start();  
     require_once 'publicMasterPage.php';
         
     // ==================================== THIS CODE IS MUST  (START) ==============================================
     $objPage = new publicMasterPage();       
-    $objPage->setTitle('Zenith - About Us'); 
+    $objPage->setTitle('Zenith - Contact Us'); 
     $objPage->setMetaAuthor('this is meta author');
     // ==================================== THIS CODE IS MUST  (END) ==============================================
     

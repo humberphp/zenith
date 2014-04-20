@@ -52,10 +52,12 @@ class memberLeftSideBar {
              }
          $content .= "<a href='profileImages.php'>Upload New Photo(s)</a> <br/>  
             <!-- <a href='#' class='active'>Edit your Details</a>  <br/> -->";
-            if($memInfo[0]['member']=="1"):                
-                $content .= "<a href='../members/userMemberships.php'>Renew Subcription</a> <br/>
-                <a href='../members/userMemberships.php'>Change your Subscription Plan</a>";
+            if($memInfo[0]['member']=="1"): 
+                $memID = $memInfo[0]['membershipId'];
+                $content .= "<a href='../members/subscribe.php?memId={$memID}'>Renew Subcription</a> <br/>
+                <a href='../members/userMemberships.php'>Change your Membership Plan</a><br />";
             endif;
+             $content .= "<a href='#' id='delAccount'>Delete Account</a>";
               $content .= "<hr>
             <ol class='list-unstyled'>
               <li><a href='#'>View Requests</a></li>

@@ -120,7 +120,7 @@
                   $body .= "my " . $createsFor ."</strong></h3>";
                 }  
                 $body .= $aboutUser;
-                $body .= "<div class='col-md-12' align='right'><a href='#' id='delAccount'>Delete Account</a><hr /></div>";
+//                $body .= "<div class='col-md-12' align='right'><a href='#' id='delAccount'>Delete Account</a><hr /></div>";
                 $body .= "</div>";
             }
             else {

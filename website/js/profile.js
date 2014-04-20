@@ -469,8 +469,7 @@ function delAccount(){
             success:function(msg){
                 if(msg)
                 {            
-                    alert(msg.d);
-                    //location.href='../index.php';                
+                    location.href='../index.php';                
                 }
             },
             dataType:"text"
@@ -517,6 +516,7 @@ $(document).ready(function(){
     $('#delAccount').click(function(e){      
             if (confirm("Delete Account?")){
                  delAccount();
+                   // location.href='../index.php';
              }
              else
              {

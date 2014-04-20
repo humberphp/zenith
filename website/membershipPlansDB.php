@@ -74,7 +74,8 @@ class membershipPlansDB {
         return $rows;
     }
     
-    public static function deleteMembershipPlan($planId){        
+    public static function deleteMembershipPlan($planId){   
+        $conn = Database::getDB();      
         $sql = "CALL spDeleteMembershipPlan(:planId)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('planId', $planId, PDO::PARAM_INT, 11);

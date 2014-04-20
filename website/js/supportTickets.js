@@ -109,6 +109,11 @@ function saveTicket(){
                     $('#divRecords').slideToggle("slow"); 
                     $('#lblMsg').html('Ticket saved'); 
             },
+            
+            error: function (er) {
+                alert('error');
+                alert($.parseJSON(er));
+            },
             dataType:"text"
     });
  }

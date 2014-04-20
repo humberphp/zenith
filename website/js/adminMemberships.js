@@ -171,8 +171,8 @@ function showUpdate($membershipId){
     $('#divForm').slideToggle("slow");
     $('#btnSU').val('Update');
     
-    alert($membershipId);
-    alert($('#lblTitle_' + $membershipId).html());
+    //alert($membershipId);
+    //alert($('#lblTitle_' + $membershipId).html());
 }
 
 

@@ -1,7 +1,6 @@
 <?php
 require_once 'Database.php';
 require_once 'supportTicketsDB.php';
-require_once 'emails.php';
 extract($_REQUEST);
 
 $response;
@@ -27,78 +26,65 @@ switch ($data)
         endforeach;
         break;
     case 'closeT':
-        $response = supportTicketsDB::closeTicket($tId);
-        if((int)$response > 0)
-        {
-            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
-            foreach($email as $em):
-                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
-                $name = $em['Name'];
-                $subject = "RE: Ticket [Ticket ID: {$result}]";
-                $emailbody = "<h3>Dear " . $name . "</h3>";
-                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is closed.<br /><br />" ;
-                $emailbody .= "We hope you are satisfied with our services. <br />";
-                $emailbody .= "Team Zenith";     
-                
-                $emailObj = new emails();
-                $emailObj->send_email($toAdd, $subject, $emailbody, true);                 
-            endforeach;
-        }
-        if($response)
-        {
-            $result = true;
-        }
-        else 
-            {
-                $result = false;
-            }
+        $result = supportTicketsDB::closeTicket($tId);
+//        if((int)$result > 0)
+//        {
+//            include_once 'emails.php';
+//            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
+//            foreach($email as $em):
+//                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
+//                $name = $em['Name'];
+//                $subject = "RE: Ticket [Ticket ID: {$result}]";
+//                $emailbody = "<h3>Dear " . $name . "</h3>";
+//                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is closed.<br /><br />" ;
+//                $emailbody .= "We hope you are satisfied with our services. <br />";
+//                $emailbody .= "Team Zenith";     
+//                
+//                $emailObj = new emails();
+//                $emailObj->send_email($toAdd, $subject, $emailbody, true);                 
+//            endforeach;
+//        }      
         break;
     case 'saveTicket':
         $result = supportTicketsDB::saveNewTicket($userId, $subject, $submitDate, $departmentId, $message);
-        if((int)$result > 0)
-        {
-            $email = supportTicketsDB::getUserEmailByUserId($userId);
-            foreach($email as $em):
-                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
-                $name = $em['Name'];
-                $subject = "Ticket [Ticket ID:  {$result}]";
-                $emailbody = "<h3>Dear {$name}</h3>";
-                $emailbody .= "Your ticket regarding {$subject} has been submited successfully.<br />";
-                $emailbody .= "Please login into your account to track status and response from us.<br />";
-                $emailbody .= "Team Zenith";        
-                
-                $emailObj = new emails();
-                $emailObj->send_email($toAdd, $subject, $emailbody, true);              
-            endforeach;
-        }
+//        if((int)$result > 0)
+//        {
+//            include_once 'emails.php';
+//            $email = supportTicketsDB::getUserEmailByUserId($userId);
+//            foreach($email as $em):
+//                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
+//                $name = $em['Name'];
+//                $subject = "Ticket [Ticket ID:  {$result}]";
+//                $emailbody = "<h3>Dear {$name}</h3>";
+//                $emailbody .= "Your ticket regarding {$subject} has been submited successfully.<br />";
+//                $emailbody .= "Please login into your account to track status and response from us.<br />";
+//                $emailbody .= "Team Zenith";        
+//                
+//                $emailObj = new emails();
+//                $emailObj->send_email($toAdd, $subject, $emailbody, true);              
+//            endforeach;
+//        }
         break;
     case 'saveReply':
-        $response = supportTicketsDB::saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied);
-        if((int)$response > 0)
-        {
-            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
-            foreach($email as $em):
-                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
-                $name = $em['Name'];
-                $subject = "RE: Ticket [Ticket ID:  {$result}]";
-                $emailbody = "<h3>Dear " . $name . "</h3>";
-                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is updated." ;
-                $emailbody .= "<br />";
-                $emailbody .= "Please login into your account to track status and response <br />";
-                $emailbody .= "Team Zenith";                
-                
-                $emailObj = new emails();
-                $emailObj->send_email($toAdd, $subject, $emailbody, true);      
-            endforeach;
-        }
-        if($response)
-        {
-            $result = true;
-        }
-        else 
-            {
-                $result = false;
-            }
+        $result = supportTicketsDB::saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied);
+//        if((int)$result > 0)
+//        {
+//            include_once 'emails.php';
+//            $email = supportTicketsDB::getUserEmailByTicketId($ticketId);
+//            foreach($email as $em):
+//                $toAdd = $em['Name'] . ' <' . $em['email'] . '>';
+//                $name = $em['Name'];
+//                $subject = "RE: Ticket [Ticket ID:  {$result}]";
+//                $emailbody = "<h3>Dear " . $name . "</h3>";
+//                $emailbody .= "Your ticket [Ticket ID: {$ticketId}] is updated." ;
+//                $emailbody .= "<br />";
+//                $emailbody .= "Please login into your account to track status and response <br />";
+//                $emailbody .= "Team Zenith";                
+//                
+//                $emailObj = new emails();
+//                $emailObj->send_email($toAdd, $subject, $emailbody, true);      
+//            endforeach;
+//        }
         break;
     default:
         $result = "fail";            

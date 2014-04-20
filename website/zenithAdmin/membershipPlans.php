@@ -24,7 +24,7 @@
     
     $memberships = $objMembership->getMembershipPlans();
     
-    $body = "<form class='form-horizontal' method='post'>";
+    $body = "<form class='form-horizontal' id='form1' method='post'>";
     $body .= "<br/>";
     $body .= "<label style='color:Red;' name='lblMsg' id='lblMsg'></label><br/>";
     $body .= "<div id='divForm'>";        

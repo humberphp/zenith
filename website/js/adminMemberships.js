@@ -63,7 +63,7 @@ function saveMembership(){
                     $('#divForm').slideToggle("slow");    
                     $('#lblMsg').html('Membership information added!');   
                     
-                    $newMem = "<div class='form-group col-md-5'>";
+                    $newMem = "<div class='form-group col-md-6'>";
                          $newMem += "<div class='form-group col-md-12'>";
                              $newMem += "<label class='col-md-6 control-label'>Title:</label>";
                              $newMem += "<div class='col-md-6'>";
@@ -101,7 +101,8 @@ function saveMembership(){
                          $newMem += "<div  class='form-group col-md-12'>";
                          $newMem += "<label class='col-md-4 control-label'>&nbsp;</label>";
                          $newMem += "<div class='col-md-8'>";
-                         $newMem += "<input type='submit' id='updMembership_'" + memId + "' onclick='showUpdate(" + memId + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                         $newMem += "<input type='submit' id='updMembership_'" + memId + "' onclick='showUpdate(" + memId + ",";
+                         $newMem +=  '"' + $title + '"' + "," + '"' + $daysA + '"' + "," + '"' + $contactsA + '"' + "," + '"' + $priceA + '"' + "," + '"' + $comnts + '"' + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
                          $newMem += "<input type='submit' id='delMembership_'" + memId + "' onclick='deleteMembership(" + memId + "); return false;' value='Delete' class='btn btn-success' />";
                          $newMem += "</div>";            
                          $newMem += "</div>";
@@ -112,8 +113,8 @@ function saveMembership(){
 
                     $newMem += "</div>";    
 
-                    $newMem += "<div class='form-group col-md-1' >";
-                    $newMem += "</div>";   
+//                    $newMem += "<div class='form-group col-md-1' >";
+//                    $newMem += "</div>";   
                     $('#divRecords').append($newMem);
                 }
             },

@@ -93,7 +93,7 @@
     {
         for($ind = 0; $ind < count($memberships); $ind++):
             
-            $body .= "<div class='form-group col-md-5' id='divRec_{$memberships[$ind]['membershipId']}'>";
+            $body .= "<div class='form-group col-md-6' id='divRec_{$memberships[$ind]['membershipId']}'>";
         
                 $body .= "<div class='form-group col-md-12'>";
                     $body .= "<label class='col-md-6 control-label'>Title:</label>";
@@ -132,7 +132,14 @@
                 $body .= "<div  class='form-group col-md-12'>";
                 $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                 $body .= "<div class='col-md-8'>";
-                $body .= "<input type='submit' id='updMembership_{$memberships[$ind]['membershipId']}' onclick='showUpdate(" . $memberships[$ind]['membershipId'] . "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<input type='submit' id='updMembership_{$memberships[$ind]['membershipId']}' "
+                . "onclick='showUpdate(" . $memberships[$ind]['membershipId'] . ",";
+                $body .=  '"'. $memberships[$ind]['membership'] . '"';
+                $body .= "," . '"' . $memberships[$ind]['daysAllowed'] . '"';
+                $body .= "," . '"' . $memberships[$ind]['contactsAllowed'] . '"';
+                $body .= "," . '"' . $memberships[$ind]['price'] . '"';
+                $body .= "," . '"' . $memberships[$ind]['comments'] . '"';
+                $body .= "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
                 $body .= "<input type='submit' id='delMembership_{$memberships[$ind]['membershipId']}' onclick='deleteMembership(" . $memberships[$ind]['membershipId'] . "); return false;' value='Delete' class='btn btn-success' />";
                 $body .= "</div>";            
                 $body .= "</div>";
@@ -143,8 +150,8 @@
             
             $body .= "</div>";    
             
-            $body .= "<div class='form-group col-md-1' >";
-            $body .= "</div>";   
+//            $body .= "<div class='form-group col-md-1' >";
+//            $body .= "</div>";   
         endfor;
     }
     

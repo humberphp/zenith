@@ -93,7 +93,7 @@
     {
         for($ind = 0; $ind < count($memberships); $ind++):
             
-            $body .= "<div class='form-group col-md-5'>";
+            $body .= "<div class='form-group col-md-5' id='divRec_{$memberships[$ind]['membershipId']}'>";
         
                 $body .= "<div class='form-group col-md-12'>";
                     $body .= "<label class='col-md-6 control-label'>Title:</label>";

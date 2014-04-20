@@ -9,18 +9,13 @@ $result;
 switch ($data)
 {
     case 'updPlan':
-        $response = membershipPlansDB::updateMembership($membershipId, $membership, $daysAllowed, $contactsAllowed, $price, $comments);
-        if($response)
-        {
-            $result = $response;
-        }
-        else 
-            {
-                $result = $response;
-            }
+        $result = membershipPlansDB::updateMembership($membershipId, $membership, $daysAllowed, $contactsAllowed, $price, $comments);      
         break;
     case 'svPlan':
         $result = membershipPlansDB::saveMembership($membership, $daysAllowed, $contactsAllowed, $price, $comments);
+        break;
+    case 'delPlan':
+        $result = membershipPlansDB::deleteMembershipPlan($planId);      
         break;
     default:
         $result = "fail";            

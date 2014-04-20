@@ -99,7 +99,7 @@
                 $body .= "<div  class='form-group col-md-12'>";
                 $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                 $body .= "<div class='col-md-8'>";
-                $body .= "<input type='submit' id='updOffer_{$offers[$i]['specialId']}' onclick='showUpdate(" . $offers[$i]['specialId'] . "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
+                $body .= "<input type='submit' id='updOffer_{$offers[$i]['specialId']}' onclick='showOfferUpdate(" . $offers[$i]['specialId'] . "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
                 $body .= "<input type='submit' id='delOffer_{$offers[$i]['specialId']}' value='Delete' class='btn btn-success' />";
                 $body .= "</div>";            
                 $body .= "</div>";

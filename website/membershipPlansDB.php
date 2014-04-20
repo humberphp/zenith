@@ -73,6 +73,17 @@ class membershipPlansDB {
         $conn = null;
         return $rows;
     }
+    
+    public static function deleteMembershipPlan($planId){        
+        $sql = "CALL spDeleteMembershipPlan(:planId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('planId', $planId, PDO::PARAM_INT, 11);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        $conn = null;
+        return $row_count;
+    }
+    
 }
 
 ?>

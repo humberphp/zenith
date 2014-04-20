@@ -133,7 +133,7 @@
                 $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                 $body .= "<div class='col-md-8'>";
                 $body .= "<input type='submit' id='updMembership_{$memberships[$ind]['membershipId']}' onclick='showUpdate(" . $memberships[$ind]['membershipId'] . "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-                $body .= "<input type='submit' id='delMembership_{$memberships[$ind]['membershipId']}' value='Delete' class='btn btn-success' />";
+                $body .= "<input type='submit' id='delMembership_{$memberships[$ind]['membershipId']}' onclick='deleteMembership(" . $memberships[$ind]['membershipId'] . "); return false;' value='Delete' class='btn btn-success' />";
                 $body .= "</div>";            
                 $body .= "</div>";
 

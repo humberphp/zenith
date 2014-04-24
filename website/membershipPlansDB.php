@@ -85,6 +85,16 @@ class membershipPlansDB {
         return $row_count;
     }
     
+    public function addUserToMembership($userId, $planId){ 
+        $conn = Database::getDB();      
+        $sql = "CALL spAddUserToMembership(:UsersId, :memId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('memId', $planId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $stmt->closeCursor();
+        $conn = null;
+    }
 }
 
 ?>

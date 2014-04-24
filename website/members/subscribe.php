@@ -35,13 +35,13 @@
             $alConts = $planDet[0]['contactsAllowed'];
             $price = $planDet[0]['price'];
 
-            $body .= "<div  class='form-group'>";
-                $body .= "<label class='col-md-2 control-label'>Note:</label>";
-                $body .= "<div class='col-md-10'>"; 
-                    $body .= "<label id='lblPlan' name='lblPlan' style='font-weight: normal;'>Changing or renewing a plan before expiry date "
-                        . "will add your remaining days and contacts to new plan.</label>";   
-                $body .= "</div>"; 
-            $body .= "</div>";
+//            $body .= "<div  class='form-group'>";
+//                $body .= "<label class='col-md-2 control-label'>Note:</label>";
+//                $body .= "<div class='col-md-10'>"; 
+//                    $body .= "<label id='lblPlan' name='lblPlan' style='font-weight: normal;'>Changing or renewing a plan before expiry date "
+//                        . "will add your remaining days and contacts to new plan.</label>";   
+//                $body .= "</div>"; 
+//            $body .= "</div>";
             $body .= "<br/>";
             $body .= "<div  class='form-group'>";
                 $body .= "<label class='col-md-6 control-label'>Membership Plan:</label>";
@@ -70,9 +70,19 @@
             $body .= "<div  class='form-group'>";
                 $body .= "<div class='col-md-6'></div>";
                 $body .= "<div class='col-md-6'>";
-                    $body .= "<input type='submit' value='Proceed to checkout' class='btn btn-success'/>";
+//                    $body .="<a href='success.php?ptrb={$userId}&item_number={$memId}&tx=2'>Test</a><br/>";
+                    $body .= "<a href='https://sandbox.paypal.com/cgi-bin/webscr"
+                            . "?cmd=_xclick"
+                            . "&business=kaur.dalbir@ymail.com"
+                            . "&item_name={$plan}"
+                            . "&amount={$price}"
+                            . "&item_number={$memId}"
+                            . "&return=http://www.jagsirsingh.com/zenith/members/success.php?ptrb={$userId}"
+                            . "&cancel_return=http://www.jagsirsingh.com/zenith/members/subscribe.php?memId={$memId}"
+                            . "&currency=CAD' class='btn btn-success' >Proceed to checkout</a>";
                 $body .= "</div>";
-            $body .= "</div>";
+            $body .= "</div>";     
+          
         endif;
         
     }

@@ -17,6 +17,7 @@ $(document).ready(function(){
         $('#txtComments').val('');
         $('#hdnMemId').val(0);
     
+        $('#lblMsg').html("");
         $('#errTitle').html("");
         $('#errDays').html("");
         $('#errContact').html("");
@@ -125,6 +126,7 @@ function saveMembership(){
                 }
                 else
                 {
+                    memId = ($.trim(memId));
                     mId = memId.substring(1, eval(memId.length - 1));
                     $('#errTitle').html("");
                     $('#errDays').html("");
@@ -175,7 +177,7 @@ function UpdateMembership(){
                     comments:$comnts
             },
             success:function(msg){
-                if(msg=="true")
+                if(($.trim(msg))=="true")
                 {
                     $('#divRecords').slideToggle("slow");
                     $('#divForm').slideToggle("slow");    
@@ -189,8 +191,8 @@ function UpdateMembership(){
                     $('#lblMsg').html('Membership information updated!');                    
                 }
                 else{
+                    msg = ($.trim(msg));
                     msg = msg.substring(1, eval(msg.length - 1));
-                   
                     $('#errTitle').html("");
                     $('#errDays').html("");
                     $('#errContact').html("");
@@ -238,6 +240,7 @@ function showUpdate($membershipId, $title, $days, $contacts, $price, $comments){
     $('#divForm').slideToggle("slow");
     $('#btnSU').val('Update');
     
+    $('#lblMsg').html("");
     $('#errTitle').html("");
     $('#errDays').html("");
     $('#errContact').html("");

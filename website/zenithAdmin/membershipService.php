@@ -16,7 +16,7 @@ switch ($data)
         commonDB::chectDecimal($result, $price, 'price');
         commonDB::chectStrings($result, $comments, 'comments');
             
-        if($result == ''){
+        if($result == ""){
             $result = membershipPlansDB::updateMembership($membershipId, $membership, $daysAllowed, $contactsAllowed, $price, $comments);  
             if($result)
             {

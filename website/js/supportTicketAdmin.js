@@ -90,11 +90,14 @@ function loadTickets(){
                                  $newRec += "</div>";
 
                                  $newRec += "<div  class='form-group col-md-12'>";
-                                 $newRec += "<label class='col-md-4 control-label'>&nbsp;</label>";
-                                 $newRec += "<div class='col-md-8'>";
-                                 $newRec += " <a href='#' id='btnClose' onclick='closeTicket(" + msg[index].supportTicketId + ");return false;' class='btn btn-success'>Close</a>&nbsp;&nbsp;&nbsp;";
-                                 $newRec += "<a href='ticketReply.php?ticketId=" + msg[index].supportTicketId + "&uid=" + msg[index].senderUserId + "' id='btnReply' class='btn btn-success'>Reply</a>";
-                                 $newRec += "</div>";            
+                                    $newRec += "<label class='col-md-4 control-label'>&nbsp;</label>";
+                                    $newRec += "<div class='col-md-8'>";
+                                        $newRec += " <a href='#' id='btnClose' onclick='closeTicket(" + msg[index].supportTicketId + ");return false;' class='btn btn-success'>Close</a>&nbsp;&nbsp;&nbsp;";
+                                        if($.trim(msg[index].response)=="New message")
+                                        {
+                                            $newRec += "<a href='ticketReply.php?ticketId=" + msg[index].supportTicketId + "&uid=" + msg[index].senderUserId + "' id='btnReply' class='btn btn-success'>Reply</a>";
+                                        }
+                                    $newRec += "</div>";            
                                  $newRec += "</div>";
 
                                  $newRec += "<div  class='form-group col-md-12'>";

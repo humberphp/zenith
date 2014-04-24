@@ -172,10 +172,7 @@ function updateBasic(){
                     HairC:$HColor
                     
                 },
-            success:function(msg){
-                   // msg = $.parseJSON(msg); 
-                   // alert(msg);
-                    
+            success:function(msg){                    
                     if(msg=="true")
                     {
                         $('#lblBodyType').text($BType);

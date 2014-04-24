@@ -42,8 +42,7 @@ class commonDB {
         $conn = null;
         return $rows;
     }
-    public static function  getReligions()
-    {
+    public static function  getReligions(){
         $conn=  Database::getDB();
         $sql="CALL spGetReligion";
         $stmt=$conn->prepare($sql);
@@ -52,8 +51,7 @@ class commonDB {
         $conn = null;
         return $rows;
     }
-    public static function getSearchResult($gender,$ageFrom,$ageTo,$heightFrom,$heightTo,$martialStatus,$religion,$countryName)
-    {
+    public static function getSearchResult($gender,$ageFrom,$ageTo,$heightFrom,$heightTo,$martialStatus,$religion,$countryName){
         $conn=  Database::getDB();
         $sql="CALL getSearchResult(:gender,:ageFrom,:ageTo,:heightFrom,:heightTo,:martialStatus,:religion,:countryName)";
         $stmt=$conn->prepare($sql);
@@ -71,4 +69,16 @@ $stmt->bindParam(':countryName',$countryName,  PDO::PARAM_STR,50);
         $conn = null;
         return $rows;;
     }
-}
+    public static function chectStrings(&$result, $value,$errName){
+        if(preg_match('/^[a-z][a-z ]*$/i',$value)==0)
+        {
+            if($result != ""){
+                $result .= ", " . $errName;
+            }
+            else{
+                $result .= $errName;
+            }
+        }
+    }
+    
+    }

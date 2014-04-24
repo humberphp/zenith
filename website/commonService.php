@@ -6,7 +6,7 @@ require_once 'userInfoDB.php';
 extract($_REQUEST);
 
 $response;
-$result;
+$result="";
 switch ($data)
 {
     case 'getContactDetails':
@@ -97,15 +97,21 @@ switch ($data)
             }
         break;
     case 'updateBasicDet':
-        $response = userInfoDB::updateUserBasicInfo($uid, $BodyT, $Complx, $PhysicalSt, $Height, $Weight, $MotherT, $MartialS, $DrinkH, $SmokeH, $EHabit, $HairC);
-        if($response)
-        {
-            $result = true;
-        }
-        else 
+             
+      commonDB::chectStrings($result, $MotherT, 'motherT');
+      commonDB::chectStrings($result, $HairC, 'hairC');
+            
+        if($result == ""){
+            $response = userInfoDB::updateUserBasicInfo($uid, $BodyT, $Complx, $PhysicalSt, $Height, $Weight, $MotherT, $MartialS, $DrinkH, $SmokeH, $EHabit, $HairC);
+            if($response)
             {
-                $result = false;
+                $result = true;
             }
+            else 
+                {
+                    $result = false;
+                }
+        }
         break;
     case 'delAccount':
         $result = userInfoDB::deleteUserAccount($uid);

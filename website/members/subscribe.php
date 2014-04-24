@@ -35,6 +35,13 @@
             $alConts = $planDet[0]['contactsAllowed'];
             $price = $planDet[0]['price'];
 
+            $body .= "<div  class='form-group'>";
+                $body .= "<label class='col-md-2 control-label'>Note:</label>";
+                $body .= "<div class='col-md-10'>"; 
+                    $body .= "<label id='lblPlan' name='lblPlan' style='font-weight: normal;'>Changing or renewing a plan before expiry date "
+                        . "will add your remaining days and contacts to new plan.</label>";   
+                $body .= "</div>"; 
+            $body .= "</div>";
             $body .= "<br/>";
             $body .= "<div  class='form-group'>";
                 $body .= "<label class='col-md-6 control-label'>Membership Plan:</label>";

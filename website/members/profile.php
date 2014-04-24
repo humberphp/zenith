@@ -308,14 +308,14 @@
                         $body .= "</div>";
 
                         $body .= "<div  class='form-group'>";
-                        $body .= "<label class='col-md-4 control-label'>Height:</label>";
+                        $body .= "<label class='col-md-4 control-label'>Height(kg):</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtHeight' name='txtHeight' class='form-control input-md input-lg' required='required' />";
                         $body .= "</div>";            
                         $body .= "</div>";
 
                         $body .= "<div  class='form-group'>";
-                        $body .= "<label class='col-md-4 control-label'>Weight:</label>";
+                        $body .= "<label class='col-md-4 control-label'>Weight(kg):</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtWeight' name='txtWeight' class='form-control input-md input-lg' required='required' />";
                         $body .= "</div>";            
@@ -325,6 +325,7 @@
                         $body .= "<label class='col-md-4 control-label'>Mother Tongue:</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtMotherTongue' name='txtMotherTongue' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errMotherT' style='color:red'></div>";
                         $body .= "</div>";
                         $body .= "</div>";
 
@@ -332,6 +333,7 @@
                         $body .= "<label class='col-md-4 control-label'>Hair Color:</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtHairColor' name='txtHairColor' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errHairColor' style='color:red'></div>";
                         $body .= "</div>";            
                         $body .= "</div>";
 

@@ -173,26 +173,44 @@ function updateBasic(){
                     
                 },
             success:function(msg){
-                if(msg)
-                {
-                    $('#lblBodyType').text($BType);
-                    $('#lblComplexion').text($Comp);
-                    $('#lblPStatus').text($PType);
-                    $('#lblMStatus').text($MStatus);
-                    $('#lblWeight').text($wt);
-                    $('#lblHeight').text($ht);
-                    $('#lblSHabits').text($SHabit);
-                    $('#lblEHabits').text($EHabit);
-                    $('#lblDHabits').text($DHabit);
-                    $('#lblMTongue').text($MTongue);
-                    $('#lblHColor').text($HColor);
+                   // msg = $.parseJSON(msg); 
+                   // alert(msg);
                     
-                    $('#simpleDivBasicDet').slideToggle("slow");
-                    $('#editDivBasicDet').slideToggle("slow");
-                    $('#lblMsg').html('Basic information updated!');                    
-                }
-            },
-            dataType:"text"
+                    if(msg=="true")
+                    {
+                        $('#lblBodyType').text($BType);
+                        $('#lblComplexion').text($Comp);
+                        $('#lblPStatus').text($PType);
+                        $('#lblMStatus').text($MStatus);
+                        $('#lblWeight').text($wt);
+                        $('#lblHeight').text($ht);
+                        $('#lblSHabits').text($SHabit);
+                        $('#lblEHabits').text($EHabit);
+                        $('#lblDHabits').text($DHabit);
+                        $('#lblMTongue').text($MTongue);
+                        $('#lblHColor').text($HColor);
+
+                        $('#simpleDivBasicDet').slideToggle("slow");
+                        $('#editDivBasicDet').slideToggle("slow");
+                        $('#lblMsg').html('Basic information updated!');                    
+                    }
+                    else{
+
+                        msg = msg.substring(1, eval(msg.length - 1));
+
+                        $.each(msg.split(", ").slice(0), function(index, item) {
+                              //  $("[name=chkHobbies]").filter("[value='"+item+"']").prop("checked",true);        
+                              if(item=="motherT"){
+                                  $('#errMotherT').html('Please enter values');
+                              }
+                              if(item == "hairC"){
+                                  $('#errHairColor').html('Please enter values');
+                              }
+                            });
+
+                    }
+                    },
+                dataType:"text"
     });
 }
 
@@ -531,7 +549,10 @@ $(document).ready(function(){
         $('#basicEdit').click(function(e){
             e.preventDefault();             
             showHide();
-
+            
+            $('#errMotherT').html("");
+            $('#errHairColor').html("");
+                          
             $("[name=rdbBodyType]").prop("checked", false);
             $("[name=rdbComplexion]").prop("checked", false);
             $("[name=rdbPhysicalStatus]").prop("checked", false);

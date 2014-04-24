@@ -102,7 +102,10 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
     foreach ($_SESSION["cart_array"] as $each_item) { 
 		$item_id = $each_item['item_id'];
                 $conn = Database::getDB(); 
-		$sql = mysql_query("SELECT * FROM tbl_specials WHERE specialId='$item_id' LIMIT 1");
+		$sql = mysql_query("SELECT * FROM tbl_specials WHERE specialId=:spId");
+                $stmt=$conn->prepare($sql);
+                $stmt->bindParam('spId',$item_id,  PDO::PARAM_INT,11);
+                
                 if($sql === FALSE)
                     {
                     die(mysql_error()); // TODO: better error handling

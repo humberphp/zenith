@@ -61,8 +61,8 @@ class memberLeftSideBar {
               $content .= "<hr>
             <ol class='list-unstyled'>
               <li><a href='#'>View Requests</a></li>
-              <li><a href='#'>View Messages</a></li>
-              <li><a href='#'>Other Actions</a></li>
+              <li><a href='../members/memberinbox.php'>View Messages</a></li>
+              <li><a href='../members/membersubmitstory.php'>Submit Your Story</a></li>
             </ol>
           </div><!-- sidebar module -->
         </div><!-- /.blog-sidebar -->";

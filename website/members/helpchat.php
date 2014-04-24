@@ -38,7 +38,7 @@ if (isset($_POST['stage'])) {
                     $error = "Unable to send message";
                 }
             } else {
-                $error = "You can not send a blank message";
+                $error = "You Can not send blank message";
             }
             break;
     }
@@ -50,7 +50,7 @@ if (isset($_GET['cl']) && $_GET['cl'] > 0) {
             if ($request->update(array('status' => 2), array('sender' => $logged_uid))) {
                 $success = "Request Closed Successfully";
             } else {
-                $error = "Unable To Close Request";
+                $error = "Unable to close request";
             }
         } else {
             header('Location: helpchat.php');
@@ -62,7 +62,7 @@ if (isset($_GET['cl']) && $_GET['cl'] > 0) {
 
 // ==================================== THIS CODE IS MUST  (START) ==============================================
 $objPage = new memberMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
-$objPage->setTitle('Zenith - Help Chat Request');
+$objPage->setTitle('Zenith - User Help Chat');
 $objPage->setMetaAuthor('Tunde Obatayo');
 // ==================================== THIS CODE IS MUST  (END) ==============================================
 
@@ -78,7 +78,7 @@ if (!empty($error)) {
     <p style="color: #F00;"><?php echo $error; ?></p>
 <?php } ?>
 <div>
-    <h2>Help Chat Request</h2>
+    <h2>Admin Help Chat</h2>
     <?php
     if (!$request->isAproved($logged_uid)) {
 
@@ -90,7 +90,7 @@ if (!empty($error)) {
                     <label class="control-label" for="message" pull left>Enter Your Message: </label><br/>
                     <div class="col-md-12">
                         <textarea class="form-control" id="message" name="message" required></textarea>
-                        <span class="help-block"><em>*Briefly explain your reason for chat*</em></span>
+                        <span class="help-block">Briefly explain your reason for chat</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -121,7 +121,7 @@ if (!empty($error)) {
                 <label class="control-label" for="message" pull left>Enter Your Message: </label><br/>
                 <div class="col-md-12">
                     <textarea class="form-control" id="message" name="message" required></textarea>
-                    <span class="help-block"><em>*Briefly explain your reason for chat*</em></span>
+                    <span class="help-block">Briefly explain your reason for chat</span>
                 </div>
             </div>
             <div class="form-group">
@@ -137,7 +137,7 @@ if (!empty($error)) {
 <div style="clear: both; height: 20px;"></div>
 <?php if ($request->isAproved($logged_uid)) { ?>
     <div>
-        <h3>Conversation</h3>
+        <h3>Coversation</h3>
         <hr/>
         <div style="border: solid 1px #ccc; padding: 10px;">
             <?php $chats= $chat->getAll();

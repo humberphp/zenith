@@ -67,7 +67,7 @@ if (isset($_GET['dl']) && $_GET['dl'] > 0) {
             if ($request->delete($_GET['rid'])) {
                 $success = "Request Deleted Successfully";
             } else {
-                $error = "Unable to delete request";
+                $error = "Unable to Delete Request";
             }
         } else {
             header('Location: helpchatadmin.php');
@@ -86,7 +86,7 @@ if (isset($_GET['ac']) && $_GET['ac'] > 0) {
                 $chat->SendMessage('Hello '.$request->getSenderID($_GET['rid']).' how may I help you', $request->getSenderID($_GET['rid']));
                 $success = "Request Accepted Successfully";
             } else {
-                $error = "Unable to process request";
+                $error = "Unable to Process Request";
             }
         } else {
             header('Location: helpchatadmin.php');
@@ -97,8 +97,8 @@ if (isset($_GET['ac']) && $_GET['ac'] > 0) {
 }
 
 // ==================================== THIS CODE IS MUST  (START) ==============================================
-$objPage = new adminMasterPage($_SESSION['loginUserId']);           // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
-$objPage->setTitle('Zenith - Admin HelpChat');
+$objPage = new adminMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
+$objPage->setTitle('Zenith - Admin Chat Update');
 $objPage->setMetaAuthor('Tunde Obatayo');
 // ==================================== THIS CODE IS MUST  (END) ==============================================
 
@@ -136,7 +136,7 @@ if (!empty($error)) {
             </p>
             
             <p>
-                <a href="helpchatadmin.php?dl=1&&rid=<?php echo $req['id']; ?>" class="btn btn-success">delete this Request</a>
+                <a href="helpchatadmin.php?dl=1&&rid=<?php echo $req['id']; ?>" class="btn btn-success">Delete this Request</a>
                 <a href="helpchatadmin.php?ac=1&&rid=<?php echo $req['id']; ?>" class="btn btn-success">Accept this Request</a>
             </p>
         <hr/>

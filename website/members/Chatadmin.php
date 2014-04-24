@@ -51,10 +51,10 @@ class Chatadmin {
         $conn = Database::getDB();
         switch ($order) {
             case 0:
-                $order = 'date DESC';
+                $order = 'date ASC';
                 break;
             case 1:
-                $order = 'date ASC';
+                $order = 'date DESC';
                 break;
         }
         $where = '1';

@@ -25,10 +25,10 @@
                $success = "Your story has been submitted successfully!";
            } 
     }  
- 
+  
     // note for me(jassi): make the following code querystring based
-    $_SESSION['loginUserId'] = 4;
-    $_SESSION['userFName'] = "Tunde";
+    //$_SESSION['loginUserId'] = 4;
+    //$_SESSION['userFName'] = "Tunde";
     
     if(!isset($_SESSION['loginUserId']) || empty($_SESSION['loginUserId'])){
             header( 'Location: ../Login.aspx' ) ;

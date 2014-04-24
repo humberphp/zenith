@@ -5,7 +5,17 @@ class userStory{
         
     public function getAllStories(){    
         $conn = Database::getDB(); 
-        $query = 'SELECT * FROM tbl_successstories';
+        $query = 'SELECT * FROM tbl_successstories ORDER BY isApproved DESC';
+        $statement = $conn -> prepare($query);
+        $statement -> execute();
+        $allstories = $statement -> fetchAll();
+        
+        return $allstories;
+    }
+
+    public function getAllAdminApproveStories(){    
+        $conn = Database::getDB(); 
+        $query = 'SELECT * FROM tbl_successstories WHERE isApproved = 1 ORDER BY submitDate DESC';
         $statement = $conn -> prepare($query);
         $statement -> execute();
         $allstories = $statement -> fetchAll();
@@ -79,6 +89,31 @@ class userStory{
         $statement -> bindValue(':message',$message);
     	$statement -> bindValue(':title',$storyTitle);
     	$statement -> execute();
+    }
+
+    public function uploadImage($file){
+        $result = false;
+        $image_info = getimagesize($file);
+        $image_type = $image_info[2];
+        switch($image_type)
+        {
+            case IMAGETYPE_JPEG:
+                $image_ext = ".jpeg";               
+                $old_image = imagecreatefromjpeg($file);                
+                break;
+            case IMAGETYPE_PNG:
+                $image_ext = ".png";   
+                $old_image = imagecreatefrompng($file); 
+                break;
+            case IMAGETYPE_GIF:
+                $image_ext = ".gif";   
+                $old_image = imagecreatefromgif($file); 
+                break;
+            default :
+                $result = false;
+                return $result;
+        }
+        $ImageName = "images/" . $totalImage . $image_ext;
     }
 }
 ?>    

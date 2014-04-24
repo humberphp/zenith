@@ -39,7 +39,7 @@
             }
         }
         
-        $body = '<form class="form-horizontal" action="thisindex.php" method="post" name="successform">';
+        $body = '<form class="form-horizontal" action="thisindex.php" method="post" enctype="multipart/form-data" name="successform">';
         $body .= '<fieldset>';
         //Form Name -->
         $body .= '<legend>My Success Story</legend>';  
@@ -52,13 +52,14 @@
         $body .= '</div>';
         $body .= '</div>';
         //ImageFile Button
-        $body .= '<div class="form-group">';
+        $body .= '<div class="controls-group">';
         $body .= '<label class="col-md-4 control-label" for="image">Image: </label>';
-        $body .= '<div class="col-md-8">';
-        $body .= '<input id="image" name="image" class="form-control input-md" required type="text">';
+        $body .= '<div class="col-md-8 controls">';
+        $body .= '<input id="image" name="image" class="form-control input-file btn-success" required type="file">';
         $body .= '<span class="help-block">Image should be 140px by 140px</span>';
         $body .= '</div>';
         $body .= '</div>';
+
         //Date Picker
         $body .= '<div class="form-group">';
         $body .= '<label class="col-md-4 control-label" for="subdate">Date: </label>';

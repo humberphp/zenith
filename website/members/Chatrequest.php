@@ -156,16 +156,16 @@ class Chatrequest {
         $conn = Database::getDB();
         switch ($order) {
             case 0:
-                $order = 'date DESC';
-                break;
-            case 1:
                 $order = 'date ASC';
                 break;
+            case 1:
+                $order = 'date DESC';
+                break;
             case 2:
-                $order = 'status DESC';
+                $order = 'status ASC';
                 break;
             case 3:
-                $order = 'status ASC';
+                $order = 'status DESC';
                 break;
         }
         $where = '`status` != 2';

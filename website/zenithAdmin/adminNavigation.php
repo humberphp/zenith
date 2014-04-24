@@ -20,7 +20,13 @@
                             {
                             $nav .= "<li><a href='membershipPlans.php'>Membership Plans</a></li>
                                     <li><a href='#'>Special Offers</a></li>
-                                    <li><a href='#'>Success Stories</a></li>
+                                    <li class='dropdown'>
+                                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Success Stories<b class='caret'></b></a>
+                                        <ul class='dropdown-menu'>
+                                            <li><a href='./adminsuccessstoryapproved.php'>Approved Stories</a></li>
+                                            <li><a href='./adminsuccessstory.php'>Submitted Stories</a></li>
+                                        </ul>
+                                    </li>
                                     <li class='dropdown'>
                                         <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Support<b class='caret'></b></a>
                                         <ul class='dropdown-menu'>

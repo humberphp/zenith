@@ -232,16 +232,16 @@ class userPM {
         $conn = Database::getDB();
         switch ($order) {
             case 0:
-                $order = 'senderLevel ASC';
-                break;
-            case 1:
                 $order = 'senderLevel DESC';
                 break;
+            case 1:
+                $order = 'senderLevel ASC';
+                break;
             case 2:
-                $order = 'read ASC';
+                $order = 'read DESC';
                 break;
             case 3:
-                $order = 'read DESC';
+                $order = 'read ASC';
                 break;
         }
         $where = '2';
@@ -321,6 +321,18 @@ class userPM {
         
         $recdetails = $statement->fetchAll();
 
+        return $recdetails;
+        }
+
+    function gettheReceiver() {
+        $conn = Database::getDB();
+        
+        $query = 'SELECT userName FROM tbl_users JOIN tbl_privatemessage ON tbl_users.userId = tbl_privatemessage.sender LIMIT 0,1';
+        $statement = $conn -> prepare($query);
+        $statement -> execute();
+        
+        $recdetails = $statement->fetchAll();
+        
         return $recdetails;
         }
     

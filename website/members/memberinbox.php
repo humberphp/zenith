@@ -8,25 +8,7 @@ require_once 'userPM.php';
 
 $success = '';
 $error = '';
-//    if (isset($_POST['body'])){
-//        //Validating inputs
-//    
-//        $title = $_POST['title'];
-//        $body = $_POST['body'];
-//        $sender = $_POST['sender']; 
-//        $receiver = $_POST['receiver']; 
-//        $sender = $_POST['sender']; 
-//
-//            if (empty($message) || empty($submitDate) || empty ($storyTitle) ){
-//             $error = "All fields must to be filled properly prior to submission, Try Again!";
-//            
-//           } else {
-//             //add story to database
-//               $newmessage = new userPM(); //This is to create the object of class userPM
-//               $row = $newmessage->SendMessage($title ,$body ,$sender ,$receiver ,$sender); //This is to call the function SendMessage  of the class
-//               $success = "Your message was sent successfully!";
-//           } 
-//    }  
+
 $logged_uid = isset($_SESSION['loginUserId']) ? $_SESSION['loginUserId'] : 0;
 $userpm = new userPM(); //instantiate the class
 
@@ -87,6 +69,8 @@ $objPage->setMetaAuthor('Tunde Obatayo');
 //$body .= "<p> $success </p>";
 //$body .= "<p> $error </p>";
 //$body .="</form>";
+$recdetail = new userPM();
+$recdetails = $recdetail ->gettheReceiver();
 
 ob_start();
 if(!empty($success)){?>
@@ -96,8 +80,12 @@ if(!empty($success)){?>
 <h2>Private Messages</h2>
 <?php if(isset($currentMsg) && !empty($currentMsg)){ ?>
 <div style="border: solid 1px #ccc;">
-    <h3>Message from <?php echo $currentMsg['sender']; ?></h3>
+<?php 
+foreach($recdetails as $recdetail):
+    $rname = $recdetail['userName'];?>
+    <h3>Sender : <?php echo $rname; ?></h3>
     <hr/>
+<?php    endforeach;?>
     <p style="padding: 10px;">
         <?php echo $currentMsg['body']; ?>
     </p>
@@ -107,7 +95,7 @@ if(!empty($success)){?>
 <div>
    <?php $inbox = $userpm->getAll(0,0,$logged_uid); 
    if(!empty($inbox)){ ?>
-    <table>
+    <table class="table-striped table-bordered">
         <thead>
             <tr>
         <th>Sender</th>
@@ -140,7 +128,7 @@ if(!empty($success)){?>
 <div>
    <?php $sent = $userpm->getAll(0,$logged_uid); 
    if(!empty($sent)){ ?>
-    <table>
+    <table class="table-striped table-bordered" >
         <thead>
             <tr>
         <th>Receiver</th>

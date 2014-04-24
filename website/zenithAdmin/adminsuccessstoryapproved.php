@@ -12,13 +12,13 @@
         
     // ==================================== THIS CODE IS MUST  (START) =============================================================
     $objPage = new adminMasterPage($_SESSION['loginUserId']);       // THIS INFORMATION COMES FROM SESSIONS ONCE USER LOGS IN;
-    $objPage->setTitle('Zenith - Admin Success Stories'); 
+    $objPage->setTitle('Zenith - Approved Success Stories'); 
     $objPage->setMetaAuthor('Tunde Obatayo');
     // ==================================== THIS CODE IS MUST  (END) =================================================================
     
     $story = new userStory();
 
-    $allstories = $story->getAllStories();
+    $allstories = $story->getAllAdminApproveStories();
     
     $body = '<h2>Story list</h2>';
     $body .= '<table class="table-striped table-bordered">';

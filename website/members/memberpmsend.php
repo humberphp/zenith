@@ -74,7 +74,7 @@ $body .= '<select name="receiver">';
 foreach($recdetails as $recdetail):
 	$receiverid = $recdetail['userId'];
 	$rname = $recdetail['userName'];
-$body .= '<option value="'. $rname .'">'. $rname .'</option>';
+$body .= '<option value="'. $receiverid .'">'. $rname .'</option>';
 endforeach;
 $body .= '</select>';
 $body .= '<input name="stage" type="hidden" value="sendpm">';

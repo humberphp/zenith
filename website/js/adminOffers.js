@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $('#divForm').hide();
-    $('#divRecords').show();
+    $('#divForms').hide();
+    $('#divRecord').show();
     $('#addNewOffer').click(function(e){
         e.preventDefault();
-        $('#divRecords').slideToggle("slow");
-        $('#divForm').slideToggle("slow");
+        $('#divRecord').slideToggle("slow");
+        $('#divForms').slideToggle("slow");
         $('#txtTitle').val('');
         $('#txtDays').val('');
         $('#txtPrice').val('');
@@ -15,8 +15,8 @@ $(document).ready(function(){
     
     $('#cancOffer').click(function(e){
         e.preventDefault();
-        $('#divRecords').slideToggle("slow");
-        $('#divForm').slideToggle("slow");       
+        $('#divRecord').slideToggle("slow");
+        $('#divForms').slideToggle("slow");       
     });
     
     $('#btnOffer').click(function(e){
@@ -51,8 +51,8 @@ function saveOffers(){
             success:function(speId){
                 if(speId)
                 {                    
-                    $('#divRecords').slideToggle("slow");
-                    $('#divForm').slideToggle("slow");    
+                    $('#divRecord').slideToggle("slow");
+                    $('#divForms').slideToggle("slow");    
                     $('#lblMsg').html('Offers information added!');   
                     
                     $newOffer = "<div class='form-group col-md-5'>";
@@ -85,7 +85,7 @@ function saveOffers(){
                          $newOffer += "<label class='col-md-4 control-label'>&nbsp;</label>";
                          $newOffer += "<div class='col-md-8'>";
                          $newOffer += "<input type='submit' id='updOffer_'" + speId + "' onclick='showOfferUpdate(" + speId + "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-                         $newOffer += "<input type='submit' id='delOffer_'" + speId + "' value='Delete' class='btn btn-success' />";
+                         $newOffer += "<input type='submit' id='delOffer_'" + speId + "' onclick='deleteTheOffer(" + speId + "); return false;' value='Delete' class='btn btn-success' />";
                          $newOffer += "</div>";            
                          $newOffer += "</div>";
 
@@ -97,7 +97,7 @@ function saveOffers(){
 
                     $newOffer += "<div class='form-group col-md-1' >";
                     $newOffer += "</div>";   
-                    $('#divRecords').append($newOffer);
+                    $('#divRecord').append($newOffer);
                 }
             },
             dataType:"text"
@@ -131,8 +131,8 @@ function UpdateOffers(){
                     $('#lblPrice_' + $offerId).html($priceA);
                     
                     
-                    $('#divRecords').slideToggle("slow");
-                    $('#divForm').slideToggle("slow");    
+                    $('#divRecord').slideToggle("slow");
+                    $('#divForms').slideToggle("slow");    
                     $('#lblMsg').html('Offers information updated!');                    
                 }
             },
@@ -140,20 +140,39 @@ function UpdateOffers(){
     });
 }
 
-function showOfferUpdate($specialId){
-    $('#txtTitle').val($('#lblTitle_' + $specialId).html());
-    $('#txtDays').val($('#lblDays_' + $specialId).html());
-    $('#txtPrice').val($('#lblPrice_' + $specialId).html());
-    $('#hdnSpeId').val($specialId);
-        
-    $('#divRecords').slideToggle("slow");
-    $('#divForm').slideToggle("slow");
-    $('#btnOffera').val('Update');
+function showOfferUpdate($specialId,$title,$days,$price){
+    $('#hdnSpeId').val($specialId);    
+    $('#txtTitle').val($title);
+    $('#txtDays').val($days);
+    $('#txtPrice').val($price);
     
-    alert($specialId);
-    alert($('#lblTitle_' + $specialId).html());
+            
+    $('#divRecord').slideToggle("slow");
+    $('#divForms').slideToggle("slow");
+    $('#btnOffer').val('Update');
 }
 
 
-
+function deleteTheOffer($specialId)
+{
+    if(confirm('Confirm delete!')){
+        $.ajax({
+                url:"../zenithAdmin/offerService.php",  
+                type:"POST",
+                data:{
+                        data:"delOffer",
+                        offerId:$specialId
+                },
+                success:function(msg){
+                    if(msg)
+                    {
+                        $('#divReco_' + $specialId).remove();
+                        $('#lblMsg').html('Offer deleted!');                    
+                    }
+                },
+                dataType:"text"
+        });
+        
+    }
+}
 

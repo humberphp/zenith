@@ -22,6 +22,10 @@ switch ($data)
     case 'svOffer':
         $result = specialOffersDB::saveOffers($special, $daysAllowed, $price);
         break;
+      case 'delOffer':
+        $result = specialOffersDB::deleteOffer($offerId);      
+        break;
+    
     default:
         $result = "fail";            
 }

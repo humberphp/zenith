@@ -14,10 +14,12 @@
     $objOffers = new specialOffersDB();
     $offers = $objOffers->getSpecialOffers();
     
+    
+    
      $body = "<form class='form-horizontal' method='post'>";
     $body .= "<br/>";
     $body .= "<label style='color:Red;' name='lblMsg' id='lblMsg'></label><br/>";
-    $body .= "<div id='divForm'>";        
+    $body .= "<div id='divForms'>";        
         $body .= "<div class='form-group'>";
             $body .= "<label class='col-md-4 control-label'>Title:</label>";
             $body .= "<div class='col-md-4'>";
@@ -58,7 +60,7 @@
           
           
           
-           $body .= "<div id='divRecords'>";
+           $body .= "<div id='divRecord'>";
     
     $body .= "<div class='form-group'>";
     $body .= "<div class='col-md-12'>";
@@ -68,8 +70,9 @@
     if(count($offers)>0)
     {
         for($i = 0; $i < count($offers); $i++):
-            
-            $body .= "<div class='form-group col-md-5'>";
+    
+              $body .= "<div class='form-group col-md-5' id='divReco_{$offers[$i]['specialId']}'>";
+          
         
                 $body .= "<div class='form-group col-md-12'>";
                     $body .= "<label class='col-md-6 control-label'>Title:</label>";
@@ -100,7 +103,7 @@
                 $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                 $body .= "<div class='col-md-8'>";
                 $body .= "<input type='submit' id='updOffer_{$offers[$i]['specialId']}' onclick='showOfferUpdate(" . $offers[$i]['specialId'] . "); return false;' value='Edit' class='btn btn-success' />&nbsp;&nbsp;&nbsp;";
-                $body .= "<input type='submit' id='delOffer_{$offers[$i]['specialId']}' value='Delete' class='btn btn-success' />";
+                $body .= "<input type='submit' id='delOffer_{$offers[$i]['specialId']}' onclick='deleteTheOffer(" . $offers[$i]['specialId'] . "); return false;' value='Delete' class='btn btn-success' />";
                 $body .= "</div>";            
                 $body .= "</div>";
 

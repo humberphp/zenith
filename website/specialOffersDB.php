@@ -41,6 +41,17 @@ class specialOffersDB {
         $lastSpeId = $conn->lastInsertId();
         return $lastSpeId;
     }
+    
+    public static function deleteOffer($offerId){   
+        $conn = Database::getDB();      
+        $sql = "CALL spDeleteOffer(:offerId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('offerId', $offerId, PDO::PARAM_INT, 11);
+        $row_count = $stmt->execute();
+        $stmt->closeCursor();
+        $conn = null;
+        return $row_count;
+    }
 }
 
 ?>

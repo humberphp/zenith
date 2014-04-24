@@ -4,7 +4,7 @@ require 'LoginRegistration/core.php';
     session_start();    
 require_once './members/userStory.php';
 require_once 'CommonDB.php';
-
+require_once 'Database.php';
 //$conn= commonDB::getCountries();   //to get list of countries
 //$country_val="<option></option>";
 //for ($i = 0; $i < count($conn); $i++) {

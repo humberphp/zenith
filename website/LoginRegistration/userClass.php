@@ -144,7 +144,7 @@ class Users
 	try{
 		$query1->execute();
  
- mail($email, 'Please activate your account', "Hello " . $username. ",\r\nThank you for registering with us. Please visit the link below so we can activate your account:\r\n\r\nhttp://www.jagsirsingh.com/zenith/activate.php?email=" . $email . "&email_code=" . $email_code . "\r\n\r\n-- Zenith");
+ //mail($email, 'Please activate your account', "Hello " . $username. ",\r\nThank you for registering with us. Please visit the link below so we can activate your account:\r\n\r\nhttp://www.jagsirsingh.com/zenith/activate.php?email=" . $email . "&email_code=" . $email_code . "\r\n\r\n-- Zenith");
 	}catch(PDOException $e){
 		die($e->getMessage());
 	}	

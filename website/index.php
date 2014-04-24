@@ -3,9 +3,9 @@ require 'LoginRegistration/core.php';
 //$generalClass->logged_in_protect();
     session_start();    
 require_once './members/userStory.php';
-require_once 'Database.php';
+require_once 'CommonDB.php';
 
-//$conn= Database::getCountries();   //to get list of countries
+//$conn= commonDB::getCountries();   //to get list of countries
 //$country_val="<option></option>";
 //for ($i = 0; $i < count($conn); $i++) {
 //    $country_val.="<option>" . $conn[$i]['country'] . "</option>";
@@ -380,12 +380,8 @@ else {
   <label class="col-md-4 control-label" for="religion">Religion</label>
   <div class="col-md-8">
       
-       <select id="religion" name="religion" class="form-control input-lg input-sm">
-                                <?php
-                                echo $religion_val;
-                                ?>
-                </select>
-<!--    <select id="religion" name="religion" class="form-control input-lg input-sm">
+       
+  <select id="religion" name="religion" class="form-control input-lg input-sm">
       <option value="1">Ayyavazhi</option>
       <option value="2">Atheist</option>
       <option value="3">Agnostic</option>
@@ -404,7 +400,7 @@ else {
       <option value="16">Parsi</option>
       <option value="17">Buddhist</option>
       <option value="18">Inter - Religion</option>
-    </select>-->
+    </select>
       <input type="hidden" name="religions" id="religion_hidden">
   </div>
 </div>
@@ -421,7 +417,7 @@ else {
 <div class="form-group">
 <label class="col-md-4 control-label" for="country">Country</label>
   <div class="col-md-8">
-<!--    <select id="country" name="country" class="form-control input-lg">
+   <select id="country" name="country" class="form-control input-lg">
           <option value="1">Afghanistan</option>
           <option value="2">Albania</option>
           <option value="3">Algeria</option>
@@ -622,12 +618,8 @@ else {
           <option value=" ">Yemen</option>
           <option value=" ">Zambia</option>
           <option value=" ">Zimbabwe</option>
-    </select>-->
-               <select id="country" name="country" class="form-control input-lg">
-                                <?php
-                                echo $country_val;
-                                ?>
-                </select>
+    </select>
+               
 
   </div>
 </div>

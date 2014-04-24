@@ -11,7 +11,7 @@ for ($i = 0; $i < count($conn); $i++) {
     $country_val.="<option>" . $conn[$i]['country'] . "</option>";
 }
 /* @var $con type */
-    $con = Database::getReligion();
+    $con = Database::getRe();
     $religion_val="<option></option>";
 for ($i = 0; $i < count($con); $i++) {
     $religion_val.="<option>" . $con[$i]['religion'] . "</option>";

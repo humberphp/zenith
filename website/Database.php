@@ -38,7 +38,7 @@ class Database{
         return $country;
         
     }
-    public static function getReligion() 
+    public static function getRe() 
             {
      
         $con = Database::getDB();

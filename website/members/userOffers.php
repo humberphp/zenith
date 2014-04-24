@@ -88,7 +88,7 @@
 //                        else:                            
 //                            $body .= "<a href='subscribe.php?memId={$membId}' class='btn btn-success'>Subscribe</a>"; 
 //                        endif;                  
-                        $body .= "<a href='cart.php?speId={$speId}' class='btn btn-success'>Subscribe</a>";                      
+                        $body .= "<a href='cart1.php?speId={$speId}' class='btn btn-success'>Subscribe</a>";                      
                     $body .= "</div>"; 
                 $body .= "</div>";
                 $body .= "<div  class='form-group'>";

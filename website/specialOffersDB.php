@@ -52,6 +52,31 @@ class specialOffersDB {
         $conn = null;
         return $row_count;
     }
+
+    public function getOfferDetails($offerId){
+        $conn = Database::getDB(); 
+        $sql = "CALL spGetOfferDetails(:OfferId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('OfferId', $offerId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $conn = null;
+        return $rows;
+    }
+    
+    public function addUserToOffers($userId, $offerId){ 
+        $conn = Database::getDB();      
+        $sql = "CALL spAddUserToOffers(:UsersId, :speId)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
+        $stmt->bindParam('speId', $offerId, PDO::PARAM_INT, 11);
+        $stmt->execute();
+        $stmt->closeCursor();
+        $conn = null;
+    }
+    
 }
+
+
 
 ?>

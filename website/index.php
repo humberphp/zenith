@@ -5,17 +5,17 @@ require 'LoginRegistration/core.php';
 require_once './members/userStory.php';
 require_once 'Database.php';
 
-$conn= Database::getCountries();   //to get list of countries
-$country_val="<option></option>";
-for ($i = 0; $i < count($conn); $i++) {
-    $country_val.="<option>" . $conn[$i]['country'] . "</option>";
-}
-/* @var $con type */
-    $con = Database::getRe();
-    $religion_val="<option></option>";
-for ($i = 0; $i < count($con); $i++) {
-    $religion_val.="<option>" . $con[$i]['religion'] . "</option>";
-}
+//$conn= Database::getCountries();   //to get list of countries
+//$country_val="<option></option>";
+//for ($i = 0; $i < count($conn); $i++) {
+//    $country_val.="<option>" . $conn[$i]['country'] . "</option>";
+//}
+///* @var $con type */
+//    $con = Database::getRe();
+//    $religion_val="<option></option>";
+//for ($i = 0; $i < count($con); $i++) {
+//    $religion_val.="<option>" . $con[$i]['religion'] . "</option>";
+//}
 
     
 $story = new userStory();

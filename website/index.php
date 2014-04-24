@@ -3,7 +3,20 @@ require 'LoginRegistration/core.php';
 //$generalClass->logged_in_protect();
     session_start();    
 require_once './members/userStory.php';
-require_once './Database.php';
+require_once 'Database.php';
+
+$conn= Database::getCountries();   //to get list of countries
+$country_val="<option></option>";
+for ($i = 0; $i < count($conn); $i++) {
+    $country_val.="<option>" . $conn[$i]['country'] . "</option>";
+}
+/* @var $con type */
+    $con = Database::getReligion();
+    $religion_val="<option></option>";
+for ($i = 0; $i < count($con); $i++) {
+    $religion_val.="<option>" . $con[$i]['religion'] . "</option>";
+}
+
     
 $story = new userStory();
 $result = $story->getApprovedStories();
@@ -16,7 +29,7 @@ if (isset($_POST['submitbutton'])) {
 	if(empty($_POST['textfirst']) || empty($_POST['textlast']) || empty($_POST['email']) || empty($_POST['passwordinput']) ||
                 empty($_POST['username'])){
  
-		echo $errors[] = 'All fields are required.';
+		$errors[] = 'All fields are required.';
  
 	}else{
         
@@ -61,9 +74,7 @@ if (isset($_GET['success']) && empty($_GET['success']))
   header('Location: members/profile.php');
 }
 		# if there are errors, they would be displayed here.
-		if(empty($errors) === false){
-			echo '<p>' . implode('</p><p>', $errors) . '</p>';
-		}
+		
  
 
 
@@ -76,11 +87,11 @@ if (isset($_POST['loginsubmit']))
  
 	if (empty($username) === true || empty($password) === true)
             {
-		echo $errors[] = 'Sorry, but we need your username and password.';
+		$errors[] = 'Sorry, but we need your username and password.';
             }
 	else if ($userClass->user_exists($username) === false)
             {
-		echo $errors[] = 'Sorry that username doesn\'t exists.';
+		 $errors[] = 'Sorry that username doesn\'t exists.';
             }
 //	 else if ($userClass->email_confirmed($username) === false) {
 //		$errors[] = 'Sorry, but you need to activate your account. 
@@ -175,6 +186,10 @@ else {
     <div id="login">
         <form method="post" action="">
              <div class="form-group col-md-10">
+                 <?php if(empty($errors) === false)
+                     {
+			echo '<p>' . implode('</p><p>', $errors) . '</p>';
+		     } ?>
                   <div class="col-md-4">
                         <label class="control-label" for="username">Username</label> 
 			<input type="text" name="username" required >
@@ -364,7 +379,13 @@ else {
 <div class="form-group">
   <label class="col-md-4 control-label" for="religion">Religion</label>
   <div class="col-md-8">
-    <select id="religion" name="religion" class="form-control input-lg input-sm">
+      
+       <select id="religion" name="religion" class="form-control input-lg input-sm">
+                                <?php
+                                echo $religion_val;
+                                ?>
+                </select>
+<!--    <select id="religion" name="religion" class="form-control input-lg input-sm">
       <option value="1">Ayyavazhi</option>
       <option value="2">Atheist</option>
       <option value="3">Agnostic</option>
@@ -383,7 +404,7 @@ else {
       <option value="16">Parsi</option>
       <option value="17">Buddhist</option>
       <option value="18">Inter - Religion</option>
-    </select>
+    </select>-->
       <input type="hidden" name="religions" id="religion_hidden">
   </div>
 </div>
@@ -400,7 +421,7 @@ else {
 <div class="form-group">
 <label class="col-md-4 control-label" for="country">Country</label>
   <div class="col-md-8">
-    <select id="country" name="country" class="form-control input-lg">
+<!--    <select id="country" name="country" class="form-control input-lg">
           <option value="1">Afghanistan</option>
           <option value="2">Albania</option>
           <option value="3">Algeria</option>
@@ -601,7 +622,13 @@ else {
           <option value=" ">Yemen</option>
           <option value=" ">Zambia</option>
           <option value=" ">Zimbabwe</option>
-    </select>
+    </select>-->
+               <select id="country" name="country" class="form-control input-lg">
+                                <?php
+                                echo $country_val;
+                                ?>
+                </select>
+
   </div>
 </div>
 

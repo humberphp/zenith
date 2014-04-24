@@ -16,6 +16,48 @@ class Database{
         return self::$db;
     }
 
-}
 
+
+//first method : getCountries to get list of all countries
+    public static function getCountries() {
+     
+        $conn = Database::getDB();
+
+        $qy = "SELECT countryName FROM tbl_country;";
+
+        $cds = $conn->query($qy);
+        $count = $conn->exec($qy);
+        echo "rows selected :" . $count;
+        
+        $country = array();
+        foreach ($cds as $cd) {
+
+            $country[] = $cd;
+        }
+        
+        return $country;
+        
+    }
+    public static function getReligion() 
+            {
+     
+        $con = Database::getDB();
+
+        $qyr = "SELECT religion FROM tbl_religions;";
+
+        $rs = $con->query($qyr);
+        $counts = $con->exec($qyr);
+        echo "rows selected :" . $counts;
+        
+        $religion = array();
+        foreach ($rs as $r) {
+
+            $religion[] = $r;
+        }
+        
+        return $religion;
+        
+    }
+    
+}
 ?>

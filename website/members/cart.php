@@ -38,8 +38,8 @@ if (isset($_GET['speId']))
 			   array_push($_SESSION["cart_array"], array("item_id" => $speId, "quantity" => 1));
 		   }
 	}
-	header("location: cart.php"); 
-    exit();
+//	header("location: cart.php"); 
+//    exit();
 }
 ?>
 <?php 
@@ -92,12 +92,12 @@ $product_id_array = '';
 if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
     $cartOutput = "<h2 align='center'>Your shopping cart is empty</h2>";
 } else {
-	// Start PayPal Checkout Button
-    $pp_checkout_btn .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+// Start PayPal Checkout Button
+    $pp_checkout_btn .= '<form action="https://sandbox.paypal.com/cgi-bin/webscr" method="post">
     <input type="hidden" name="cmd" value="_cart">
     <input type="hidden" name="upload" value="1">
-    <input type="hidden" name="business" value="kpatel@gmail.com">';
-	// Start the For Each loop
+    <input type="hidden" name="business" value="kpatelp@gmail.com">';
+//	 Start the For Each loop
 	$i = 0; 
     foreach ($_SESSION["cart_array"] as $each_item) { 
 		$item_id = (int)$each_item['item_id'];
@@ -108,10 +108,10 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
                 $stmt->execute();
                 $rows=$stmt->fetchAll();
                 
-                if($sql === FALSE)
-                    {
-                    die(mysql_error()); // TODO: better error handling
-                    }
+//                if($sql === FALSE)
+//                    {
+//                    die(mysql_error()); // TODO: better error handling
+//                    }
 		while   ($row = mysql_fetch_array($sql)) {
 			$special_name = $row["special"];
                         $daysAllowed = $row["daysAllowed"];
@@ -120,16 +120,15 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
 		}
 		$pricetotal = $price * $each_item['quantity'];
 		$cartTotal = $pricetotal + $cartTotal;
-        setlocale(LC_MONETARY, "en_US");
-        $pricetotal = money_format("%10.2n", $pricetotal);
-		// Dynamic Checkout Btn Assembly
+        
+		
 		$x = $i + 1;
 		$pp_checkout_btn .= '<input type="hidden" name="item_name_' . $x . '" value="' . $special_name . '">
         <input type="hidden" name="amount_' . $x . '" value="' . $price . '">
         <input type="hidden" name="quantity_' . $x . '" value="' . $each_item['quantity'] . '">  ';
 		// Create the product array variable
 		$product_id_array .= "$item_id-".$each_item['quantity'].","; 
-		// Dynamic table row assembly
+		
 		$cartOutput .= "<tr>";
 		$cartOutput .= '<td>' . $special_name . '</a><br /></td>';
 		$cartOutput .= '<td>' . $daysAllowed . '</td>';
@@ -146,23 +145,30 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
 		$cartOutput .= '</tr>';
 		$i++; 
     } 
-    setlocale(LC_MONETARY, "en_US");
-    $cartTotal = money_format("%10.2n", $cartTotal);
+   
 	$cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : ".$cartTotal." CAD</div>";
     // Finish the Paypal Checkout Btn
 	$pp_checkout_btn .= '<input type="hidden" name="custom" value="' . $product_id_array . '">
-	<input type="hidden" name="notify_url" value="https://www.yoursite.com/storescripts/my_ipn.php">
-	<input type="hidden" name="return" value="https://www.yoursite.com/checkout_complete.php">
+	<input type="hidden" name="notify_url" value="https://www.jagsirsingh.com/zenith/members/my_ipn.php">
+	<input type="hidden" name="return" value="http://www.jagsirsingh.com/zenith/members/successOffers.php?ptrb={$userId}">
 	<input type="hidden" name="rm" value="2">
 	<input type="hidden" name="cbt" value="Return to The Store">
-	<input type="hidden" name="cancel_return" value="https://www.oursite.com/paypal_cancel.php">
-	<input type="hidden" name="lc" value="US">
-	<input type="hidden" name="currency_code" value="USD">
-	<input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - its fast, free and secure!">
+	<input type="hidden" name="lc" value="CA">
+	<input type="hidden" name="currency_code" value="CAD">
+	<input type="hidden" name="hosted_button_id" value="NNCD84N5EQUTL">
+    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 	</form>';
+        
+        
+       
+
+
+
+
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

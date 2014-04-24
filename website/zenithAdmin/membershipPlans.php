@@ -32,6 +32,7 @@
             $body .= "<label class='col-md-4 control-label'>Title:</label>";
             $body .= "<div class='col-md-4'>";
             $body .= "<input type='text' id='txtTitle' class='form-control input-md input-lg' required='required' />";
+                $body .= "<div id='errTitle' style='color:red'></div>";
             $body .= "</div>";
             $body .= "<div class='col-md-4'>";
             $body .= "</div>";
@@ -40,6 +41,7 @@
             $body .= "<label class='col-md-4 control-label'>Days Allowed:</label>";
             $body .= "<div class='col-md-4'>";
             $body .= "<input type='text' id='txtDays' class='form-control input-md input-lg' required='required' />";
+            $body .= "<div id='errDays' style='color:red'></div>";
             $body .= "</div>";
             $body .= "<div class='col-md-4'>";
             $body .= "</div>";
@@ -48,6 +50,7 @@
             $body .= "<label class='col-md-4 control-label'>Contacts Allowed:</label>";
             $body .= "<div class='col-md-4'>";
             $body .= "<input type='text' id='txtContact' class='form-control input-md input-lg' required='required' />";
+            $body .= "<div id='errContact' style='color:red'></div>";
             $body .= "</div>";
             $body .= "<div class='col-md-4'>";
             $body .= "</div>";
@@ -56,6 +59,7 @@
             $body .= "<label class='col-md-4 control-label'>Price:</label>";
             $body .= "<div class='col-md-4'>";
             $body .= "<input type='text' id='txtPrice' class='form-control input-md input-lg' required='required' />";
+            $body .= "<div id='errPrice' style='color:red'></div>";
             $body .= "</div>";
             $body .= "<div class='col-md-4'>";
             $body .= "</div>";
@@ -64,6 +68,7 @@
             $body .= "<label class='col-md-4 control-label'>Comments:</label>";
             $body .= "<div class='col-md-4'>";
             $body .= "<input type='text' id='txtComments' class='form-control input-md input-lg' required='required' />";
+            $body .= "<div id='errComments' style='color:red'></div>";
             $body .= "</div>";
             $body .= "<div class='col-md-4'>";
             $body .= "</div>";

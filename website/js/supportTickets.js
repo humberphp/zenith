@@ -1,5 +1,6 @@
 
 function closeTicket($ticketId){    
+    $('#lblMsg').html(''); 
     if(confirm('Are you sure to close?'))
     {
         $.ajax({
@@ -11,6 +12,7 @@ function closeTicket($ticketId){
                 },
                 success:function(msg){
                     $('#divRec_' + $ticketId).slideToggle("slow");
+                    $('#lblMsg').html('Ticket closed'); 
                 },
                 dataType:"text"
         });
@@ -41,6 +43,7 @@ function loadDepartments(){
  }
  
 function saveTicket(){
+    $('#lblMsg').html(''); 
     $usid = $('#hdUId').val();
     $depId = $('#ddlDepartments').val();     
     $sub = $('#txtSubject').val();
@@ -60,6 +63,8 @@ function saveTicket(){
                     message:$msg
             },
             success:function(newTicketId){
+                if($.isNumeric($.parseJSON(newTicketId)))
+                {
                   newTicketId = $.parseJSON(newTicketId);
                     $newRec = "<div id='divRec_" + newTicketId + "'>";
                         $newRec += "<div class='form-group'>";
@@ -107,6 +112,18 @@ function saveTicket(){
                     $('#divForm').slideToggle("slow");
                     $('#divRecords').slideToggle("slow"); 
                     $('#lblMsg').html('Ticket saved'); 
+                }
+                else
+                {
+                    newTicketId = newTicketId.substring(1, eval(newTicketId.length - 1));
+                    $('#errSubject').html("");
+
+                    $.each(newTicketId.split(", ").slice(0), function(index, item) {      
+                          if(item=="subject"){
+                              $('#errSubject').html('Please enter valid values');
+                          }
+                        });
+                }
             },
             
             error: function (er) {
@@ -129,6 +146,7 @@ $(document).ready(function(){
         $("#ddlDepartments option:first").attr('selected','selected');     
         $('#txtSubject').val("");
         $('#txtMessage').val("");
+        $('#errSubject').html("");
     });
     
     $('#btnCancel').click(function(e){

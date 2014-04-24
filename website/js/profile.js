@@ -197,14 +197,23 @@ function updateBasic(){
                     else{
 
                         msg = msg.substring(1, eval(msg.length - 1));
+                        $('#errMotherT').html("");
+                        $('#errHairColor').html("");
+                        $('#errHeight').html("");
+                        $('#errWeight').html("");
 
-                        $.each(msg.split(", ").slice(0), function(index, item) {
-                              //  $("[name=chkHobbies]").filter("[value='"+item+"']").prop("checked",true);        
+                        $.each(msg.split(", ").slice(0), function(index, item) {      
                               if(item=="motherT"){
-                                  $('#errMotherT').html('Please enter values');
+                                  $('#errMotherT').html('Please enter valid values');
                               }
                               if(item == "hairC"){
-                                  $('#errHairColor').html('Please enter values');
+                                  $('#errHairColor').html('Please enter valid values');
+                              } 
+                              if(item=="Height"){
+                                  $('#errHeight').html('Please enter valid values');
+                              }
+                              if(item == "Weight"){
+                                  $('#errWeight').html('Please enter valid values');
                               }
                             });
 
@@ -234,7 +243,7 @@ function updateLocations(){
                     res:$resi
             },
             success:function(msg){
-                if(msg)
+                if(msg=="true")
                 {
                     $('#lblCitizen').text($citizen);
                     $('#lblResident').text($resi);
@@ -252,6 +261,22 @@ function updateLocations(){
                     $('#simpleDivLoc').slideToggle("slow");
                     $('#editDivLoc').slideToggle("slow");
                     $('#lblMsg').html('Location information updated!');                    
+                }
+                else{
+
+                    msg = msg.substring(1, eval(msg.length - 1));
+                    $('#errCitizen').html("");
+                    $('#errResident').html("");
+
+                    $.each(msg.split(", ").slice(0), function(index, item) {      
+                          if(item=="citizen"){
+                              $('#errCitizen').html('Please enter valid values');
+                          }
+                          if(item == "resident"){
+                              $('#errResident').html('Please enter valid values');
+                          } 
+                        });
+
                 }
             },
             dataType:"text"
@@ -290,8 +315,7 @@ function updateFamilyDetails(){
                     motherOcc:$MOccu
             },
             success:function(msg){
-                //alert(msg);
-                if(msg)
+                if(msg=="true")
                 {                      
                     $('#lblLivingW').html($livWith);
                     $('#lblFType').html($famType);
@@ -307,6 +331,38 @@ function updateFamilyDetails(){
                     $('#simpleDivFamDet').slideToggle("slow");
                     $('#editDivFamDet').slideToggle("slow"); 
                     $('#lblMsg').html('Family details updated!');                    
+                }
+                else{
+
+                    msg = msg.substring(1, eval(msg.length - 1));
+                    $('#errNBro').html("");
+                    $('#errNSis').html("");
+                    $('#errMSis').html("");
+                    $('#errMBro').html("");
+                    $('#errFOcc').html("");
+                    $('#errMOcc').html("");
+
+                    $.each(msg.split(", ").slice(0), function(index, item) {      
+                          if(item=="nBro"){
+                              $('#errNBro').html('Please enter valid values');
+                          }
+                          if(item == "nSis"){
+                              $('#errNSis').html('Please enter valid values');
+                          }     
+                          if(item=="mBro"){
+                              $('#errMBro').html('Please enter valid values');
+                          }
+                          if(item == "mSis"){
+                              $('#errMSis').html('Please enter valid values');
+                          }     
+                          if(item=="fatherOcc"){
+                              $('#errFOcc').html('Please enter valid values');
+                          }
+                          if(item == "motherOcc"){
+                              $('#errMOcc').html('Please enter valid values');
+                          } 
+                        });
+
                 }
             },
             dataType:"text"
@@ -337,7 +393,7 @@ function updateProfessionalDetails(){
                     anninc:$ainc
             },
             success:function(msg){
-                if(msg)
+                if(msg=="true")
                 {                          
                     $('#lblEdu').html($edu);
                     $('#lblColg').html($clg);
@@ -349,6 +405,34 @@ function updateProfessionalDetails(){
                     $('#simpleDivProfDet').slideToggle("slow");
                     $('#editDivProfDet').slideToggle("slow"); 
                     $('#lblMsg').html('Professional details updated!');                    
+                }
+                else{
+
+                    msg = msg.substring(1, eval(msg.length - 1));
+                    $('#errEdu').html("");
+                    $('#errColg').html("");
+                    $('#errAdeg').html("");
+                    $('#errOcc').html("");
+                    $('#errAnnInc').html("");
+
+                    $.each(msg.split(", ").slice(0), function(index, item) {      
+                          if(item=="educ"){
+                              $('#errEdu').html('Please enter valid values');
+                          }
+                          if(item == "colg"){
+                              $('#errColg').html('Please enter valid values');
+                          }     
+                          if(item=="adeg"){
+                              $('#errAdeg').html('Please enter valid values');
+                          }
+                          if(item == "occu"){
+                              $('#errOcc').html('Please enter valid values');
+                          }     
+                          if(item=="anninc"){
+                              $('#errAnnInc').html('Please enter valid values');
+                          }
+                        });
+
                 }
             },
             dataType:"text"
@@ -552,6 +636,8 @@ $(document).ready(function(){
             
             $('#errMotherT').html("");
             $('#errHairColor').html("");
+            $('#errHeight').html("");
+            $('#errWeight').html("");
                           
             $("[name=rdbBodyType]").prop("checked", false);
             $("[name=rdbComplexion]").prop("checked", false);
@@ -604,7 +690,13 @@ $(document).ready(function(){
                 $('#ddlCities').val($cit);
             }           
 
+            $('#txtCitizen').val($('#lblCitizen').text());
+            $('#txtResident').val($('#lblResident').text());
+            
             showHide();
+            $('#errCitizen').html("");
+            $('#errResident').html("");
+            
             $('#simpleDivLoc').slideToggle("slow");
             $('#editDivLoc').slideToggle("slow"); 
         });    
@@ -643,6 +735,14 @@ $(document).ready(function(){
             $('#txtMotherOcc').val($('#lblMOcc').text());
 
             showHide();
+            
+            $('#errNBro').html("");
+            $('#errNSis').html("");
+            $('#errMSis').html("");
+            $('#errMBro').html("");
+            $('#errFOcc').html("");
+            $('#errMOcc').html("");
+            
             $('#simpleDivFamDet').slideToggle("slow");
             $('#editDivFamDet').slideToggle("slow"); 
 
@@ -675,6 +775,12 @@ $(document).ready(function(){
             $('#txtAInc').val($('#lblAIncome').text());
 
             showHide();     
+            $('#errEdu').html("");
+            $('#errColg').html("");
+            $('#errAdeg').html("");
+            $('#errOcc').html("");
+            $('#errAnnInc').html("");
+
             $('#simpleDivProfDet').slideToggle("slow");
             $('#editDivProfDet').slideToggle("slow"); 
         });    

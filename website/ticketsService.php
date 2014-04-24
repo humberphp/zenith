@@ -1,10 +1,11 @@
 <?php
 require_once 'Database.php';
+require_once 'commonDB.php';
 require_once 'supportTicketsDB.php';
 extract($_REQUEST);
 
 $response;
-$result;
+$result="";
 switch ($data)
 {
     case 'getDepartments':
@@ -46,7 +47,10 @@ switch ($data)
 //        }      
         break;
     case 'saveTicket':
-        $result = supportTicketsDB::saveNewTicket($userId, $subject, $submitDate, $departmentId, $message);
+        commonDB::chectStrings($result, $subject, 'subject');
+        
+        if($result == ""){
+            $result = supportTicketsDB::saveNewTicket($userId, $subject, $submitDate, $departmentId, $message);
 //        if((int)$result > 0)
 //        {
 //            include_once 'emails.php';
@@ -63,10 +67,11 @@ switch ($data)
 //                $emailObj = new emails();
 //                $emailObj->send_email($toAdd, $subject, $emailbody, true);              
 //            endforeach;
-//        }
+//        }                                                                 
+        }
         break;
     case 'saveReply':
-        $result = supportTicketsDB::saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied);
+            $result = supportTicketsDB::saveTicketReply($ticketId, $userId, $submitDate, $message, $isReplied);
 //        if((int)$result > 0)
 //        {
 //            include_once 'emails.php';
@@ -84,7 +89,7 @@ switch ($data)
 //                $emailObj = new emails();
 //                $emailObj->send_email($toAdd, $subject, $emailbody, true);      
 //            endforeach;
-//        }
+//        }    
         break;
     default:
         $result = "fail";            

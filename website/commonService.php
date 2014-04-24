@@ -42,37 +42,59 @@ switch ($data)
         endforeach;
         break;
     case 'updateLoc':
-        $response = userInfoDB::updateUserLocation($uid, $cntryId, $sttId, $ctyid, $citiz, $res);
-        if($response)
-        {
-            $result = true;
-        }
-        else 
+      commonDB::chectStrings($result, $citiz, 'citizen');
+      commonDB::chectStrings($result, $res, 'resident');
+            
+        if($result == ""){
+            $response = userInfoDB::updateUserLocation($uid, $cntryId, $sttId, $ctyid, $citiz, $res);
+            if($response)
             {
-                $result = false;
+                $result = true;
             }
+            else 
+                {
+                    $result = false;
+                }
+        }
         break;
     case 'updateFamDet':
-        $response = userInfoDB::updateFamilyDetails($uid, $liveWith, $fType, $fVal, $fState, $nBros, $nSis, $marriedBros, $marriedSis, $fatherOcc, $motherOcc);
-        if($response)
-        {
-            $result = true;
-        }
-        else 
+        commonDB::chectNumbers($result, $nBros, 'nBro');
+        commonDB::chectNumbers($result, $nSis, 'nSis');
+        commonDB::chectNumbers($result, $marriedBros, 'mBro');
+        commonDB::chectNumbers($result, $marriedSis, 'mSis');
+        commonDB::chectStrings($result, $fatherOcc, 'fatherOcc');
+        commonDB::chectStrings($result, $motherOcc, 'motherOcc');
+            
+        if($result == ""){
+            $response = userInfoDB::updateFamilyDetails($uid, $liveWith, $fType, $fVal, $fState, $nBros, $nSis, $marriedBros, $marriedSis, $fatherOcc, $motherOcc);
+            if($response)
             {
-                $result = false;
+                $result = true;
             }
+            else 
+                {
+                    $result = false;
+                }
+        }
         break;
     case 'updateProfDet':
-        $response = userInfoDB::updateProfessionalDetails($uid, $educ, $colg, $adegree, $occup, $empdin, $anninc);
-        if($response)
-        {
-            $result = true;
-        }
-        else 
+        commonDB::chectStrings($result, $educ, 'educ');
+        commonDB::chectStrings($result, $colg, 'colg');
+        commonDB::chectStrings($result, $adegree, 'adeg');
+        commonDB::chectStrings($result, $occup, 'occu');
+        commonDB::chectDecimal($result, $anninc, 'anninc');
+        
+        if($result == ""){
+            $response = userInfoDB::updateProfessionalDetails($uid, $educ, $colg, $adegree, $occup, $empdin, $anninc);
+            if($response)
             {
-                $result = false;
+                $result = true;
             }
+            else 
+                {
+                    $result = false;
+                }
+        }
         break;
     case 'updateHobbies':
         $response = userInfoDB::updateUserHobbies($uid, $hobs, $ints, $dS, $langs);
@@ -100,6 +122,8 @@ switch ($data)
              
       commonDB::chectStrings($result, $MotherT, 'motherT');
       commonDB::chectStrings($result, $HairC, 'hairC');
+      commonDB::chectDecimal($result, $Height, 'Height');
+      commonDB::chectDecimal($result, $Weight, 'Weight');
             
         if($result == ""){
             $response = userInfoDB::updateUserBasicInfo($uid, $BodyT, $Complx, $PhysicalSt, $Height, $Weight, $MotherT, $MartialS, $DrinkH, $SmokeH, $EHabit, $HairC);

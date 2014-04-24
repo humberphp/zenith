@@ -43,7 +43,8 @@
                  $body .= "<label class='col-md-4 control-label'>Subject:</label>";
                  $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' name='txtSubject' id='txtSubject' class='form-control input-md input-lg' required='required'/>";
-                 $body .= "</div>";
+                    $body .= "<div id='errSubject' style='color:red'></div>";
+                $body .= "</div>";
              $body .= "</div>";       
                    
              $body .= "<div class='form-group'>";
@@ -51,7 +52,8 @@
                  $body .= "<div class='col-md-8'>";
                     $body .= "<textarea rows='5' cols='50' name='txtMessage' id='txtMessage' class='form-control input-md input-lg' required='required'>";
                     $body .= "</textarea>";
-                 $body .= "</div>";
+                    $body .= "<div id='errMessage' style='color:red'></div>";
+                $body .= "</div>";
              $body .= "</div>";         
 
             $body .= "<div  class='form-group col-md-12'>";

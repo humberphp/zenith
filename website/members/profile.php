@@ -311,6 +311,7 @@
                         $body .= "<label class='col-md-4 control-label'>Height(kg):</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtHeight' name='txtHeight' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errHeight' style='color:red'></div>";
                         $body .= "</div>";            
                         $body .= "</div>";
 
@@ -318,6 +319,7 @@
                         $body .= "<label class='col-md-4 control-label'>Weight(kg):</label>";
                         $body .= "<div class='col-md-8'>";
                         $body .= "<input type='text' id='txtWeight' name='txtWeight' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errWeight' style='color:red'></div>";
                         $body .= "</div>";            
                         $body .= "</div>";
 
@@ -446,12 +448,14 @@
                        $body .= "<label class='col-md-4 control-label'>Citizen:</label>";
                        $body .= "<div class='col-md-8'>";
                        $body .= "<input type='text' id='txtCitizen' name='txtCitizen' value='{$citizen}' class='form-control input-md input-lg' required='required' />";
+                       $body .= "<div id='errCitizen' style='color:red'></div>";
                        $body .= "</div>";
                        $body .= "</div>";
                        $body .= "<div  class='form-group'>";
                        $body .= "<label class='col-md-4 control-label'>Resident Status:</label>";
                        $body .= "<div class='col-md-8'>";
                        $body .= "<input type='text' id='txtResident' name='txtResident' value='{$residentStatus}' class='form-control input-md input-lg' required='required' />";
+                       $body .= "<div id='errResident' style='color:red'></div>";
                        $body .= "</div>";
                        $body .= "</div>";  
                        $body .= "<div  class='form-group'>";
@@ -616,6 +620,7 @@
                     $body .= "<label class='col-md-4 control-label'>Brothers:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtNumBro' name='txtNumBro' value='{$noOfBrothers}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errNBro' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
 
@@ -623,6 +628,7 @@
                     $body .= "<label class='col-md-4 control-label'>Sisters:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtNumSis' name='txtNumSis' value='{$noOfSisters}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errNSis' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
 
@@ -630,6 +636,7 @@
                     $body .= "<label class='col-md-4 control-label'>Married Sisters:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtMrdSis' name='txtMrdSis' value='{$marriedSisters}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errMSis' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
 
@@ -637,6 +644,7 @@
                     $body .= "<label class='col-md-4 control-label'>Married Brothers:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtMrdBro' name='txtMrdBro' value='{$marriedBrothers}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errMBro' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
 
@@ -644,6 +652,7 @@
                     $body .= "<label class='col-md-4 control-label'>Father Occupation:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtFatherOcc' name='txtFatherOcc' value='{$fatherOccupation}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errFOcc' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
 
@@ -651,8 +660,10 @@
                     $body .= "<label class='col-md-4 control-label'>Mother Occupation:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtMotherOcc' name='txtMotherOcc' value='{$motherOccupation}' class='form-control input-md input-lg' required='required' />";
+                    $body .= "<div id='errMOcc' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
+                    
                     $body .= "<div  class='form-group'>";
                     $body .= "<label class='col-md-4 control-label'>&nbsp;</label>";
                     $body .= "<div class='col-md-8'>";
@@ -736,24 +747,28 @@
                     $body .= "<label class='col-md-4 control-label'>Education:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtEdu' name='txtEdu' value='{$education}' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errEdu' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
                     $body .= "<div  class='form-group'>";
                     $body .= "<label class='col-md-4 control-label'>College:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtClg' name='txtClg' value='{$college}' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errColg' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
                     $body .= "<div  class='form-group'>";
                     $body .= "<label class='col-md-4 control-label'>Additional Degree:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtADeg' name='txtADeg' value='{$additionalDegree}' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errAdeg' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
                     $body .= "<div  class='form-group'>";
                     $body .= "<label class='col-md-4 control-label'>Occupation:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtOccp' name='txtOccp' value='{$occupation}' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errOcc' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
                     $body .= "<div  class='form-group'>";
@@ -771,6 +786,7 @@
                     $body .= "<label class='col-md-4 control-label'>Annual Income:</label>";
                     $body .= "<div class='col-md-8'>";
                     $body .= "<input type='text' id='txtAInc' name='txtAInc' value='{$annualIncome}' class='form-control input-md input-lg' required='required' />";
+                        $body .= "<div id='errAnnInc' style='color:red'></div>";
                     $body .= "</div>";
                     $body .= "</div>";
                     $body .= "<div  class='form-group'>";

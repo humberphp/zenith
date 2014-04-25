@@ -53,7 +53,7 @@ class userImagesDB {
 
     public function uploadNewImage($file, $isMainImage){
         $result = false;
-        $userName = $_SESSION['userFName'];
+        $userName = $_SESSION['fName'];
         $totalImagesInfo = $this->getUsersTotalImages();
         $totalImages = $totalImagesInfo[0]['TotalImages'];
         $image_info = getimagesize($file);
@@ -77,11 +77,12 @@ class userImagesDB {
                 return $result;
         }
         $totalImages++;
-        $fullImageName = "images/" . $userName . $totalImages . $image_ext;
-        $thumbImageName = "images/" . $userName . $totalImages . "_thumb". $image_ext;
+        $fullImageName = "images/" . trim($userName) . $totalImages . $image_ext;
+        $thumbImageName = "images/" . trim($userName) . $totalImages . "_thumb". $image_ext;
         
         
         $lastImageId = $this->saveNewImage($thumbImageName, $fullImageName, $isMainImage, $_SESSION['loginUserId']);
+        
         if($lastImageId>0)
         {
             // save the original image as it is for full size
@@ -126,16 +127,23 @@ class userImagesDB {
     
     private function saveNewImage($thumbnail, $image, $mainImage, $userId){
         try{
-            if($mainImage==1){
+            if($mainImage==1){                
                 $mainImage = true;
+                $conn = Database::getDB(); 
+                $sql = "UPDATE tbl_userimages
+                                      SET isMainImage = 0
+                                     WHERE userId = '$userId'";
+                $conn->exec($sql);
+                $conn = null;
             }
             else
             {
                 $mainImage = false;
             }
+            
             $conn = Database::getDB(); 
-            //$sql = 'CALL spSave(:UsersId, :fullImageName, :thumbnailImageName, :isMain)';
-            $sql = 'CALL spSaveImage(:UsersId, :fullImageName, :thumbnailImageName, :isMain)';
+            $sql = "INSERT INTO tbl_userimages(userid, image, thumbnail, isMainImage)"
+                    . " VALUES(:UsersId, :fullImageName, :thumbnailImageName, :isMain)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam('UsersId', $userId, PDO::PARAM_INT, 11);
             $stmt->bindParam('fullImageName', $image, PDO::PARAM_STR, 100);
@@ -143,13 +151,14 @@ class userImagesDB {
             $stmt->bindParam('isMain', $mainImage, PDO::PARAM_BOOL);
             $row_count = $stmt->execute();
             $stmt->closeCursor();
-            $lastImageId = $conn->lastInsertId();
+            $lastMemId = $conn->lastInsertId();
             $conn = null;
-            return $row_count;
+            return $lastMemId;       
+        
         }
         catch (Exception $e){
             $error_message = $e->getMessage();
-            echo $error_message;
+            //echo $error_message;
             return 0;
         }
     }

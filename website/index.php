@@ -108,6 +108,7 @@ else {
  			$_SESSION['loginUserId'] =  $login; // The user's id is now set into the user's session  in the form of $_SESSION['id'] 
 			$user = $userClass->userdata($_SESSION['loginUserId']);
                         $_SESSION['userFName'] = $user['firstName'].' '.$user['lastName']. '  ';
+                        $_SESSION['fName'] = $user['firstName'];
                         $roleId = $user['RoleId'];
 			#Redirect the user to Template.php.
                         
